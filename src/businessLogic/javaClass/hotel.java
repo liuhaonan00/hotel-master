@@ -1,12 +1,12 @@
 package businessLogic.javaClass;
 
-public class Hotel {
+public class hotel {
 	private int hotelID;
 	private String hotelName;
 	private String city;
 	private String hotelAddress;
 	
-	public Hotel(){
+	public hotel(){
 		this.hotelID = 0;
 		this.hotelName = "";
 		this.hotelAddress = "";

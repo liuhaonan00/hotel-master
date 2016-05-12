@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class welcome
  */
-@WebServlet(name = "WelcomeServlet", urlPatterns = "/welcome")
-public class WelcomeServlet extends HttpServlet {
+@WebServlet(name = "welcomeServlet", urlPatterns = "/welcome")
+public class welcomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WelcomeServlet() {
+    public welcomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

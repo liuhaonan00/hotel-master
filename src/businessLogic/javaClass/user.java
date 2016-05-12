@@ -1,6 +1,6 @@
 package businessLogic.javaClass;
 
-public class User {
+public class user {
 	private int userId;
 	private String username;
 	private String password;
@@ -16,12 +16,12 @@ public class User {
 	private int creditCardExpYear;
 	private int creditCardCvv;
 	
-	public User() {
+	public user() {
 		
 	}
 	
 	
-	public User(int UserId) {
+	public user(int UserId) {
 		this.userId = UserId;
 		this.username = "";
 		this.password = "";

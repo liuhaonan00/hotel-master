@@ -9,17 +9,17 @@ import java.sql.*;
 import businessLogic.javaClass.*;
 
 
-public class RoomDAO {
-	public ArrayList<Room> randomRoom(int n) throws SQLException
+public class roomDAO {
+	public ArrayList<room> randomRoom(int n) throws SQLException
 	{
-		ArrayList<Room> rooms = new ArrayList<Room>();
-		MysqlOperation o = new MysqlOperation();
+		ArrayList<room> rooms = new ArrayList<room>();
+		mysqlOperation o = new mysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "select * from room ORDER BY RAND() limit "+n;
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
-			Room this_room = new Room();
+			room this_room = new room();
 			this_room.setRoomId(rs.getInt(1));
 			this_room.setHotelId(rs.getInt(2));
 			this_room.setRoomType(rs.getString(3));
@@ -34,15 +34,15 @@ public class RoomDAO {
 	}
 	
 	
-	public ArrayList<Room> findAllRoom() throws SQLException
+	public ArrayList<room> findAllRoom() throws SQLException
 	{
-		ArrayList<Room> rooms = new ArrayList<Room>();
-		MysqlOperation o = new MysqlOperation();
+		ArrayList<room> rooms = new ArrayList<room>();
+		mysqlOperation o = new mysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "select * from room ORDER BY RAND()"; //todo sql query
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
-			Room this_room = new Room();
+			room this_room = new room();
 			this_room.setRoomId(rs.getInt(1));
 			this_room.setHotelId(rs.getInt(2));
 			this_room.setRoomType(rs.getString(3));
