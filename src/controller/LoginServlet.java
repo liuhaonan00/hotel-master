@@ -42,10 +42,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		this.username = request.getParameter("login_username");
-		this.password = request.getParameter("login_pswd");
-		
-		
-		
+		this.password = request.getParameter("login_pswd");	
 		//System.out.println(username+ ":"+ password); 
 		if (username == "" || password == "") {
 			request.setAttribute("error", "No username or password");
