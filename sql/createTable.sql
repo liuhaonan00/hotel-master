@@ -123,6 +123,8 @@ UNLOCK TABLES;
 
 INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date) VALUES
 (1,1,2,'Booked', '2016-07-28','2016-07-30');
+INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date) VALUES
+(1,3,2,'Booked', '2016-07-28','2016-07-30');
 
 CREATE TABLE `offer` (
   `offer_id` int(11) NOT NULL AUTO_INCREMENT,
