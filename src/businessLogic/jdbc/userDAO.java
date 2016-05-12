@@ -26,7 +26,7 @@ public class userDAO {
 			else {
 				pass = rs.getString("password");
 				if (pass.equals(password)) {
-					result = rs.getInt("userid"); //return user ID;
+					result = rs.getInt("user_id"); //return user ID;
 					System.out.println("login successful!");
 				} else {
 					result = -2; //2 = "error", "Wrong pass word"
