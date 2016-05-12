@@ -67,11 +67,11 @@ CREATE TABLE `room` (
 LOCK TABLES `room` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Double bedroom', '101', 100, 'A double bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Double bedroom', '102', 100, 'A double bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Double bedroom', '103', 100, 'A double bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Double bedroom', '104', 100, 'A double bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Double bedroom', '105', 100, 'A double bedroom.');
+INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Single', '101', 100, 'A double bedroom.');
+INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Twin Bed', '102', 100, 'A twin bedroom');
+INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Queen', '103', 100, 'A queen bedroom.');
+INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Executive', '104', 100, 'An executive room.');
+INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Suite', '105', 100, 'A large suite.');
 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL AUTO_INCREMENT,

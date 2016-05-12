@@ -35,7 +35,7 @@ public class WelcomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("System started!");
-		RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
 		
 		//create random room list and send to login.jsp for display
 		RoomDAO roomdao = new RoomDAO();
