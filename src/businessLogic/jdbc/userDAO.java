@@ -59,7 +59,7 @@ public class userDAO {
 				pass = rs.getString("password");
 				if (pass.equals(password)) {
 					
-					this_user.setUserId(rs.getInt("userid"));
+					this_user.setUserId(rs.getInt("user_id"));
 					this_user.setEmail(rs.getString("email"));
 					this_user.setUsername(rs.getString("Username"));
 					
