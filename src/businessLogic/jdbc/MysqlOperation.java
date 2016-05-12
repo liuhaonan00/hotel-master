@@ -21,7 +21,7 @@ public class MysqlOperation {
 		if (connection != null) {
 			try {
 				connection.close();
-				System.out.print("Mysql server closed!");
+				System.out.println("Mysql server closed!");
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

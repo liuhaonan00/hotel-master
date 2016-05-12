@@ -15,21 +15,25 @@ public class UserDAO {
 		int result = 0; //0 =  success;
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
+		Md5Encryption md5 = new Md5Encryption();
+//		password = md5.MD5(password);
 		String query = "select * from user where "+ "username = '" + user + "'";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		String pass = null;
 		try {
 			if(!rs.next()) {
-				result = -1; // 1 = "error", "No such user"
+				result = 1; // 1 = "error", "No such user"
+				System.out.println("No such user!");
 			}
 			else {
 				pass = rs.getString("password");
-				if (pass.equals(password)) {
+				if (pass.equals(md5.MD5(password))) {
 					result = rs.getInt("user_id"); //return user ID;
 					System.out.println("login successful!");
 				} else {
-					result = -2; //2 = "error", "Wrong pass word"
+					result = 2; //2 = "error", "Wrong pass word"
+					System.out.println("wrong password!");
 				}
 			}
 			
@@ -46,6 +50,7 @@ public class UserDAO {
 	//wait... I don't need it
 	public String findOneUser(String user,String password) {
 		User this_user= new User();
+		Md5Encryption md5 = new Md5Encryption();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "select * from user where "+ "username = '" + user + "'";
@@ -57,7 +62,7 @@ public class UserDAO {
 			}
 			else {
 				pass = rs.getString("password");
-				if (pass.equals(password)) {
+				if (pass.equals(md5.MD5(password))) {
 					
 					this_user.setUserId(rs.getInt("user_id"));
 					this_user.setEmail(rs.getString("email"));
@@ -81,13 +86,14 @@ public class UserDAO {
 	public void addUser(String username, String password, String email) 
 	{
 		MysqlOperation o = new MysqlOperation();
+		Md5Encryption md5 = new Md5Encryption();
 		PreparedStatement pst = null;
 		try {
 			Connection connection = o.DBConnect();
 			String sqlInsert = "INSERT INTO user (username, password, email) VALUES (?,?,?)";
 			pst = connection.prepareStatement(sqlInsert);
 			pst.setString(1, username);
-			pst.setString(2, password);
+			pst.setString(2, md5.MD5(password));
 			pst.setString(3, email);
 //			full set
 //			String username, String password,
