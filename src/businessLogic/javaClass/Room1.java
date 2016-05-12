@@ -1,6 +1,6 @@
 package businessLogic.javaClass;
 
-public class room {
+public class Room1 {
 	private int roomID;
 	private int hotelID;
 	private String roomType;
@@ -8,7 +8,7 @@ public class room {
 	private float price;
 	private String roomDescription;
 	
-	public room() {
+	public Room1() {
 		this.roomID = 0;
 		this.hotelID = 0;
 		this.roomType = "";

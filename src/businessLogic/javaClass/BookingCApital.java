@@ -1,6 +1,6 @@
 package businessLogic.javaClass;
 
-public class booking {
+public class BookingCApital {
    //this is a booking class. Kinda.
    
    //test merges

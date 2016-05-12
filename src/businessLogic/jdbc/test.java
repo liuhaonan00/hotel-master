@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class test {
 	public static void main(String args[]) {
-		mysqlOperation o = new mysqlOperation();
+		MysqlOperation1 o = new MysqlOperation1();
 		Connection connection = o.DBConnect();
 		ResultSet rs = o.searchDB(connection, "select username, user_id from user where username = 'haoliu'");
 //		o.closeDB(connection);

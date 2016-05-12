@@ -13,10 +13,10 @@ import businessLogic.jdbc.*;
 
 @WebServlet(name = "loginServlet", urlPatterns = "/signup")
 
-public class signupServlet extends HttpServlet {
+public class SignupServlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public signupServlet() {
+	public SignupServlet1() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +37,7 @@ public class signupServlet extends HttpServlet {
 			rd.forward(request, response);
 		} else {
 			
-			userDAO userDAO = new userDAO();
+			UserDAO1 userDAO = new UserDAO1();
 			int pass = userDAO.checkDuplicate(username, email);
 			if (pass<1){
 				request.setAttribute("error", "Sign up incompleted");

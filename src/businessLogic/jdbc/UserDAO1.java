@@ -9,11 +9,11 @@ import java.sql.*;
 
 import businessLogic.javaClass.*;
 
-public class userDAO {
+public class UserDAO1 {
 	
 	public int findUser(String user,String password) {
 		int result = 0; //0 =  success;
-		mysqlOperation o = new mysqlOperation();
+		MysqlOperation1 o = new MysqlOperation1();
 		Connection connection = o.DBConnect();
 		String query = "select * from user where "+ "username = '" + user + "'";
 		System.out.println(query);
@@ -45,8 +45,8 @@ public class userDAO {
 	//call this only if pass the above one
 	//wait... I don't need it
 	public String findOneUser(String user,String password) {
-		user this_user= new user();
-		mysqlOperation o = new mysqlOperation();
+		User1 this_user= new User1();
+		MysqlOperation1 o = new MysqlOperation1();
 		Connection connection = o.DBConnect();
 		String query = "select * from user where "+ "username = '" + user + "'";
 		System.out.println(query);
@@ -80,7 +80,7 @@ public class userDAO {
 	
 	public void addUser(String username, String password, String email) 
 	{
-		mysqlOperation o = new mysqlOperation();
+		MysqlOperation1 o = new MysqlOperation1();
 		PreparedStatement pst = null;
 		try {
 			Connection connection = o.DBConnect();
@@ -120,7 +120,7 @@ public class userDAO {
 		
 		
 		try {
-			mysqlOperation o = new mysqlOperation();
+			MysqlOperation1 o = new MysqlOperation1();
 			Connection connection = o.DBConnect();
 			
 			String query = "select COUNT(*) AS rowcount from user where username = '" + username + "'";
@@ -147,7 +147,7 @@ public class userDAO {
 	
 	public void updateUser(String userid,String username, String password, String email) 
 	{
-		mysqlOperation o = new mysqlOperation();
+		MysqlOperation1 o = new MysqlOperation1();
 		PreparedStatement pst = null;
 		try {
 			Connection connection = o.DBConnect();
