@@ -14,8 +14,8 @@ import businessLogic.jdbc.*;
 /**
  * Servlet implementation class loginServlet
  */
-@WebServlet(name = "loginServlet", urlPatterns = "/login")
-public class LoginServlet1 extends HttpServlet {
+@WebServlet(name = "LoginServlet", urlPatterns = "/login")
+public class LoginServlet extends HttpServlet {
 	private String username = null;
 	private String password = null;
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class LoginServlet1 extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet1() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -56,7 +56,7 @@ public class LoginServlet1 extends HttpServlet {
 		else{
 
 			//new servlet with DAO
-			UserDAO1 userDAO = new UserDAO1();
+			UserDAO userDAO = new UserDAO();
 			int result = userDAO.findUser(username, password);
 			if (result == 1)
 			{
