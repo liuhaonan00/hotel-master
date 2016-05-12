@@ -5,19 +5,19 @@
     <welcome-file>welcome</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>welcomeServlet</servlet-name>
-    <servlet-class>controller.welcomeServlet</servlet-class>
+    <servlet-name>WelcomeServlet</servlet-name>
+    <servlet-class>controller.WelcomeServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>loginServlet</servlet-name>
-    <servlet-class>controller.loginServlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>controller.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>welcomeServlet</servlet-name>
+    <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>loginServlet</servlet-name>
+    <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
 </web-app>

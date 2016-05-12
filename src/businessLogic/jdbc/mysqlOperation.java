@@ -1,7 +1,7 @@
 package businessLogic.jdbc;
 import java.sql.*;
 
-public class mysqlOperation {
+public class MysqlOperation {
 	public Connection DBConnect() {
 		try {
 				Class.forName("com.mysql.jdbc.Driver");    
