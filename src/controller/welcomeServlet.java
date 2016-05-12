@@ -31,7 +31,7 @@ public class welcomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("System started!");
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 		rd.forward(request, response);
 	}
 
