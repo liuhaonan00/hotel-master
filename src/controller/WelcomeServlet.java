@@ -8,7 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import businessLogic.javaClass.Room;
+import businessLogic.jdbc.RoomDAO;
+import java.util.ArrayList;
+import java.sql.SQLException;
 /**
  * Servlet implementation class welcome
  */
@@ -27,14 +30,24 @@ public class WelcomeServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("System started!");
 		RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-		rd.forward(request, response);
+		
+		//create random room list and send to login.jsp for display
+		RoomDAO roomdao = new RoomDAO();
+		ArrayList<Room> roomList = new ArrayList<>();
+		try {
+		roomList = roomdao.randomRoom(3);
+	} catch (SQLException e) {
+		e.printStackTrace();
 	}
-
+	request.setAttribute("roomList", roomList);
+	rd.forward(request, response);
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
