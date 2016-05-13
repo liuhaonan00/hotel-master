@@ -11,7 +11,7 @@
 	request.getSession().setAttribute("current_user", null);
 	String error_message  = (String)request.getSession().getAttribute("error");
 %>
-<form action = "login" method = "POST">
+<form action = "signup" method = "POST">
 	<h2>New User</h2>
 		<table>
 
@@ -21,7 +21,7 @@
 	        </tr>
 	        <tr>
 	            <td><label for="txtpswd">Password:</label></td>
-	            <td><input type="password" id="txtpswd" name="new_pswd" /></td>
+	            <td><input type="password" id="txtpswd" name="new_password" /></td>
 	        </tr>
 	        <tr>
 	            <td><label for="txtemail">email:</label></td>
@@ -30,7 +30,7 @@
 	        <tr>
 	            <td colspan=2>
 	                <input type="reset" value = "Reset"/>
-	                <input type="submit" value = "Login"/>
+	                <input type="submit" value = "Register New User"/>
 	            </td>
 	        </tr>
 	    </table>

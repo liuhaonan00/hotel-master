@@ -38,9 +38,16 @@ public class SignupServlet extends HttpServlet {
 		} else {
 			
 			UserDAO userDAO = new UserDAO();
-			int pass = userDAO.checkDuplicate(username, email);
-			if (pass<1){
-				request.setAttribute("error", "Sign up incompleted");
+			int result = userDAO.checkDuplicate(username, email);
+			if (result > 1){
+				if (result == 2) {
+					request.setAttribute("error", "Duplicate username: "+ username);
+					System.out.println("Sign up failed: Duplicate username: "+ username);
+				} else if (result == 3) {
+					request.setAttribute("error", "Duplicate email: "+ email);
+					System.out.println("Sign up failed: Duplicate email: "+ email);
+				}
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/signup.jsp");
 				rd.forward(request, response);
 			}

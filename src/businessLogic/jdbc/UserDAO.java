@@ -122,9 +122,7 @@ public class UserDAO {
 	}
 	
 	public int checkDuplicate(String username,String email){
-		int pass = 1;
-		
-		
+		int result = 1;	
 		try {
 			MysqlOperation o = new MysqlOperation();
 			Connection connection = o.DBConnect();
@@ -141,14 +139,13 @@ public class UserDAO {
 			rs2.next();
 			int count2 = rs2.getInt("rowcount");
 			
-			pass=pass-count1-count2;
+			if (count1>0) return 2;
+			if (count2>0) return 3;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
 		}
-		
-		//if < 1 means at least one of above has duplicate
-		return pass;
+		return result;
 	}
 	
 	public void updateUser(String userid,String username, String password, String email) 
