@@ -39,22 +39,22 @@ public class RoomDAO {
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "SELECT * FROM room natural join hotel WHERE room_id not in"+
-				"(SELECT room.room_id FROM room natural join room_status"+
-"where (room_status.end_date <="+ check_out+" AND room_status.end_date > "+check_in+")"+
-"OR (room_status.start_date <" + check_out+"AND room_status.start_date >= "+check_in+"))"; //todo sql query
-		
+		String query = "SELECT * FROM room natural join hotel WHERE room_id not in "+
+				"(SELECT room.room_id FROM room natural join room_status "+
+"where (room_status.end_date <= "+ check_out+" AND room_status.end_date > "+check_in+")"+
+" OR (room_status.start_date < " + check_out+"AND room_status.start_date >= "+check_in+"))"; //todo sql query
+		System.out.println(query);
 		if(price>0){
 			query=query+"and price <"+price;
 		}
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Room this_room = new Room();
-			this_room.setRoomId(rs.getInt(1));
-			this_room.setHotelId(rs.getInt(2));
+			this_room.setRoomId(rs.getInt(2));
+			this_room.setHotelId(rs.getInt(1));
 			this_room.setRoomType(rs.getString(3));
 			this_room.setRoomNo(rs.getString(4));
-			this_room.setPrice(rs.getInt(5));
+			this_room.setPrice(rs.getFloat(5));
 			this_room.setRoomDescription(rs.getString(6));
 			rooms.add(this_room);	
 		}

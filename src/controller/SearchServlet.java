@@ -34,13 +34,14 @@ private static final long serialVersionUID = 1L;
 	}
 	
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
-		String check_in = request.getParameter("check_in");
-		String check_out = request.getParameter("check_out");
+		String check_in = "'"+request.getParameter("check_in")+"'";
+		String check_out = "'"+request.getParameter("check_out")+"'";
 		String city = request.getParameter("city");
 		int price = Integer.parseInt(request.getParameter("price"));
 		RoomDAO roomDAO = new RoomDAO();
 		ArrayList<Room> rooms;
 		try {
+			
 			rooms = roomDAO.findAllRoom(check_in,check_out,city,price);
 			request.setAttribute("roomResult", rooms);
 			request.getRequestDispatcher("searchResult.jsp").forward(request,response);
