@@ -51,6 +51,7 @@ public class RoomDAO {
 		while(rs.next()){
 			Room this_room = new Room();
 			this_room.setRoomId(rs.getInt(2));
+			System.out.println("RoonmID"+rs.getInt(2));
 			this_room.setHotelId(rs.getInt(1));
 			this_room.setRoomType(rs.getString(3));
 			this_room.setRoomNo(rs.getString(4));

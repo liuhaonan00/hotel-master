@@ -1,22 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import = "java.util.*" %>
-<%@ page import = "businessLogic.javaClass.Room" %>
+<%@page import="java.util.*"%>
+<%@page import="javax.servlet.http.HttpServlet"%>
+<%@page import="javax.servlet.http.HttpServletRequest"%>
+<%@page import="javax.servlet.http.HttpServletResponse"%>
+<%@page import="javax.servlet.annotation.WebServlet"%>
+<%@page import="javax.servlet.ServletException"%>
+
+<%@page import = "businessLogic.jdbc.*" %>
+<%@page import = "businessLogic.javaClass.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Search Result</title>
 </head>
 <body>
 <%
 	ArrayList<Room> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
-		
+	System.out.println(rooms.size());
 	if(rooms.size()==0){%>
 	<p>Sorry, no matching data was found!</p>
 	<%}else{ %>
 	
-	<form action ="control" method="get">
+	<form action ="book" method="get">
 	<table>
 	<%
 	for (int i =0;i<rooms.size();i++){

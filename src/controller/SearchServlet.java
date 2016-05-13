@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -37,13 +36,19 @@ private static final long serialVersionUID = 1L;
 		String check_in = "'"+request.getParameter("check_in")+"'";
 		String check_out = "'"+request.getParameter("check_out")+"'";
 		String city = request.getParameter("city");
-		int price = Integer.parseInt(request.getParameter("price"));
+		String price1 = request.getParameter("price");
+		int price = 0;
+		if (!price1.equals("")){
+			price = Integer.parseInt(price1);
+		}
 		RoomDAO roomDAO = new RoomDAO();
 		ArrayList<Room> rooms;
 		try {
 			
 			rooms = roomDAO.findAllRoom(check_in,check_out,city,price);
-			request.setAttribute("roomResult", rooms);
+			System.out.println("size: "+rooms.size());
+			
+			request.getSession().setAttribute("roomResult", rooms);
 			request.getRequestDispatcher("searchResult.jsp").forward(request,response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
