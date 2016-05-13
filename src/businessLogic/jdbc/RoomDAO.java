@@ -34,12 +34,19 @@ public class RoomDAO {
 	}
 	
 	
-	public ArrayList<Room> findAllRoom() throws SQLException
+	public ArrayList<Room> findAllRoom(String check_in,String check_out,String City,int price) throws SQLException
 	{
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "select * from room ORDER BY RAND()"; //todo sql query
+		String query = "SELECT * FROM room natural join hotel WHERE room_id not in"+
+				"(SELECT room.room_id FROM room natural join room_status"+
+"where (room_status.end_date <="+ check_out+" AND room_status.end_date > "+check_in+")"+
+"OR (room_status.start_date <" + check_out+"AND room_status.start_date >= "+check_in+"))"; //todo sql query
+		
+		if(price>0){
+			query=query+"and price <"+price;
+		}
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Room this_room = new Room();
