@@ -60,6 +60,7 @@ public class SignupServlet extends HttpServlet {
 				//System.out.println("Confirmation email sent!");
 				RequestDispatcher rd = request
 						.getRequestDispatcher("/sign_up_complete.jsp");
+				System.out.println("Sign up successful!");
 				rd.forward(request, response);
 			}
 		}
