@@ -42,10 +42,13 @@ CREATE TABLE `hotel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-SYD-1', 'Sydney Road, NSW', 'Sydney');
-INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-SYD-2', 'Sydney Road, NSW', 'Sydney');
-INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-MEL-1', 'Sydney Road, VIC', 'Melbourne');
-INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-BRI-1', 'Sydney Road, QLD', 'Brisbane');
-INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-ADE-1', 'Sydney Road, SA', 'Adelaide');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-SYD-2', 'Parramatta Road, NSW', 'Sydney');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-MEL-1', 'Melbourne Road, VIC', 'Melbourne');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-MEL-2', 'La Trobe Road, VIC', 'Melbourne');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-BRI-1', 'Brisbane Road, QLD', 'Brisbane');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-ADE-1', 'Adelaide Road, SA', 'Adelaide');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-PER-1', 'Perth Street, WA', 'Perth');
+INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-HOB-1', 'Hobart Crescent, TAS', 'Hobart');
 
 CREATE TABLE `room` (
   `room_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,11 +70,37 @@ CREATE TABLE `room` (
 LOCK TABLES `room` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Single', '101', 100, 'A double bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Twin Bed', '102', 100, 'A twin bedroom');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Queen', '103', 100, 'A queen bedroom.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Executive', '104', 100, 'An executive room.');
-INSERT INTO room (hotel_id, room_type,room_no,price,room_description) VALUES (1, 'Suite', '105', 100, 'A large suite.');
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (1, 'Single', '101', 80, 'A double bedroom.'),
+(1, 'Twin Bed', '102', 130, 'A twin bedroom'), (1, 'Queen', '103', 150, 'A queen bedroom.'), 
+(1, 'Executive', '104', 200, 'An executive room.'), (1, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (2, 'Single', '101', 80, 'A double bedroom.'),
+(2, 'Twin Bed', '102', 130, 'A twin bedroom'), (2, 'Queen', '103', 150, 'A queen bedroom.'), 
+(2, 'Executive', '104', 200, 'An executive room.'), (2, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (3, 'Single', '101', 80, 'A double bedroom.'),
+(3, 'Twin Bed', '102', 130, 'A twin bedroom'), (3, 'Queen', '103', 150, 'A queen bedroom.'), 
+(3, 'Executive', '104', 200, 'An executive room.'), (3, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (4, 'Single', '101', 80, 'A double bedroom.'),
+(4, 'Twin Bed', '102', 130, 'A twin bedroom'), (4, 'Queen', '103', 150, 'A queen bedroom.'), 
+(4, 'Executive', '104', 200, 'An executive room.'), (4, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (5, 'Single', '101', 80, 'A double bedroom.'),
+(5, 'Twin Bed', '102', 130, 'A twin bedroom'), (5, 'Queen', '103', 150, 'A queen bedroom.'), 
+(5, 'Executive', '104', 200, 'An executive room.'), (5, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (6, 'Single', '101', 80, 'A double bedroom.'),
+(6, 'Twin Bed', '102', 130, 'A twin bedroom'), (6, 'Queen', '103', 150, 'A queen bedroom.'), 
+(6, 'Executive', '104', 200, 'An executive room.'), (6, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (7, 'Single', '101', 80, 'A double bedroom.'),
+(7, 'Twin Bed', '102', 130, 'A twin bedroom'), (7, 'Queen', '103', 150, 'A queen bedroom.'), 
+(7, 'Executive', '104', 200, 'An executive room.'), (7, 'Suite', '105', 320, 'A large suite.');
+
+INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (8, 'Single', '101', 80, 'A double bedroom.'),
+(8, 'Twin Bed', '102', 130, 'A twin bedroom'), (8, 'Queen', '103', 150, 'A queen bedroom.'), 
+(8, 'Executive', '104', 200, 'An executive room.'), (8, 'Suite', '105', 320, 'A large suite.');
 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL AUTO_INCREMENT,

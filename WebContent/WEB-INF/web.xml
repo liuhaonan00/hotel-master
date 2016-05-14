@@ -24,6 +24,10 @@
     <servlet-name>BookingServlet</servlet-name>
     <servlet-class>controller.BookingServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AvailabilityServlet</servlet-name>
+  	<servlet-class>controller.AvailabilityServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
@@ -44,5 +48,9 @@
    <servlet-mapping>
     <servlet-name>BookingServlet</servlet-name>
     <url-pattern>/booking</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AvailabilityServlet</servlet-name>
+  	<url-pattern>/availability</url-pattern>
   </servlet-mapping>
 </web-app>
