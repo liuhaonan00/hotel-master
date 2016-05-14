@@ -32,7 +32,7 @@ public class BookingServlet extends HttpServlet {
     	String check_in = (String)request.getSession().getAttribute("check_in");
     	String check_out = (String)request.getSession().getAttribute("check_out");
     	String city = (String)request.getSession().getAttribute("city");
-    	ArrayList<Room> rooms = new ArrayList(); 
+    	ArrayList<Room> rooms = new ArrayList<Room>(); 
     	System.out.println(bookrooms[0]);
 		RoomDAO roomDAO = new RoomDAO();
 		
@@ -52,7 +52,7 @@ public class BookingServlet extends HttpServlet {
 		BookingDAO bookingDAO = new BookingDAO();
 		
 		
-		int user_id = (int)request.getSession().getAttribute("user_id");
+		int user_id = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
 		BookingDAO.insertBooking(user_id,rooms,check_in,check_out);
 		
 
