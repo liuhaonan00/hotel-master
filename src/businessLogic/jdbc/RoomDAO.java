@@ -1,11 +1,7 @@
 package businessLogic.jdbc;
 
 import java.util.ArrayList;
-
-import javax.servlet.RequestDispatcher;
-
 import java.sql.*;
-
 import businessLogic.javaClass.*;
 
 
@@ -62,4 +58,23 @@ public class RoomDAO {
 		o.closeDB(connection);
 		return rooms;
 	}
+	
+	public Room findRoomById(int n) throws SQLException
+	{
+		Room room = new Room();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * FROM room WHERE room_id = "+n;
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			room.setRoomId(rs.getInt(1));
+			room.setHotelId(rs.getInt(2));
+			room.setRoomType(rs.getString(3));
+			room.setRoomNo(rs.getString(4));
+			room.setPrice(rs.getInt(5));
+			room.setRoomDescription(rs.getString(6));
+		}
+		return room;
+	}
+	
 }

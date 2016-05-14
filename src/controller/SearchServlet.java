@@ -47,8 +47,10 @@ private static final long serialVersionUID = 1L;
 			
 			rooms = roomDAO.findAllRoom(check_in,check_out,city,price);
 			System.out.println("size: "+rooms.size());
-			
 			request.getSession().setAttribute("roomResult", rooms);
+			request.getSession().setAttribute("check_in", check_in);
+			request.getSession().setAttribute("check_out", check_out);
+			request.getSession().setAttribute("city", city);
 			request.getRequestDispatcher("searchResult.jsp").forward(request,response);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

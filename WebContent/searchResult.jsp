@@ -23,7 +23,7 @@
 	<p>Sorry, no matching data was found!</p>
 	<%}else{ %>
 	
-	<form action ="book" method="get">
+	<form action ="booking" method="post">
 	<table>
 	<%
 	for (int i =0;i<rooms.size();i++){
@@ -47,7 +47,7 @@
 	<p><%=rooms.get(i).getRoomDescription()%></p>
 	</td>
 	<td>
-		<input type="checkbox" name="bookRoom" value="<%=this_room%>">
+		<input type="checkbox" name="bookRoom" value="<%=rooms.get(i)%>">
 	</td>
 	</tr>
 	<%}%>

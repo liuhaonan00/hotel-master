@@ -105,6 +105,7 @@ CREATE TABLE `room_status` (
   `status` varchar(45) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
+  `price` float DEFAULT NULL,
   PRIMARY KEY (`status_id`),
   UNIQUE KEY `status_id_UNIQUE` (`status_id`),
   KEY `hotel_id2_idx` (`hotel_id`),
@@ -121,10 +122,10 @@ CREATE TABLE `room_status` (
 LOCK TABLES `room_status` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date) VALUES
-(1,1,2,'Booked', '2016-07-28','2016-07-30');
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date) VALUES
-(1,3,2,'Booked', '2016-07-28','2016-07-30');
+INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, price) VALUES
+(1,1,2,'Booked', '2016-07-28','2016-07-30','100');
+INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, price) VALUES
+(1,3,2,'Booked', '2016-07-28','2016-07-30','100');
 
 CREATE TABLE `offer` (
   `offer_id` int(11) NOT NULL AUTO_INCREMENT,
