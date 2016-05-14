@@ -39,7 +39,7 @@ public class WelcomeServlet extends HttpServlet {
 		
 		//create random room list and send to login.jsp for display
 		RoomDAO roomdao = new RoomDAO();
-		ArrayList<Room> roomList = new ArrayList<>();
+		ArrayList<Room> roomList = new ArrayList<Room>();
 		try {
 		roomList = roomdao.randomRoom(3);
 	} catch (SQLException e) {
