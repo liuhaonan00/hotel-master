@@ -19,4 +19,54 @@ public class BookingDAO {
 		}
 		return lastbookingid;
 	}
+	
+	public static void insertBooking(int user_id,ArrayList<Room> room,String check_in,String check_out){
+		float total_price = 0;
+		MysqlOperation o = new MysqlOperation();
+		for (int i = 0; i < room.size(); i++) {
+			total_price =total_price+ room.get(i).getPrice(); //todo: add discount
+		}
+			PreparedStatement pst = null;
+			try {
+				Connection connection = o.DBConnect();
+				String sqlInsert = "INSERT INTO booking (user_id, checkin, checkout,total_price) VALUES (?,?,?,?)";
+				pst = connection.prepareStatement(sqlInsert);
+				pst.setString(1, ""+user_id);
+				pst.setString(2, check_in);
+				pst.setString(3, check_out);
+				pst.setString(4, ""+total_price);
+				pst.executeUpdate();
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	
+	public static void insertRoom_status(int booking_id,ArrayList<Room> room,String check_in,String check_out){
+		
+		for (int i = 0; i < room.size(); i++) {
+			MysqlOperation o = new MysqlOperation();
+			PreparedStatement pst = null;
+			try {
+				Connection connection = o.DBConnect();
+				String sqlInsert = "INSERT INTO booking (hotel_id, room_id, booking_id,status,start_date,end_date,price) VALUES (?,?,?,?,?,?,?)";
+				pst = connection.prepareStatement(sqlInsert);
+				pst.setString(1, ""+room.get(i).getHotelId());
+				pst.setString(2, ""+room.get(i).getRoomId());
+				pst.setString(3, ""+booking_id);
+				pst.setString(4, "Booked");
+				pst.setString(5, check_in);
+				pst.setString(6, check_out);
+				pst.setString(7, ""+room.get(i).getPrice()); // todo:offer on price
+				pst.executeUpdate();
+				pst.close();
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		}
+	
 }

@@ -18,7 +18,6 @@
 <body>
 <%
 	ArrayList<Room> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
-	System.out.println(rooms.size());
 	if(rooms.size()==0){%>
 	<p>Sorry, no matching data was found!</p>
 	<%}else{ %>

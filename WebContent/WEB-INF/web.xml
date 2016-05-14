@@ -20,7 +20,10 @@
     <servlet-name>EmailVerifyServlet</servlet-name>
     <servlet-class>controller.EmailVerifyServlet</servlet-class>
   </servlet>
-  
+  <servlet>
+    <servlet-name>BookingServlet</servlet-name>
+    <servlet-class>controller.BookingServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
@@ -34,8 +37,12 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+   <servlet-mapping>
     <servlet-name>EmailVerifyServlet</servlet-name>
     <url-pattern>/emailverify</url-pattern>
+     </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>BookingServlet</servlet-name>
+    <url-pattern>/booking</url-pattern>
   </servlet-mapping>
 </web-app>

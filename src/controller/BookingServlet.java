@@ -48,16 +48,27 @@ public class BookingServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		int booking_id;
+		int booking_id=0;
 		BookingDAO bookingDAO = new BookingDAO();
+		
+		
+		int user_id = (int)request.getSession().getAttribute("user_id");
+		BookingDAO.insertBooking(user_id,rooms,check_in,check_out);
+		
+
 		try {
 			booking_id = bookingDAO.findbookingID();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		String user_id = (String)request.getSession().getAttribute("user_id");
+
+		BookingDAO.insertRoom_status(booking_id,rooms,check_in,check_out);
+//		request.getSession().setAttribute("roomResult", rooms);
+//		request.getSession().setAttribute("check_in", check_in);
+//		request.getSession().setAttribute("check_out", check_out);
+//		request.getSession().setAttribute("city", city);
+		request.getRequestDispatcher("bookingComplete.jsp").forward(request,response);
 		
     }
     
