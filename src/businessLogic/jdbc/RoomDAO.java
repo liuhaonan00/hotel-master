@@ -2,6 +2,7 @@ package businessLogic.jdbc;
 
 import java.util.ArrayList;
 import java.sql.*;
+
 import businessLogic.javaClass.*;
 
 
@@ -97,6 +98,20 @@ public class RoomDAO {
 			occRooms.add(room);
 		}
 		return occRooms;
+	}
+	
+	//returns the amount of rooms that are unavailable at a hotel id. 
+	public int unavailablerooms(int hotel_id) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT COUNT(hotel_id) FROM room_status WHERE (status = 'occupied' OR status = 'maintenance') AND hotel_id = " + hotel_id;
+		ResultSet rs = o.searchDB(connection, query);
+		int i = 0;
+		while(rs.next()){
+			i = rs.getInt(1);
+		}
+		return i;
 	}
 	
 	

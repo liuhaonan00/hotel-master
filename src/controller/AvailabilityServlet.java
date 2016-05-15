@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 import businessLogic.jdbc.*;
 import businessLogic.javaClass.*;
+
 
 public class AvailabilityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,20 +29,22 @@ public class AvailabilityServlet extends HttpServlet {
     	
     	RequestDispatcher rd = request.getRequestDispatcher("/owner.jsp");
 		int occupancy[] = {0,0,0,0,0,0,0,0,0};
-		MysqlOperation o = new MysqlOperation();
-		Connection connection = o.DBConnect();
-		String query = "select hotel_id from booking";
-		ResultSet rs = o.searchDB(connection, query);
+		RoomDAO roomdao = new RoomDAO();
 		
 		try{
-		while (rs.next()){
-			String f = rs.getString("hotel_id");
-			int i = Integer.valueOf(f);
-			occupancy[i]++;
+		occupancy[1] = roomdao.unavailablerooms(1);
+		occupancy[2] = roomdao.unavailablerooms(2);
+		occupancy[3] = roomdao.unavailablerooms(3);
+		occupancy[4] = roomdao.unavailablerooms(4);
+		occupancy[5] = roomdao.unavailablerooms(5);
+		occupancy[6] = roomdao.unavailablerooms(6);
+		occupancy[7] = roomdao.unavailablerooms(7);
+		occupancy[8] = roomdao.unavailablerooms(8);
+
+		}catch (Exception e){
+			e.printStackTrace();
 		}
-	}catch (SQLException e){
-		e.printStackTrace();
-	}
+				
 		HashMap<String, Integer> occs = new HashMap<String, Integer>();
 		occs.put("Rampage-SYD-1", occupancy[1]);
 		occs.put("Rampage-SYD-2", occupancy[2]);

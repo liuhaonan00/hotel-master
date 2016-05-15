@@ -70,37 +70,29 @@ CREATE TABLE `room` (
 LOCK TABLES `room` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (1, 'Single', '101', 80, 'A double bedroom.'),
-(1, 'Twin Bed', '102', 130, 'A twin bedroom'), (1, 'Queen', '103', 150, 'A queen bedroom.'), 
-(1, 'Executive', '104', 200, 'An executive room.'), (1, 'Suite', '105', 320, 'A large suite.');
+(1, 'Twin Bed', '201', 130, 'Two single beds.'), (1, 'Twin Bed', '202', 130, 'Two single beds.'), (1, 'Queen', '301', 150, 'One double bed.'), (1, 'Queen', '302', 150, 'One double bed.'),
+(1, 'Executive', '401', 200, 'Double bed with extra facilities.'), (1, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (2, 'Single', '101', 80, 'A double bedroom.'),
-(2, 'Twin Bed', '102', 130, 'A twin bedroom'), (2, 'Queen', '103', 150, 'A queen bedroom.'), 
-(2, 'Executive', '104', 200, 'An executive room.'), (2, 'Suite', '105', 320, 'A large suite.');
+(2, 'Twin Bed', '201', 130, 'Two single beds.'), (2, 'Twin Bed', '202', 130, 'Two single beds.'), (2, 'Queen', '301', 150, 'One double bed.'), (2, 'Queen', '302', 150, 'One double bed.'),
+(2, 'Executive', '401', 200, 'Double bed with extra facilities.'), (2, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (3, 'Single', '101', 80, 'A double bedroom.'),
-(3, 'Twin Bed', '102', 130, 'A twin bedroom'), (3, 'Queen', '103', 150, 'A queen bedroom.'), 
-(3, 'Executive', '104', 200, 'An executive room.'), (3, 'Suite', '105', 320, 'A large suite.');
+(3, 'Twin Bed', '201', 130, 'Two single beds.'), (3, 'Twin Bed', '202', 130, 'Two single beds.'), (3, 'Queen', '301', 150, 'One double bed.'), (3, 'Queen', '302', 150, 'One double bed.'),
+(3, 'Executive', '401', 200, 'Double bed with extra facilities.'), (3, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (4, 'Single', '101', 80, 'A double bedroom.'),
-(4, 'Twin Bed', '102', 130, 'A twin bedroom'), (4, 'Queen', '103', 150, 'A queen bedroom.'), 
-(4, 'Executive', '104', 200, 'An executive room.'), (4, 'Suite', '105', 320, 'A large suite.');
+(4, 'Twin Bed', '201', 130, 'Two single beds.'), (4, 'Twin Bed', '202', 130, 'Two single beds.'), (4, 'Queen', '301', 150, 'One double bed.'), (4, 'Queen', '302', 150, 'One double bed.'),
+(4, 'Executive', '401', 200, 'Double bed with extra facilities.'), (4, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (5, 'Single', '101', 80, 'A double bedroom.'),
-(5, 'Twin Bed', '102', 130, 'A twin bedroom'), (5, 'Queen', '103', 150, 'A queen bedroom.'), 
-(5, 'Executive', '104', 200, 'An executive room.'), (5, 'Suite', '105', 320, 'A large suite.');
+(5, 'Twin Bed', '201', 130, 'Two single beds.'), (5, 'Twin Bed', '202', 130, 'Two single beds.'), (5, 'Queen', '301', 150, 'One double bed.'), (5, 'Queen', '302', 150, 'One double bed.'),
+(5, 'Executive', '401', 200, 'Double bed with extra facilities.'), (5, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (6, 'Single', '101', 80, 'A double bedroom.'),
-(6, 'Twin Bed', '102', 130, 'A twin bedroom'), (6, 'Queen', '103', 150, 'A queen bedroom.'), 
-(6, 'Executive', '104', 200, 'An executive room.'), (6, 'Suite', '105', 320, 'A large suite.');
+(6, 'Twin Bed', '201', 130, 'Two single beds.'), (6, 'Twin Bed', '202', 130, 'Two single beds.'), (6, 'Queen', '301', 150, 'One double bed.'), (6, 'Queen', '302', 150, 'One double bed.'),
+(6, 'Executive', '401', 200, 'Double bed with extra facilities.'), (6, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (7, 'Single', '101', 80, 'A double bedroom.'),
-(7, 'Twin Bed', '102', 130, 'A twin bedroom'), (7, 'Queen', '103', 150, 'A queen bedroom.'), 
-(7, 'Executive', '104', 200, 'An executive room.'), (7, 'Suite', '105', 320, 'A large suite.');
+(7, 'Twin Bed', '201', 130, 'Two single beds.'), (7, 'Twin Bed', '202', 130, 'Two single beds.'), (7, 'Queen', '301', 150, 'One double bed.'), (7, 'Queen', '302', 150, 'One double bed.'),
+(7, 'Executive', '401', 200, 'Double bed with extra facilities.'), (7, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (8, 'Single', '101', 80, 'A double bedroom.'),
-(8, 'Twin Bed', '102', 130, 'A twin bedroom'), (8, 'Queen', '103', 150, 'A queen bedroom.'), 
-(8, 'Executive', '104', 200, 'An executive room.'), (8, 'Suite', '105', 320, 'A large suite.');
+(8, 'Twin Bed', '201', 130, 'Two single beds.'), (8, 'Twin Bed', '202', 130, 'Two single beds.'), (8, 'Queen', '301', 150, 'One double bed.'), (8, 'Queen', '302', 150, 'One double bed.'),
+(8, 'Executive', '401', 200, 'Double bed with extra facilities.'), (8, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL AUTO_INCREMENT,
