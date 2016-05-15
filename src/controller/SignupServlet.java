@@ -28,6 +28,7 @@ public class SignupServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 	
 		String username = request.getParameter("new_username");
+		String message = "";
 		username.toLowerCase();
 		String password = request.getParameter("new_password");
 		String email = request.getParameter("new_email");
@@ -35,21 +36,22 @@ public class SignupServlet extends HttpServlet {
 			request.setAttribute("error", "Sign up incompleted");
 			RequestDispatcher rd = request.getRequestDispatcher("/signup.jsp");
 			rd.forward(request, response);
-		} else {
+			
+		} 
+		else {
 			
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.checkDuplicate(username, email);
 			if (result > 1){
 				if (result == 2) {
-					request.setAttribute("error", "Duplicate username: "+ username);
+					request.setAttribute("result", "Duplicate username: "+ username);
 					System.out.println("Sign up failed: Duplicate username: "+ username);
 				} else if (result == 3) {
-					request.setAttribute("error", "Duplicate email: "+ email);
+					request.setAttribute("result", "Duplicate email: "+ email);
 					System.out.println("Sign up failed: Duplicate email: "+ email);
 				}
 				
-				RequestDispatcher rd = request.getRequestDispatcher("/signup.jsp");
-				rd.forward(request, response);
+				
 			}
 			else
 			{
@@ -58,10 +60,13 @@ public class SignupServlet extends HttpServlet {
 				//MyAuthenticator sender = new MyAuthenticator();
 				//sender.ConfirmEmail(username, email, "user");
 				//System.out.println("Confirmation email sent!");
-				RequestDispatcher rd = request
-						.getRequestDispatcher("/sign_up_complete.jsp");
-				rd.forward(request, response);
+				message = "The username: "+username+" has been registered, please verify the email: "+email+".";
+				request.setAttribute("result", message);
 			}
+			
 		}
+		RequestDispatcher rd = request
+				.getRequestDispatcher("/signup_complete.jsp");
+		rd.forward(request, response);
 	}
 }

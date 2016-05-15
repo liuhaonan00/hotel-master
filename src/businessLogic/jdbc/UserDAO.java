@@ -8,7 +8,7 @@ import javax.servlet.RequestDispatcher;
 import java.sql.*;
 
 import businessLogic.javaClass.*;
-
+import businessLogic.library.*;
 public class UserDAO {
 	
 	public int findUser(String user,String password) {
@@ -88,6 +88,7 @@ public class UserDAO {
 		MysqlOperation o = new MysqlOperation();
 		Md5Encryption md5 = new Md5Encryption();
 		PreparedStatement pst = null;
+		int userId = 0;
 		try {
 			Connection connection = o.DBConnect();
 			String sqlInsert = "INSERT INTO user (username, password, email) VALUES (?,?,?)";
@@ -95,29 +96,20 @@ public class UserDAO {
 			pst.setString(1, username);
 			pst.setString(2, md5.MD5(password));
 			pst.setString(3, email);
-//			full set
-//			String username, String password,
-//			String nickname, String firstname, String lastname, String email,
-//			String birthday, String address, String credit_card_type, String credit_card_number,String credit_card_exp_month,String credit_card_exp_year, String credit_card_cvv
-//			pst.setString(1, username);
-//			pst.setString(2, password);
-//			pst.setString(3, email);
-//			pst.setString(4, nickname);
-//			pst.setString(5, firstname);
-//			pst.setString(6, lastname);
-//			pst.setString(7, address);
-//			pst.setString(8, credit_card_type);
-//			pst.setString(9, credit_card_number);
-//			pst.setString(10, credit_card_exp_month);
-//			pst.setString(11, credit_card_exp_year);
-//			pst.setString(12, credit_card_cvv);
-//			pst.setString(13, "0");
+			
 			pst.executeUpdate();
 			pst.close();
+			String query = "select user_id from user where "+ "username = '" + username + "'";
+			ResultSet rs = o.searchDB(connection, query);
+			rs.next();
+			userId = rs.getInt("user_id");
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		EmailApi emailApi = new EmailApi();
+		emailApi.verifyEmail(userId, username, email);
+		
 		
 	}
 	
