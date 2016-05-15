@@ -108,7 +108,10 @@ CREATE TABLE `booking` (
   `hotel_id` int(11) DEFAULT NULL,
   `checkin` date DEFAULT NULL,
   `checkout` date DEFAULT NULL,
+  `roomtype` varchar(50) DEFAULT NULL,
+  `number_of_room` int DEFAULT NULL,
   `total_price` float DEFAULT NULL,
+  
   PRIMARY KEY (`booking_id`),
   UNIQUE KEY `booking_id_UNIQUE` (`booking_id`),
   KEY `user_id_idx` (`user_id`),
@@ -121,10 +124,10 @@ CREATE TABLE `booking` (
 LOCK TABLES `booking` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price) 
-VALUES (1,1,'2000-07-28','2100-07-30', 0);
-INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price) 
-VALUES (2,1,'2016-07-28','2016-07-30', 200);
+INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,number_of_room) 
+VALUES (1,1,'2000-07-28','2100-07-30', 0,'Queen',1);
+INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,number_of_room) 
+VALUES (2,1,'2016-07-28','2016-07-30', 200,'Queen',1);
 
 CREATE TABLE `room_status` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,
