@@ -24,12 +24,36 @@
 	
 	<form action ="booking" method="post">
 	<table>
+	<tr>
+		<td>
+		Book
+	</td>
+	<td>
+	<p>Room Number</p>
+	</td>
+	<td>
+	<p>Hotel</p>
+	</td>
+	<td>
+	<p>Room Type</p>
+	</td>
+	<td>
+	<p>Price</p>
+	</td>
+	<td>
+	<p>Description</p>
+	</td>
+
+	</tr>
 	<%
 	for (int i =0;i<rooms.size();i++){
 		int this_room = rooms.get(i).getRoomId();
 	
 	%>
 	<tr>
+		<td>
+		<input type="checkbox" name="bookRoom" value="<%=this_room%>">
+	</td>
 	<td>
 	<p><%=rooms.get(i).getRoomNo()%></p>
 	</td>
@@ -45,13 +69,11 @@
 	<td>
 	<p><%=rooms.get(i).getRoomDescription()%></p>
 	</td>
-	<td>
-		<input type="checkbox" name="bookRoom" value="<%=rooms.get(i)%>">
-	</td>
+
 	</tr>
 	<%}%>
 	</table>
-	<input type="submit" value="Book now!"> 
+	<input type="submit" value="Add To Cart"> 
 	<input type="hidden" name="op" value="add">
 	</form>
 

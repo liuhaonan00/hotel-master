@@ -32,14 +32,21 @@ public class BookingServlet extends HttpServlet {
     	String check_in = (String)request.getSession().getAttribute("check_in");
     	String check_out = (String)request.getSession().getAttribute("check_out");
     	String city = (String)request.getSession().getAttribute("city");
-    	ArrayList<Room> rooms = new ArrayList<Room>(); 
+    	
     	System.out.println(bookrooms[0]);
 		RoomDAO roomDAO = new RoomDAO();
+		ShoppingCartDAO ShoppingCartDAO = new ShoppingCartDAO();
+		ArrayList<ShoppingCart> thisCart = new ArrayList<ShoppingCart>();
+		if(request.getSession().getAttribute("ShoppingCart") != null){
+			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
+		}
 		
 		for(int i=0;i<bookrooms.length;i++){
 			try {
+				
 				Room this_room = roomDAO.findRoomById(Integer.parseInt(bookrooms[i]));
-				rooms.add(this_room);
+				ShoppingCart shoppingCart = ShoppingCartDAO.addToCart(check_in,check_out,this_room);
+				thisCart.add(shoppingCart);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -48,27 +55,8 @@ public class BookingServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		int booking_id=0;
-		BookingDAO bookingDAO = new BookingDAO();
-		
-		
-		int user_id = Integer.parseInt((String)request.getSession().getAttribute("user_id"));
-		BookingDAO.insertBooking(user_id,rooms,check_in,check_out);
-		
-
-		try {
-			booking_id = bookingDAO.findbookingID();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		BookingDAO.insertRoom_status(booking_id,rooms,check_in,check_out);
-//		request.getSession().setAttribute("roomResult", rooms);
-//		request.getSession().setAttribute("check_in", check_in);
-//		request.getSession().setAttribute("check_out", check_out);
-//		request.getSession().setAttribute("city", city);
-		request.getRequestDispatcher("bookingComplete.jsp").forward(request,response);
+		request.getSession().setAttribute("ShoppingCart", thisCart);
+		request.getRequestDispatcher("shoppingcart.jsp").forward(request,response);
 		
     }
     

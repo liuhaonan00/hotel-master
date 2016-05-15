@@ -1,11 +1,16 @@
 package businessLogic.javaClass;
 
-public class ShoppingCart {
+public class ShoppingCart implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int hotel_id;
 	private int room_id;
 	private String check_in;
 	private String check_out;
 	private float price;
+	private String room_no;
 	
 	public ShoppingCart() {
 		
@@ -40,5 +45,10 @@ public class ShoppingCart {
 	public void setprice(float price) {
 		this.price = price;
 	}
-	
+	public void setroom_no(String room_no) {
+		this.room_no = room_no;
+	}
+	public String getroom_no() {
+		return room_no;
+	}
 }
