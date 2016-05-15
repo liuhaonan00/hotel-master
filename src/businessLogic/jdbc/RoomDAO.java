@@ -77,4 +77,27 @@ public class RoomDAO {
 		return room;
 	}
 	
+	public ArrayList<Room> allOccRooms(String StartDate,String EndDate,int hotel_id) throws SQLException
+	{
+		ArrayList<Room> occRooms= new ArrayList<Room>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * FROM room where room_id in (SELECT room_id from room_status where "+
+		"room_status.end_date <= '"+EndDate+"' OR room_status.start_date >= '"+StartDate+"' and hotel_id="+""+hotel_id+")";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Room room = new Room();
+			room.setRoomId(rs.getInt(1));
+			room.setHotelId(rs.getInt(2));
+			room.setRoomType(rs.getString(3));
+			room.setRoomNo(rs.getString(4));
+			room.setPrice(rs.getInt(5));
+			room.setRoomDescription(rs.getString(6));
+			occRooms.add(room);
+		}
+		return occRooms;
+	}
+	
+	
 }
