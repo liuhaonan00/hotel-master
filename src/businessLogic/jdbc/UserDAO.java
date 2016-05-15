@@ -148,13 +148,43 @@ public class UserDAO {
 		return result;
 	}
 	
+	public int verifyEmail(int userId)  {
+		MysqlOperation o = new MysqlOperation();
+		try {
+			Connection connection = o.DBConnect();
+			String query = "select * from user where user_id = " + String.valueOf(userId);
+			System.out.println(query);
+			ResultSet rs = o.searchDB(connection, query);
+			if (rs.next() == false) {
+				connection.close();
+				return 0;
+			} 
+			int verify = rs.getInt("email_verification");
+			if (verify == 1) {
+				connection.close();
+				return 1;
+			}
+			String sqlInsert = "update user set email_verification = ? where user_id = ?";
+			PreparedStatement pst = connection.prepareStatement(sqlInsert);
+			pst.setInt(1, 1);
+			pst.setInt(2, userId);
+			pst.executeUpdate();
+			pst.close();
+			System.out.println("Update successful!");
+			connection.close();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}		
+		return 2;
+	}
+	
 	public void updateUser(String userid,String username, String password, String email) 
 	{
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
 		try {
 			Connection connection = o.DBConnect();
-			String sqlInsert = "update user ( password, email) VALUES (?,?,?) where user_id ="+userid;
+			String sqlInsert = "update user (username, password, email) VALUES (?,?,?) where user_id ="+userid;
 			pst = connection.prepareStatement(sqlInsert);
 			pst.setString(1, username);
 			pst.setString(2, password);

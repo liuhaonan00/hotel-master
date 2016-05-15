@@ -1,11 +1,14 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import businessLogic.jdbc.*;
 
 /**
  * Servlet implementation class EmailVerifyServlet
@@ -30,7 +33,21 @@ public class EmailVerifyServlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("EmailVerify Servlet");
 		int userId = Integer.parseInt(request.getParameter("user_id"));
-		System.out.println(userId);
+		String username = request.getParameter("username");
+		String email = request.getParameter("email");
+		UserDAO u = new UserDAO();
+		int result = u.verifyEmail(userId);
+		if (result == 0) {
+			request.setAttribute("result", "Error: no such email address: "+ email);
+		} else if (result == 1) {
+			request.setAttribute("result", "Error: The email: "+ email+ " has already been verified.");
+		} else {
+			request.setAttribute("result", "Successful: The email: "+ email+ " is now activated.");
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/verify.jsp");
+		rd.forward(request, response);
+		
+//		System.out.println(userId);
 	}
 
 	/**

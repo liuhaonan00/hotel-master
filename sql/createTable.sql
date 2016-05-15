@@ -27,7 +27,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO user (username, password, email,email_verification) VALUES ('super', MD5('root'), 'expmple@sss.com', 1);
-INSERT INTO user (username, password, email) VALUES ('chang ma', MD5('hiroot'), 'liuhaonan1@qq.com');
+INSERT INTO user (username, password, email) VALUES ('changma', MD5('hiroot'), 'liuhaonan1@qq.com');
 INSERT INTO user (username, password, email) VALUES ('rua', MD5('hiroot'), 'liuhaonan2@qq.com');
 
 
