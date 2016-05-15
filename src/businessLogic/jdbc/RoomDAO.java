@@ -83,7 +83,7 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "SELECT * FROM room where room_id in (SELECT room_id from room_status where "+
-		"room_status.end_date <= '"+EndDate+"' OR room_status.start_date >= '"+StartDate+"' and hotel_id="+""+hotel_id+")";
+		"room_status.end_date <= '"+EndDate+"' OR room_status.start_date >= '"+StartDate+"' and room_status.status = 'occupied' and hotel_id="+""+hotel_id+")";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
