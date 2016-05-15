@@ -9,12 +9,32 @@
 </head>
 <body>
 
-   <!-- Important TODO: password protect this with some stored password -->
-   <!-- manager and owner servlets should redirect to staff servlet without a valid staff session -->
-   
+   <h2>Managing hotel: ${manager_hotel.name}</h2>
+   <em>${manager_message}</em>
+
+   <form action="manage" method="POST">
+      <h3>Occupied rooms:</h3>
+      <table>
+         <tr>
+            <!-- Room number, Room type, Empty this room -->
+            <th>Room number</th>
+            <th>Room type</th>
+            <th>Empty this room</th>
+         </tr>
+         <c:forEach var="room" items="${manager_occupancy}">
+            <tr>
+               <td>${room.roomNo}</td>
+               <td>${room.roomType}</td>
+               <td><input type="checkbox" name="clear_rooms"
+                  value='${room.roomId}' /></td>
+            </tr>
+         </c:forEach>
+      </table>
+      <input type="submit" value="Mark selected rooms as available" />
+   </form>
+
    <form action="assignroom" method="POST">
-      <h2>Managing hotel: ${hotel_name}</h2>
-      <h3>Bookings:</h3>
+      <h3>Current Bookings:</h3>
       <table>
          <tr>
             <!-- Booking user, Start date, End date, Rooms -->
@@ -36,9 +56,8 @@
       </table>
    </form>
 
-After authentication, the manager is presented with a page that enables them to view all the rooms occupied and bookings made by customer
-The manager can assign a room to a booking; they select a booking, view the appropriate rooms available (e.g. if a booking is for 2 twin rooms, then all the twin rooms available would show up), and assigns rooms to the booking as per the number specified. You could imagine this happens when the customer shows up to check-in at the hotel.
-When a customer checks out, the manager returns the occupied room to the available list.
+   <%--  TODO future bookings? --%>
+   <%--  TODO logout --%>
 
 </body>
 </html>

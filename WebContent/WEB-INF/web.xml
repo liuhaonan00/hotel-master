@@ -28,6 +28,10 @@
   	<servlet-name>AvailabilityServlet</servlet-name>
   	<servlet-class>controller.AvailabilityServlet</servlet-class>
   </servlet>
+  <servlet>
+   <servlet-name>ManagerServlet</servlet-name>
+   <servlet-class>controller.ManagerServlet</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
@@ -52,5 +56,9 @@
   <servlet-mapping>
   	<servlet-name>AvailabilityServlet</servlet-name>
   	<url-pattern>/availability</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+   <servlet-name>ManagerServlet</servlet-name>
+   <url-pattern>/manage</url-pattern>
   </servlet-mapping>
 </web-app>

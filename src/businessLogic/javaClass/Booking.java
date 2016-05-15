@@ -5,7 +5,7 @@ public class Booking {
    private String user;
    private String startDate;
    private String endDate;
-   private String roomString;
+   private String roomString = ""; // the types of rooms requested, e.g. "2 Single, 1 Queen"
 
    public String getUser() {
       return user;
