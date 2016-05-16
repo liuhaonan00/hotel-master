@@ -55,7 +55,7 @@ CREATE TABLE `room` (
   `hotel_id` int(11) NOT NULL,
   `room_type` varchar(50) DEFAULT NULL,
   `room_no` varchar(45) DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `normal_price` float DEFAULT NULL,
   `room_description` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`room_id`),
   UNIQUE KEY `room_id_UNIQUE` (`room_id`),
@@ -70,35 +70,35 @@ CREATE TABLE `room` (
 LOCK TABLES `room` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (1, 'Single', '101', 80, 'One single bed.'), (1, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (1, 'Single', '101', 80, 'One single bed.'), (1, 'Single', '102', 80, 'One single bed.'),
 (1, 'Twin Bed', '201', 130, 'Two single beds.'), (1, 'Twin Bed', '202', 130, 'Two single beds.'), (1, 'Queen', '301', 150, 'One double bed.'), (1, 'Queen', '302', 150, 'One double bed.'),
 (1, 'Executive', '401', 200, 'Double bed with extra facilities.'), (1, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (2, 'Single', '101', 80, 'One single bed.'), (2, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (2, 'Single', '101', 80, 'One single bed.'), (2, 'Single', '102', 80, 'One single bed.'),
 (2, 'Twin Bed', '201', 130, 'Two single beds.'), (2, 'Twin Bed', '202', 130, 'Two single beds.'), (2, 'Queen', '301', 150, 'One double bed.'), (2, 'Queen', '302', 150, 'One double bed.'),
 (2, 'Executive', '401', 200, 'Double bed with extra facilities.'), (2, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (3, 'Single', '101', 80, 'One single bed.'), (3, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (3, 'Single', '101', 80, 'One single bed.'), (3, 'Single', '102', 80, 'One single bed.'),
 (3, 'Twin Bed', '201', 130, 'Two single beds.'), (3, 'Twin Bed', '202', 130, 'Two single beds.'), (3, 'Queen', '301', 150, 'One double bed.'), (3, 'Queen', '302', 150, 'One double bed.'),
 (3, 'Executive', '401', 200, 'Double bed with extra facilities.'), (3, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (4, 'Single', '101', 80, 'One single bed.'), (4, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (4, 'Single', '101', 80, 'One single bed.'), (4, 'Single', '102', 80, 'One single bed.'),
 (4, 'Twin Bed', '201', 130, 'Two single beds.'), (4, 'Twin Bed', '202', 130, 'Two single beds.'), (4, 'Queen', '301', 150, 'One double bed.'), (4, 'Queen', '302', 150, 'One double bed.'),
 (4, 'Executive', '401', 200, 'Double bed with extra facilities.'), (4, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (5, 'Single', '101', 80, 'One single bed.'), (5, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (5, 'Single', '101', 80, 'One single bed.'), (5, 'Single', '102', 80, 'One single bed.'),
 (5, 'Twin Bed', '201', 130, 'Two single beds.'), (5, 'Twin Bed', '202', 130, 'Two single beds.'), (5, 'Queen', '301', 150, 'One double bed.'), (5, 'Queen', '302', 150, 'One double bed.'),
 (5, 'Executive', '401', 200, 'Double bed with extra facilities.'), (5, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (6, 'Single', '101', 80, 'One single bed.'), (6, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (6, 'Single', '101', 80, 'One single bed.'), (6, 'Single', '102', 80, 'One single bed.'),
 (6, 'Twin Bed', '201', 130, 'Two single beds.'), (6, 'Twin Bed', '202', 130, 'Two single beds.'), (6, 'Queen', '301', 150, 'One double bed.'), (6, 'Queen', '302', 150, 'One double bed.'),
 (6, 'Executive', '401', 200, 'Double bed with extra facilities.'), (6, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (7, 'Single', '101', 80, 'One single bed.'), (7, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (7, 'Single', '101', 80, 'One single bed.'), (7, 'Single', '102', 80, 'One single bed.'),
 (7, 'Twin Bed', '201', 130, 'Two single beds.'), (7, 'Twin Bed', '202', 130, 'Two single beds.'), (7, 'Queen', '301', 150, 'One double bed.'), (7, 'Queen', '302', 150, 'One double bed.'),
 (7, 'Executive', '401', 200, 'Double bed with extra facilities.'), (7, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
-INSERT INTO room (hotel_id, room_type, room_no, price, room_description) VALUES (8, 'Single', '101', 80, 'One single bed.'), (8, 'Single', '102', 80, 'One single bed.'),
+INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) VALUES (8, 'Single', '101', 80, 'One single bed.'), (8, 'Single', '102', 80, 'One single bed.'),
 (8, 'Twin Bed', '201', 130, 'Two single beds.'), (8, 'Twin Bed', '202', 130, 'Two single beds.'), (8, 'Queen', '301', 150, 'One double bed.'), (8, 'Queen', '302', 150, 'One double bed.'),
 (8, 'Executive', '401', 200, 'Double bed with extra facilities.'), (8, 'Suite', '501', 320, 'Two double beds with luxury facilities.');
 
@@ -137,7 +137,7 @@ CREATE TABLE `room_status` (
   `status` varchar(45) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `booking_price` float DEFAULT NULL,
   PRIMARY KEY (`status_id`),
   UNIQUE KEY `status_id_UNIQUE` (`status_id`),
   KEY `hotel_id2_idx` (`hotel_id`),
@@ -154,9 +154,9 @@ CREATE TABLE `room_status` (
 LOCK TABLES `room_status` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, price) VALUES
+INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
 (1,1,2,'Booked', '2016-07-28','2016-07-30','100');
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, price) VALUES
+INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
 (1,3,2,'Booked', '2016-07-28','2016-07-30','100');
 
 CREATE TABLE `offer` (
