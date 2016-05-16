@@ -171,40 +171,51 @@ public class UserDAO {
 		return 2;
 	}
 	
-	public void updateUser(String userid,String username, String password, String email) 
+	public int updateUser(User user) 
 	{
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
+		int result = 0;
 		try {
 			Connection connection = o.DBConnect();
-			String sqlInsert = "update user (username, password, email) VALUES (?,?,?) where user_id ="+userid;
+			String query = "select * from user where user_id = " + user.getUserId();
+			ResultSet rs = o.searchDB(connection, query);
+			rs.next();
+			String oldEmail = rs.getString("email");
+			int email_verification = 1;
+			if (oldEmail.equals(user.getEmail())) {
+				email_verification = 0;
+				result = 0;
+			} else {
+				result = 1;
+				email_verification = 1;
+			}
+			
+			
+			String sqlInsert = "update user SET email = ?, nickname = ?, firstname = ?, lastname = ?, "
+					+ "address = ?, credit_card_type = ?, credit_card_number = ?, credit_card_exp_month = ?, "
+					+ "credit_card_exp_year = ?, credit_card_cvv = ?, email_verification = ?"
+					+ " where user_id = ?";
 			pst = connection.prepareStatement(sqlInsert);
-			pst.setString(1, username);
-			pst.setString(2, password);
-			pst.setString(3, email);
-//			full set
-//			String username, String password,
-//			String nickname, String firstname, String lastname, String email,
-//			String birthday, String address, String credit_card_type, String credit_card_number,String credit_card_exp_month,String credit_card_exp_year, String credit_card_cvv
-//			pst.setString(1, username);
-//			pst.setString(2, password);
-//			pst.setString(3, email);
-//			pst.setString(4, nickname);
-//			pst.setString(5, firstname);
-//			pst.setString(6, lastname);
-//			pst.setString(7, address);
-//			pst.setString(8, credit_card_type);
-//			pst.setString(9, credit_card_number);
-//			pst.setString(10, credit_card_exp_month);
-//			pst.setString(11, credit_card_exp_year);
-//			pst.setString(12, credit_card_cvv);
-//			pst.setString(13, "0");
+			pst.setString(1, user.getEmail());
+			pst.setString(2, user.getNickname());
+			pst.setString(3, user.getFirstname());
+			pst.setString(4, user.getLastname());
+			pst.setString(5, user.getAddress());
+			pst.setString(6, user.getCreditCardType());
+			pst.setString(7, user.getCreditCardNum());
+			pst.setString(8, user.getCreditCardExpMonth());
+			pst.setString(9, user.getCreditCardExpYear());
+			pst.setString(10, user.getCreditCardCvv());
+			pst.setInt(11, email_verification);
+			pst.setInt(12, user.getUserId());			
 			pst.executeUpdate();
 			pst.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}	
+		return result;
 	}
 	public User findUpdate(int userId) {
 		User user = new User(userId);

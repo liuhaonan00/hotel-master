@@ -24,9 +24,11 @@
 	if (user.getCreditCardNum() != null) creditNum = user.getCreditCardNum();
 	String cvv = "";
 	if (user.getCreditCardCvv() != null) cvv = user.getCreditCardCvv();
+	System.out.println(user.getUserId());
 
 %>
 <form id = "form" action = "submitupdateprofile" onsubmit="return check(this)" method = "POST">
+	<input type="hidden" name="user_id" value = "<%=user.getUserId()%>"><br>
 	Username:  <%=user.getUsername() %><br>
 	Email: <input type="text" name="email" value = "<%=email %>" ><br>
 	Nickname: <input type="text" name="nickname" value = "<%=nickname %>"><br>
@@ -68,6 +70,7 @@
 		<option value="12" <%if("12".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Dec</option>
 	</select><br>
 	CVV: <input type="text" name="credit_card_cvv" value = "<%=cvv%>"><br>
+	
 	<input type="submit" value="Submit Changes" />
 	
 	

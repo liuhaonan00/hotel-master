@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import businessLogic.javaClass.User;
+import businessLogic.jdbc.UserDAO;
 
 /**
  * Servlet implementation class SubmitUpdateProfile
@@ -35,7 +37,25 @@ public class SubmitUpdateProfileServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+//		System.out.println("Submit Update Servlet");
+		int userId = Integer.parseInt((String)request.getParameter("user_id"));
+		User user = new User(userId);
+		user.setEmail((String)request.getParameter("email"));
+		user.setNickname((String)request.getParameter("nickname"));
+		user.setFirstname((String)request.getParameter("firstname"));
+		user.setLastname((String)request.getParameter("lastname"));
+		user.setAddress((String)request.getParameter("address"));
+		user.setCreditCardType((String)request.getParameter("credit_card_type"));
+		user.setCreditCardNum((String)request.getParameter("credit_card_number"));
+		user.setCreditCardExpYear((String)request.getParameter("credit_card_exp_year"));
+		user.setCreditCardExpMonth((String)request.getParameter("credit_card_exp_month"));
+		user.setCreditCardCvv((String)request.getParameter("credit_card_cvv"));
+		UserDAO u = new UserDAO();
+		int result = u.updateUser(user);
+		System.out.println(result);
+		
+		
+		
 	}
 
 }
