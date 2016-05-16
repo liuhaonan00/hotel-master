@@ -222,6 +222,7 @@ public class UserDAO {
 			user.setLastname(rs.getString("lastname"));
 			user.setAddress(rs.getString("address"));
 			user.setCreditCardType(rs.getString("credit_card_type"));
+			user.setCreditCardNum(rs.getString("credit_card_number"));
 			user.setCreditCardExpMonth(rs.getString("credit_card_exp_month"));
 			user.setCreditCardExpYear(rs.getString("credit_card_exp_year"));
 			user.setCreditCardCvv(rs.getString("credit_card_cvv"));

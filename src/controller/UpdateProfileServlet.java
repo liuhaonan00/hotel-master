@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,7 @@ import businessLogic.javaClass.User;
 
 /**
  * Servlet implementation class UpdateProfileServlet
+ * test http://localhost:8080/Assignment2/update?user_id=1
  */
 
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = "/update")
@@ -33,7 +36,11 @@ public class UpdateProfileServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		int userId = Integer.parseInt(request.getParameter("user_id"));
 		UserDAO u = new UserDAO();
-		
+		User user = u.findUpdate(userId);
+		System.out.println(user.getEmail());
+		request.setAttribute("user", user);
+		RequestDispatcher rd = request.getRequestDispatcher("/updateProfile.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
