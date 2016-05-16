@@ -25,7 +25,7 @@
 	if (user.getCreditCardCvv() != null) cvv = user.getCreditCardCvv();
 
 %>
-<form>
+<form id = "form" action = "submitupdateprofile" method = "POST">
 	Username:  <%=user.getUsername() %><br>
 	Email: <input type="text" name="email" value = "<%=email %>" ><br>
 	Nickname: <input type="text" name="nickname" value = "<%=nickname %>"><br>
@@ -35,7 +35,7 @@
 	<p> Paymrnt Detail:</p><br>
 	Credit Card Type: 
 	<select name="credit_card_type">
-		<option value="no"> Select </option>
+		<option value=""> Select </option>
 		<option value="mastercard" <%if("mastercard".equals(user.getCreditCardType())){%>selected<%}%>>Mastercard</option>
 		<option value="visa" <%if("visa".equals(user.getCreditCardType())){%>selected<%}%>>VISA</option>
 		<option value="amex" <%if("amex".equals(user.getCreditCardType())){%>selected<%}%>>American Express</option>
@@ -43,7 +43,7 @@
 	Credit card number: <input type="text" name="credit_card_number" value = "<%=creditNum%>"><br>
 	Expire Year:
 	<select name="credit_card_exp_year">
-		<option value="no"> Select </option>
+		<option value=""> Select </option>
 		<option value="16" <%if("16".equals(user.getCreditCardExpYear())){%>selected<%}%>>2016</option>
 		<option value="17" <%if("17".equals(user.getCreditCardExpYear())){%>selected<%}%>>2017</option>
 		<option value="18" <%if("18".equals(user.getCreditCardExpYear())){%>selected<%}%>>2018</option>
@@ -52,7 +52,7 @@
 	</select><br>
 	Expire month:
 	<select name="credit_card_exp_month">
-		<option value="no"> Select </option>
+		<option value=""> Select </option>
 		<option value="01" <%if("01".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Jan</option>
 		<option value="02" <%if("02".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Feb</option>
 		<option value="02" <%if("03".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Mar</option>
@@ -67,11 +67,28 @@
 		<option value="12" <%if("12".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Dec</option>
 	</select><br>
 	CVV: <input type="text" name="credit_card_cvv" value = "<%=cvv%>"><br>
-	
+	<input  type="button"  onClick="checkStart()" value="submit changes" />
 	
 	
 	
 </form>
+<script>
+function checkStart(){
+    check(form);
+}
+function check(form) { 
+    for (i=0;i<form.length;i++){
+        var ele = form.elements[i];
+        var msg = ele.getAttribute('message');
+        if(msg && ele.value == ""){ 
+           alert(msg + "cannot be empty!"); 
+           form.elements[i].focus(); 
+           return false; 
+       } 
+   }
+   form.submit();
+}
+
 
 </body>
 </html>

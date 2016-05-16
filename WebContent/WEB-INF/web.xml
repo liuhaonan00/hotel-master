@@ -36,9 +36,13 @@
     <servlet-name>AssignRoomsServlet</servlet-name>
     <servlet-class>controller.AssignRoomsServlet</servlet-class>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>UpdateProfileServlet</servlet-name>
     <servlet-class>controller.UpdateProfileServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SubmitUpdateProfileServlet</servlet-name>
+    <servlet-class>controller.SubmitUpdateProfileServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
@@ -75,5 +79,9 @@
   <servlet-mapping>
     <servlet-name>UpdateProfileServlet</servlet-name>
     <url-pattern>/update</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SubmitUpdateProfileServlet</servlet-name>
+    <url-pattern>/submitupdateprofile</url-pattern>
   </servlet-mapping>
 </web-app>
