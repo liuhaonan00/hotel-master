@@ -9,7 +9,7 @@
 </head>
 <body>
 
-   <h2>Managing hotel: ${manager_hotel.name}</h2>
+   <h2>Managing hotel: ${manager_hotel.hotelName}</h2>
    <em>${manager_message}</em>
 
    <form action="manage" method="POST">
@@ -33,12 +33,12 @@
       <input type="submit" value="Mark selected rooms as available" />
    </form>
 
-   <form action="assignroom" method="POST">
-      <h3>Current Bookings:</h3>
+   <form action="assignrooms" method="POST">
+      <h3>Pending Bookings:</h3>
       <table>
          <tr>
             <!-- Booking user, Start date, End date, Rooms -->
-            <th>Booking user</th>
+            <th>Customer</th>
             <th>Start date</th>
             <th>End date</th>
             <th>Rooms requested</th>
@@ -50,11 +50,30 @@
                <td>${booking.startDate}</td>
                <td>${booking.endDate}</td>
                <td>${booking.roomString}</td>
-               <td>TODO submit button to edit this booking</td>
+               <td><input type="submit" value="Fill rooms for this booking" /><%-- TODO hidden value with booking ID --%></td>
             </tr>
          </c:forEach>
       </table>
    </form>
+
+      <h3>Filled Bookings:</h3>
+      <table>
+         <tr>
+            <!-- Booking user, Start date, End date, Rooms -->
+            <th>Customer</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Rooms assigned</th>
+         </tr>
+         <c:forEach var="booking" items="${manager_bookings}">
+            <tr>
+               <td>${booking.user}</td>
+               <td>${booking.startDate}</td>
+               <td>${booking.endDate}</td>
+               <td>TODO</td>
+            </tr>
+         </c:forEach>
+      </table>
 
    <%--  TODO future bookings? --%>
    <%--  TODO logout --%>

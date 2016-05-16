@@ -32,6 +32,10 @@
     <servlet-name>ManagerServlet</servlet-name>
     <servlet-class>controller.ManagerServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AssignRoomsServlet</servlet-name>
+    <servlet-class>controller.AssignRoomsServlet</servlet-class>
+  </servlet>
    <servlet>
     <servlet-name>UpdateProfileServlet</servlet-name>
     <servlet-class>controller.UpdateProfileServlet</servlet-class>
@@ -63,6 +67,10 @@
   <servlet-mapping>
     <servlet-name>ManagerServlet</servlet-name>
     <url-pattern>/manage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AssignRoomsServlet</servlet-name>
+    <url-pattern>/assignrooms</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UpdateProfileServlet</servlet-name>
