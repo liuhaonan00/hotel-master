@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Update Profile</title>
+ 
 </head>
 <body>
 <%User user = (User)request.getAttribute("user"); 
@@ -25,7 +26,7 @@
 	if (user.getCreditCardCvv() != null) cvv = user.getCreditCardCvv();
 
 %>
-<form id = "form" action = "submitupdateprofile" method = "POST">
+<form id = "form" action = "submitupdateprofile" onsubmit="return check(this)" method = "POST">
 	Username:  <%=user.getUsername() %><br>
 	Email: <input type="text" name="email" value = "<%=email %>" ><br>
 	Nickname: <input type="text" name="nickname" value = "<%=nickname %>"><br>
@@ -67,28 +68,68 @@
 		<option value="12" <%if("12".equals(user.getCreditCardExpMonth())){%>selected<%}%>>Dec</option>
 	</select><br>
 	CVV: <input type="text" name="credit_card_cvv" value = "<%=cvv%>"><br>
-	<input  type="button"  onClick="checkStart()" value="submit changes" />
+	<input type="submit" value="Submit Changes" />
 	
 	
 	
 </form>
-<script>
-function checkStart(){
-    check(form);
-}
-function check(form) { 
-    for (i=0;i<form.length;i++){
-        var ele = form.elements[i];
-        var msg = ele.getAttribute('message');
-        if(msg && ele.value == ""){ 
-           alert(msg + "cannot be empty!"); 
-           form.elements[i].focus(); 
-           return false; 
-       } 
-   }
-   form.submit();
-}
-
+<script type="text/javascript">  
+  
+	function check(form)  
+	{  
+	    if(form.email.value=="")  
+	    {  
+	        alert("Email cannot be empty!");  
+	        return false;  
+	    }  
+	    if(form.nickname.value=="")  
+	    {  
+	        alert("Nickname cannot be empty!");  
+	        return false;  
+	    }  
+	    if(form.firstname.value=="")  
+	    {  
+	        alert("Firstname cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.lastname.value=="")  
+	    {  
+	        alert("Lastname cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.address.value=="")  
+	    {  
+	        alert("Address cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.credit_card_type.value=="")  
+	    {  
+	        alert("Credit card type cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.credit_card_number.value=="")  
+	    {  
+	        alert("Credit card number cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.credit_card_exp_year.value=="")  
+	    {  
+	        alert("Credit card expire year cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.credit_card_exp_month.value=="")  
+	    {  
+	        alert("Credit card expire month cannot be empty!");  
+	        return false;  
+	    } 
+	    if(form.credit_card_cvv.value=="")  
+	    {  
+	        alert("Credit card CVV month cannot be empty!");  
+	        return false;  
+	    } 
+	    return true;  
+	}    
+</script> 
 
 </body>
 </html>
