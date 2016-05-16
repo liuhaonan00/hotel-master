@@ -25,14 +25,17 @@
     <servlet-class>controller.BookingServlet</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>AvailabilityServlet</servlet-name>
-  	<servlet-class>controller.AvailabilityServlet</servlet-class>
+    <servlet-name>AvailabilityServlet</servlet-name>
+    <servlet-class>controller.AvailabilityServlet</servlet-class>
   </servlet>
   <servlet>
-   <servlet-name>ManagerServlet</servlet-name>
-   <servlet-class>controller.ManagerServlet</servlet-class>
+    <servlet-name>ManagerServlet</servlet-name>
+    <servlet-class>controller.ManagerServlet</servlet-class>
   </servlet>
-  
+   <servlet>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <servlet-class>controller.UpdateProfileServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
@@ -45,20 +48,24 @@
     <servlet-name>SearchServlet</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
-   <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>EmailVerifyServlet</servlet-name>
     <url-pattern>/emailverify</url-pattern>
-     </servlet-mapping>
-   <servlet-mapping>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>BookingServlet</servlet-name>
     <url-pattern>/booking</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>AvailabilityServlet</servlet-name>
-  	<url-pattern>/availability</url-pattern>
+    <servlet-name>AvailabilityServlet</servlet-name>
+    <url-pattern>/availability</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-   <servlet-name>ManagerServlet</servlet-name>
-   <url-pattern>/manage</url-pattern>
+    <servlet-name>ManagerServlet</servlet-name>
+    <url-pattern>/manage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateProfileServlet</servlet-name>
+    <url-pattern>/update</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -9,6 +9,7 @@ import java.sql.*;
 
 import businessLogic.javaClass.*;
 import businessLogic.library.*;
+import businessLogic.javaClass.User;
 public class UserDAO {
 	
 	public int findUser(String user,String password) {
@@ -203,7 +204,31 @@ public class UserDAO {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}		
+	}
+	public User findUpdate(int userId) {
+		User user = new User(userId);
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "select * from user where user_id = "+String.valueOf(userId);
+		ResultSet rs = o.searchDB(connection, query);
+		try {
+			rs.next();
+			user.setUsername(rs.getString("username"));
+			user.setPassword(rs.getString("password"));
+			user.setEmail(rs.getString("email"));
+			user.setNickname(rs.getString("nickname"));
+			user.setFirstname(rs.getString("firstname"));
+			user.setLastname(rs.getString("lastname"));
+			user.setAddress(rs.getString("address"));
+			user.setCreditCardType(rs.getString("credit_card_type"));
+			user.setCreditCardExpMonth(rs.getString("credit_card_exp_month"));
+			user.setCreditCardExpYear(rs.getString("credit_card_exp_year"));
+			user.setCreditCardCvv(rs.getString("credit_card_cvv"));
+			user.setEmailVerification(rs.getInt("email_verification"));
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
+		return user;
 	}
 }

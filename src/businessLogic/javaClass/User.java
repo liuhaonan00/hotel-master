@@ -12,9 +12,9 @@ public class User {
 	private boolean emailVerification;
 	private String creditCardType;
 	private String creditCardNum;
-	private int creditCardExpMonth;
-	private int creditCardExpYear;
-	private int creditCardCvv;
+	private String creditCardExpMonth;
+	private String creditCardExpYear;
+	private String creditCardCvv;
 	
 	public User() {
 		
@@ -33,9 +33,9 @@ public class User {
 		this.emailVerification = false;
 		this.creditCardType = "";
 		this.creditCardNum = "";
-		this.creditCardExpMonth = -1;
-		this.creditCardExpYear = -1;
-		this.creditCardCvv = -123;
+		this.creditCardExpMonth = "";
+		this.creditCardExpYear = "";
+		this.creditCardCvv = "";
 		
 		
 	}
@@ -119,24 +119,24 @@ public class User {
 		this.creditCardNum = CreditCardNum;
 	}
 	
-	public int getCreditCardExpMonth() {
+	public String getCreditCardExpMonth() {
 		return creditCardExpMonth;
 	}
-	public void setCreditCardExpMonth(int CreditCardExpMonth) {
+	public void setCreditCardExpMonth(String CreditCardExpMonth) {
 		this.creditCardExpMonth = CreditCardExpMonth;
 	}
 	
-	public int getCreditCardExpYear() {
+	public String getCreditCardExpYear() {
 		return creditCardExpYear;
 	}
-	public void setCreditCardExpYear(int CreditCardExpYear) {
+	public void setCreditCardExpYear(String CreditCardExpYear) {
 		this.creditCardExpYear = CreditCardExpYear;
 	}
 	
-	public int getCreditCardCvv() {
+	public String getCreditCardCvv() {
 		return creditCardCvv;
 	}
-	public void setCreditCardCvv(int CreditCardCvv) {
+	public void setCreditCardCvv(String CreditCardCvv) {
 		this.creditCardCvv = CreditCardCvv;
 	}
 }
