@@ -20,7 +20,7 @@ public class MaintenanceServlet extends HttpServlet {
 		Connection connection = o.DBConnect();
 		String query = "SELECT room_no FROM room WHERE room_id IN (SELECT room_id FROM room_status WHERE room_status.status = 'maintenance' AND room_status.hotel_id = " + hotel_id + ")";
 		ResultSet rs = o.searchDB(connection, query);
-		ArrayList<String> maintRooms = new ArrayList<>();
+		ArrayList<String> maintRooms = new ArrayList<String>();
 		while(rs.next()){
 			String i = rs.getString(1);
 			maintRooms.add(i);
@@ -34,7 +34,7 @@ public class MaintenanceServlet extends HttpServlet {
 		Connection connection = o.DBConnect();
 		String query = "SELECT room_no FROM room WHERE room_id IN (SELECT room_id FROM room_status WHERE room_status.status = 'occupied' AND room_status.hotel_id = " + hotel_id + ")";
 		ResultSet rs = o.searchDB(connection, query);
-		ArrayList<String> occRooms = new ArrayList<>();
+		ArrayList<String> occRooms = new ArrayList<String>();
 		while(rs.next()){
 			String i = rs.getString(1);
 			occRooms.add(i);
@@ -44,8 +44,8 @@ public class MaintenanceServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String hotel_id = request.getParameter("hotel");
-		ArrayList<String> maintRooms = new ArrayList<>();
-		ArrayList<String> occRooms = new ArrayList<>();
+		ArrayList<String> maintRooms = new ArrayList<String>();
+		ArrayList<String> occRooms = new ArrayList<String>();
 		try{
 			maintRooms = maintenanceRoomNames(hotel_id);
 			occRooms = occupiedRoomNames(hotel_id);
