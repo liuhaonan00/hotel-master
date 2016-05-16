@@ -68,6 +68,19 @@ public class MaintenanceServlet extends HttpServlet {
 		return hotelName;
 	}
 	
+	public String getRoom_Id(String hotel_id, String room_no) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT room_id FROM room WHERE (room.hotel_id = hotel_id AND room.room_no = room_no)";
+		ResultSet rs = o.searchDB(connection, query);
+		String roomID = "";
+		while(rs.next()){
+			roomID = rs.getString(1);
+		}
+		return roomID;
+	}
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String hotel_id = ""; 
@@ -97,11 +110,29 @@ public class MaintenanceServlet extends HttpServlet {
 		
 		String maintHotelName = "";
 		String maintRoomName = "";
-		
+		maintHotelName = request.getParameter("hidden");
+		maintRoomName = request.getParameter("roomRepair");
+		Statement stmt = null;
+		String mHotelName = "";
+		String roomID = "";
+		if (maintHotelName.length() > 0){
+			
+			try{
+				
+			MysqlOperation o = new MysqlOperation();
+			Connection connection = o.DBConnect();
+			stmt = connection.createStatement();
+			mHotelName = getHotel_Id(maintHotelName);
+			String roomID = getRoom_Id();
+			String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date)";
+			}catch (Exception e){
+				e.printStackTrace();
+			}
 		
 		
 		
 
 }
 
+}
 }
