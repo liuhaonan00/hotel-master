@@ -33,7 +33,13 @@ public class ShoppingCartServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ShoppingCart> thisCart = new ArrayList<ShoppingCart>();
+		
+		if (request.getSession().getAttribute("current_user_id") == null){
+			request.getRequestDispatcher("signup.jsp").forward(request,response);	
+		}
 		int user_id = ((Integer)request.getSession().getAttribute("current_user_id")).intValue();
+		// for test only
+//		int user_id = 1;
 		if(request.getSession().getAttribute("ShoppingCart") != null){
 			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
 		}
@@ -57,16 +63,16 @@ public class ShoppingCartServlet extends HttpServlet {
 		String username = (String)request.getSession().getAttribute("current_user");
 		String email = userDAO.getEmail(user_id);
 		EmailApi emailapi = new EmailApi();
-<<<<<<< HEAD
+
 		//EmailApi.sendBookingConfirmation(bookingid,username,email,pin);
 
-=======
+
 		emailapi.sendBookingConfirmation(bookingid,username,email,pin);
 //		for (int i =0;i<thisCart.size();i++){
 			
 //			//shoppingcart.insert(thisCart.get(i),uesr_id);
 //		}
->>>>>>> 5a77f451bf0d10f149bd0088cbe34d7c2c70f6c2
+
 		request.getSession().setAttribute("ShoppingCart", null);
 		request.getRequestDispatcher("thankyou.jsp").forward(request,response);	
 		
