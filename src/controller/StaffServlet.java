@@ -33,7 +33,12 @@ public class StaffServlet extends HttpServlet {
       // TODO if it's a logout request, invalidate the session
       // TODO else if they're logged in as manager, redirect to manager
       // TODO else if they're logged in as owner, redirect to owner
-      // TODO else just show the login page
+      // TODO else
+      {
+         // first visit so, just show the staff login page
+         RequestDispatcher rd = request.getRequestDispatcher("/staff.jsp");
+         rd.forward(request, response);
+      }
    }
 
    /**
@@ -44,28 +49,40 @@ public class StaffServlet extends HttpServlet {
       String username = request.getParameter("staff_username");
       String password = request.getParameter("staff_pswd");
 
-      UserDAO userDao = new UserDAO();
-      if (userDao.findOwner(username, password)) {
-         // TODO set valid owner session
-         // TODO redirect to owner page
+      if (request.getParameter("staff_login") == null) {
+         // not actually requesting with the login form
+         doGet(request, response);
       } else {
-         int checkHotelID = userDao.findManager(username, password);
-         if (checkHotelID < 0) {
-            // don't want to give as much detail as to customers; either they're legit management or they're not.
-            // TODO login error
+         UserDAO userDao = new UserDAO();
+         if (userDao.findOwner(username, password)) {
+            // TODO set valid owner session
+            response.sendRedirect(request.getContextPath() + "/availability");
+
          } else {
-            // TODO set valid manager session
-            HotelDAO hotelDao = new HotelDAO();
-            try {
-               Hotel realHotel = hotelDao.findHotelById(checkHotelID);
-               request.getSession().setAttribute("manager_hotel", realHotel);
-            } catch (SQLException e) {
-               Hotel failHotel = new Hotel();
-               failHotel.setHotelName("Error");
-               request.getSession().setAttribute("manager_hotel", failHotel);
-               e.printStackTrace();
+            int checkHotelID = userDao.findManager(username, password);
+            if (checkHotelID < 0) {
+               // don't want to give as much detail as to customers; either they're legit management or they're not.
+               request
+                     .setAttribute("staff_error",
+                           "Invalid username or password. Please ask your supervisor, or return to the home page to log in as a customer.");
+               RequestDispatcher rd = request.getRequestDispatcher("/staff.jsp");
+               rd.forward(request, response);
+
+            } else {
+               // TODO set valid manager session
+               HotelDAO hotelDao = new HotelDAO();
+               try {
+                  Hotel realHotel = hotelDao.findHotelById(checkHotelID);
+                  request.getSession().setAttribute("manager_hotel", realHotel);
+               } catch (SQLException e) {
+                  Hotel failHotel = new Hotel();
+                  failHotel.setHotelName("Error");
+                  request.getSession().setAttribute("manager_hotel", failHotel);
+                  e.printStackTrace();
+               }
+               response.sendRedirect(request.getContextPath() + "/manage");
             }
-            // TODO redirect to manage page
+
          }
       }
    }

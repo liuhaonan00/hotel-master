@@ -8,7 +8,6 @@
 <title>Manager Interface: Assign rooms</title>
 </head>
 <body>
-<%@ include file="Header.jsp" %>
 
    <h2>Booking for ${assign_user}</h2>
    <em>${assign_message}</em>
