@@ -87,6 +87,46 @@ public int findUser(String user,String password) {
       return result;
    }
    
+   /**
+    * @return true if valid owner, or false if invalid
+    */
+   public boolean findOwner(String user, String password) {
+      // TODO if we store the owner in the database, implement it here
+      //      int result = -1; //-1 =  fail;
+      //      MysqlOperation o = new MysqlOperation();
+      //      Connection connection = o.DBConnect();
+      //      Md5Encryption md5 = new Md5Encryption();
+      ////    password = md5.MD5(password);
+      //      String query = "select * from manager where "+ "username = '" + user + "'";
+      //      System.out.println(query);
+      //      ResultSet rs = o.searchDB(connection, query);
+      //      String pass = null;
+      //      try {
+      //         if(!rs.next()) {
+      //            result = -1;
+      //            System.out.println("No such user!");
+      //         }
+      //         else {
+      //            pass = rs.getString("password");
+      //            if (pass.equals(md5.MD5(password))) {
+      //               result = rs.getInt("hotel_id"); //return hotel ID;
+      //               System.out.println("login successful!");
+      //            } else {
+      //               result = -1;
+      //               System.out.println("wrong password!");
+      //            }
+      //         }
+      //         
+      //      } catch (SQLException e) {
+      //         // TODO Auto-generated catch block
+      //         e.printStackTrace();
+      //      }
+      //
+      //      o.closeDB(connection);
+      //      return result;
+      return ("Owner".equals(user) && "secure".equals(password));
+   }
+   
 	//call this only if pass the above one
 	//wait... I don't need it
 	public String findOneUser(String user,String password) {
