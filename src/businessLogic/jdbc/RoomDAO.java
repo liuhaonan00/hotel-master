@@ -370,6 +370,19 @@ public class RoomDAO {
 		}
 		return periods;
 	}
+	
+	public String getCity(String hotel_id) throws SQLException {
+		String city = "";
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT city FROM hotel WHERE hotel.hotel_id = '" + hotel_id + "'";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			city = rs.getString(1);
+		}
+		return city;
+		
+	}
 		
 	
 }

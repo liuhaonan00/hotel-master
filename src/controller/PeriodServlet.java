@@ -33,15 +33,11 @@ public class PeriodServlet extends HttpServlet {
     	java.sql.Date dateStart = java.sql.Date.valueOf(pStart);
 		java.sql.Date dateEnd = java.sql.Date.valueOf(pEnd);
 		int pIncrease = Integer.valueOf(StringIncrease);
+		OwnerDAO ownerdao = new OwnerDAO();
 		
 		try{
 		
-		MysqlOperation o = new MysqlOperation();
-		Connection connection = o.DBConnect();
-		Statement stmt = connection.createStatement();
-		String insert = "INSERT INTO peakperiod (period_name, price_increase, start, end) VALUES ('"
-				+ pName + "'," + pIncrease + ",'" + dateStart + "','" + dateEnd + "')";
-		stmt.executeUpdate(insert);
+		ownerdao.insertPeriod(pName, pIncrease, dateStart, dateEnd);
 		rd.forward(request, response);
 		
 		}catch (Exception e){
@@ -51,13 +47,10 @@ public class PeriodServlet extends HttpServlet {
 		
 		String rName = "";
 		if(request.getParameter("removeName") != null){
+			OwnerDAO ownerdao2 = new OwnerDAO();
 			try{
 			rName = request.getParameter("removeName");
-			MysqlOperation o = new MysqlOperation();
-			Connection connection = o.DBConnect();
-			Statement stmt = connection.createStatement();
-			String delete = "DELETE FROM peakperiod WHERE period_name = '" + rName + "'";
-			stmt.executeUpdate(delete);
+			ownerdao2.removePeriod(rName);	
 			rd.forward(request, response);
 			}catch (Exception e){
 				e.printStackTrace();

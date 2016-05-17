@@ -1,4 +1,6 @@
 package businessLogic.javaClass;
+import businessLogic.jdbc.*;
+import java.sql.*;
 
 public class Room {
 	private int roomID;
@@ -29,8 +31,12 @@ public class Room {
 	public int getHotelId() {
 		return hotelID;
 	}
-	public void setHotelId(int HotelID) {
+	public void setHotelId(int HotelID) throws SQLException {
 		this.hotelID = HotelID;
+		String hotel_id = String.valueOf(this.hotelID);
+		RoomDAO roomdao = new RoomDAO();
+		String city2 = roomdao.getCity(hotel_id);
+		setCity(city2);
 	}
 	
 	public String getRoomType() {

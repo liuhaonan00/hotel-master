@@ -61,23 +61,17 @@ if (request.getSession().getAttribute("logged_in_owner") == null) {
 			for (String roomString : maintRoomStringNumbers){
 			
 			try{
-			MysqlOperation o = new MysqlOperation();
-			Connection connection = o.DBConnect();
-			stmt = connection.createStatement();
 			String mHotelId = roomdao.getHotel_Id(maintHotelStringName);
 			String roomID = roomdao.getRoom_Id(mHotelId, roomString);
+			OwnerDAO ownerdao = new OwnerDAO(); 
 
 			int roomExist = roomdao.checkRecord(roomID);
 			
 			if (roomExist == 0){
-				String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date) VALUES"
-				+ "(" + mHotelId + "," + roomID + ",'maintenance','" + dateNow + "','" + dateEnd + "')";
-				stmt.executeUpdate(sql);
+				ownerdao.insertMaint(mHotelId, roomID, dateNow, dateEnd);
 
 			} else if (roomExist != 0){
-				String sql = "DELETE FROM room_status WHERE room_status.room_id = " + roomID;
-				stmt.executeUpdate(sql);
-
+				ownerdao.removeMaint(roomID);
 			}
 		
 			}catch (Exception e){

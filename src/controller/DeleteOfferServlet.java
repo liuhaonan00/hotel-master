@@ -28,14 +28,10 @@ import javax.servlet.http.HttpServletResponse;
 			String roomType = request.getParameter("roomType");
 			RoomDAO roomdao = new RoomDAO();
 			RequestDispatcher rd = request.getRequestDispatcher("availability");
+			OwnerDAO ownerdao = new OwnerDAO();
 			try{
 			String hotel_id = roomdao.getHotel_Id(hotelName);
-			
-			MysqlOperation o = new MysqlOperation();
-			Connection connection = o.DBConnect();
-			Statement stmt = connection.createStatement();
-			String delete = "DELETE FROM offer WHERE offer.hotel_id = " + hotel_id + " AND offer.room_type = '" + roomType + "'";
-			stmt.executeUpdate(delete);
+			ownerdao.removeOffer(hotel_id, roomType);
 			
 			}catch (Exception e){
 				e.printStackTrace();
