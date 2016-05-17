@@ -299,9 +299,47 @@ public class RoomDAO {
 
 	}
 	
-	
+
 	public void markRoomFree(int room_id){
 		
+	}
+	// to get all offers
+	public ArrayList<Offer> getOffers() throws SQLException{
+		ArrayList<Offer> offers = new ArrayList<Offer>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT offer_price, hotel_id, room_type, start, end FROM offer";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Offer offer = new Offer();
+			offer.setDiscount(rs.getFloat(1));
+			offer.setHotel_name(rs.getString(2));
+			offer.setRoom_type(rs.getString(3));
+			offer.setStartDate(rs.getString(4));
+			offer.setEndDate(rs.getString(5));
+			offers.add(offer);
+		}
+
+		return offers;
+	}
+	//to get offers for a specific hotel
+	public ArrayList<Offer> getOffersForHotel(String hotel_id) throws SQLException{
+		ArrayList<Offer> offers = new ArrayList<Offer>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT offer_price, hotel_id, room_type, start, end FROM offer WHERE offer.hotel_id = " + hotel_id;
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Offer offer = new Offer();
+			offer.setDiscount(rs.getFloat(1));
+			offer.setHotel_name(rs.getString(2));
+			offer.setRoom_type(rs.getString(3));
+			offer.setStartDate(rs.getString(4));
+			offer.setEndDate(rs.getString(5));
+			offers.add(offer);
+		}
+
+		return offers;
 	}
 	
 	

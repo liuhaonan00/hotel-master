@@ -3,13 +3,16 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.sql.*;
+
 import businessLogic.jdbc.*;
 import businessLogic.javaClass.*;
 
@@ -30,6 +33,7 @@ public class AvailabilityServlet extends HttpServlet {
     	RequestDispatcher rd = request.getRequestDispatcher("/owner.jsp");
 		int occupancy[] = {0,0,0,0,0,0,0,0,0};
 		RoomDAO roomdao = new RoomDAO();
+		ArrayList<Offer> offers = new ArrayList<Offer>();
 		
 		try{
 		occupancy[1] = roomdao.unavailablerooms(1);
@@ -40,7 +44,8 @@ public class AvailabilityServlet extends HttpServlet {
 		occupancy[6] = roomdao.unavailablerooms(6);
 		occupancy[7] = roomdao.unavailablerooms(7);
 		occupancy[8] = roomdao.unavailablerooms(8);
-
+		offers = roomdao.getOffers();
+		
 		}catch (Exception e){
 			e.printStackTrace();
 		}
@@ -55,7 +60,9 @@ public class AvailabilityServlet extends HttpServlet {
 		occs.put("Rampage-PER-1", occupancy[7]);
 		occs.put("Rampage-HOB-1", occupancy[8]);
 		
+		
 		request.setAttribute("occupancies", occs);
+		request.setAttribute("offers", offers);
 		rd.forward(request, response);
     }
 }

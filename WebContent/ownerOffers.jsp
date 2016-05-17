@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ page import="java.util.*" %>
-<%@  taglib  prefix="c"   uri="http://java.sun.com/jsp/jstl/core"  %>    
-    
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*"%>
+<%@ page import="businessLogic.javaClass.*"%>
+<%@  taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-ArrayList<String> rooms = new ArrayList(Arrays.asList("101", "102", "201", "202", "301", "302", "401", "501"));
+	ArrayList<Offer> hotelOffers = (ArrayList<Offer>) request.getAttribute("hotelOffers");
+pageContext.setAttribute("offers", hotelOffers);
 String hotelName = (String) request.getAttribute("hotelName");
 pageContext.setAttribute("hotel", hotelName);
 %>
@@ -25,32 +28,50 @@ function isNumberKey(evt){
 </head>
 <body>
 
-<h1>Special Offers: <c:out value="${hotel}" /></h1>
+	<h1>
+		Special Offers:
+		<c:out value="${hotel}" />
+	</h1>
 
-<h2>Create Offer</h2>
-<form action = "offers">
-			<INPUT TYPE="radio" NAME="roomType" VALUE="Single" CHECKED>
-             Single<BR>
-            <INPUT TYPE="radio" NAME="roomType" VALUE="Twin Bed">
-             Twin Bed<BR>
-            <INPUT TYPE="radio" NAME="roomType" VALUE="Queen">
-             Queen<BR>
-            <INPUT TYPE="radio" NAME="roomType" VALUE="Executive">
-            Executive<BR>
-            <INPUT TYPE="radio" NAME="roomType" VALUE="Suite">
-            Suite<BR>
-            
-            Price <input name="price" type="text" onkeypress="return isNumberKey(event)"/><BR>
-            Start Date <input type="date" name="startDate"><BR>
-            End Date <input type="date" name="endDate"><BR>
+	<h2>Create Offer</h2>
+	<form action="offers">
+		<INPUT TYPE="radio" NAME="roomType" VALUE="Single" CHECKED>Single<BR> 
+		<INPUT TYPE="radio" NAME="roomType" VALUE="Twin Bed">Twin Bed<BR> 
+		<INPUT TYPE="radio" NAME="roomType" VALUE="Queen">Queen<BR> 
+		<INPUT TYPE="radio" NAME="roomType" VALUE="Executive">Executive<BR> 
+		<INPUT TYPE="radio" NAME="roomType" VALUE="Suite">Suite<BR>
+		Discount Percentage <input name="price" type="text" onkeypress="return isNumberKey(event)" maxlength="2" /><BR>
+		Start Date <input type="date" name="startDate"><BR> 
+		End	Date <input type="date" name="endDate"><BR> 
+		<input type="hidden" name="hidden" value="<c:out value='${hotel}'/>">
+		<input type="submit" value="Submit">
+	</form>
+	
 
-            <input type="hidden" name="hidden" value=<c:out value='${hotel}'/>>
-  <input type="submit" value="Submit">
-
-</form>
-
-
-
+	<c:if test="${hotelOffers.size() > 0}">
+	<h2>Remove Offer </h2>
+		<form action="deleteoffers">
+			<table>
+				<tr>
+					<th>Room Type</th>
+					<th>Discount</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Select</th>
+				</tr>
+				<c:forEach items="${offers}" var ="offer">
+					<td><c:out value="${offer.getRoom_type()}"/></td>	
+					<td><fmt:formatNumber value="${offer.getDiscount() * 100}" maxFractionDigits="0" />%</td>
+					<td><c:out value="${offer.getStartDate()}"/></td>
+					<td><c:out value="${offer.getEndDate()}"/></td>
+					<td><INPUT TYPE="radio" NAME="roomType" VALUE="<c:out value="${offer.getRoom_type()}"/>" CHECKED></td>
+				</c:forEach>	
+				
+			</table>
+			<input type="hidden" name="hidden" value="<c:out value='${hotel}'/>">
+			<input type="submit" value="Submit">
+		</form>
+	</c:if>
 
 
 

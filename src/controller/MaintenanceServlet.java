@@ -69,13 +69,11 @@ public class MaintenanceServlet extends HttpServlet {
 				String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date) VALUES"
 				+ "(" + mHotelId + "," + roomID + ",'maintenance','" + dateNow + "','" + dateEnd + "')";
 				stmt.executeUpdate(sql);
-				connection.commit();
 
 			} else if (roomExist != 0){
 				String sql = "DELETE FROM room_status WHERE room_status.room_id = " + roomID;
 				stmt.executeUpdate(sql);
-				connection.commit();
-		
+
 			}
 		
 			}catch (Exception e){
