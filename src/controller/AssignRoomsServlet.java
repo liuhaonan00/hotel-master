@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,8 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Room;
 import businessLogic.javaClass.TypeRequest;
+import businessLogic.jdbc.RoomDAO;
 
 /**
  * Servlet implementation class AssignRoomsServlet
@@ -38,17 +41,19 @@ public class AssignRoomsServlet extends HttpServlet {
       // post to assignrooms is either an initial showing of the booking & available rooms
       // or a request to assign particular rooms
 
-      // TODO if (valid session)
-      {
+      if (request.getSession().getAttribute("logged_in_manager") == null) {
+         response.sendRedirect(request.getContextPath() + "/staff");
+      } else {
          if (request.getParameter("assign_setting_rooms") == null) {
             // manager has just chosen this booking...
             String bookingID = request.getParameter("id_to_book");
 
             // TODO: retrieve the actual booking by ID
-
-            // TODO retrieve the actual user from the booking
-            String userName = "fake user";
-            request.setAttribute("assign_user", userName);
+            Booking booking = new Booking();
+            booking.setUser("fake user");
+            
+            // pass on the booking's user
+            request.setAttribute("assign_user", booking.getUser());
 
             // TODO: get requested room types for the booking
             // TODO: find available rooms of required types (or all available rooms?)
@@ -88,22 +93,27 @@ public class AssignRoomsServlet extends HttpServlet {
          } else {
             // manager is selecting rooms
 
-            // TODO: obtain all the selected rooms submitted
             String[] roomIDs = request.getParameterValues("assign_rooms");
-            List<Room> assignedRooms = new LinkedList<Room>(); // possibly just to test?
+            List<Room> assignedRooms = new LinkedList<Room>();
 
             if (roomIDs != null) {
+               RoomDAO roomDao = new RoomDAO();
                for (String roomID : roomIDs) {
-                  // TODO: set the actual room to available in the database!
-                  Room room = new Room();
-                  room.setRoomId(Integer.parseInt(roomID));
-                  assignedRooms.add(room);
+                  // obtain all the selected rooms submitted
+                  try {
+                     assignedRooms.add(roomDao.findRoomById(Integer.parseInt(roomID)));
+                  } catch (NumberFormatException e) {
+                     e.printStackTrace();
+                  } catch (SQLException e) {
+                     e.printStackTrace();
+                  }
                }
             }
 
             // TODO (restriction once the base is working) check if the correct number of rooms for requests is given
             {
-               // TODO assign them to the booking
+               // TODO mark the rooms as occupied
+               // TODO mark the booking as filled
                request.setAttribute("assign_message", "Room(s) assigned successfully!");
                request.setAttribute("assign_succeeded", true);
 
@@ -116,8 +126,5 @@ public class AssignRoomsServlet extends HttpServlet {
             rd.forward(request, response);
          }
       }
-      // TODO else {
-      // TODO redirect to staff login servlet
-      //}
    }
 }
