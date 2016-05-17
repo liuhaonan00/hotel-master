@@ -83,7 +83,7 @@ public class BookingDAO {
 		ArrayList<Booking> bookings= new ArrayList<Booking>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
+		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		if (rs != null){

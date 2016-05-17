@@ -27,7 +27,7 @@ e.printStackTrace();
 </head>
 <body>
 <%@ include file="Header.jsp" %>
-	<h2>Welcome to RAMPAGE PENTAKILL HOTELS</h2><br>
+	<h2>Welcome to RAMPAGE HOTELS</h2><br>
 		<form action = "search.jsp">
 				<input type="submit"  value="Search for booking" class="button"/>	
 			</form><br>

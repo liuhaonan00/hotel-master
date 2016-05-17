@@ -27,6 +27,9 @@ function isNumberKey(evt){
 <title>Manage Special Offers</title>
 </head>
 <body>
+<form action="availability">
+<input type="submit" value="Go Back to Owner Page">
+</form>
 
 	<h1>
 		Special Offers:
@@ -60,11 +63,13 @@ function isNumberKey(evt){
 					<th>Select</th>
 				</tr>
 				<c:forEach items="${offers}" var ="offer">
+				<tr>
 					<td><c:out value="${offer.getRoom_type()}"/></td>	
 					<td><fmt:formatNumber value="${offer.getDiscount() * 100}" maxFractionDigits="0" />%</td>
 					<td><c:out value="${offer.getStartDate()}"/></td>
 					<td><c:out value="${offer.getEndDate()}"/></td>
 					<td><INPUT TYPE="radio" NAME="roomType" VALUE="<c:out value="${offer.getRoom_type()}"/>" CHECKED></td>
+					</tr>
 				</c:forEach>	
 				
 			</table>

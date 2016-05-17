@@ -1,1 +1,1 @@
-select * from offer;
+select * from room;

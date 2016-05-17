@@ -50,28 +50,23 @@ public class OfferServlet extends HttpServlet {
 		
 		startDate = request.getParameter("startDate");
 		endDate = request.getParameter("endDate");
+		OwnerDAO ownerdao = new OwnerDAO();
 		
 		if ( startDate != null && startDate.length() > 0){
 			disc1 = Float.parseFloat(request.getParameter("price"));
 			float discount = disc1 / 100;
-			MysqlOperation o = new MysqlOperation();
-			Connection connection = o.DBConnect();
-			  //INSERT INTO offer (offer_price, hotel_id, room_type, start, end) VALUES (?,?,?,?,?)
 			try{
-				Statement stmt = connection.createStatement();
 				RequestDispatcher rd = request.getRequestDispatcher("availability");
 				String oHotelId = roomdao.getHotel_Id(hotelName);
 				java.sql.Date dateStart = java.sql.Date.valueOf(startDate);
 				java.sql.Date dateEnd = java.sql.Date.valueOf(endDate);
-				String insert = "INSERT INTO offer (offer_price, hotel_id, room_type, start, end) VALUES ("
-						+ discount +"," + oHotelId + ",'" + roomType + "','" + dateStart + "','" + dateEnd + "')";
-				String delete = "DELETE FROM offer WHERE offer.hotel_id = " + oHotelId + " AND offer.room_type = '" + roomType + "'";		
+
 				if ((roomdao.checkOffer(oHotelId, roomType)) == 0) {
-					stmt.executeUpdate(insert);
+					ownerdao.insertOffer(discount, oHotelId, roomType, dateStart, dateEnd);
 				}
 				if ((roomdao.checkOffer(oHotelId, roomType)) != 0) {
-					stmt.executeUpdate(delete);	
-					stmt.executeUpdate(insert);
+					ownerdao.removeOffer(oHotelId, roomType);	
+					ownerdao.insertOffer(discount, oHotelId, roomType, dateStart, dateEnd);
 					}
 
 				rd.forward(request, response);

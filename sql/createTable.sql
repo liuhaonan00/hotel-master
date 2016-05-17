@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `manager`;
 DROP TABLE IF EXISTS `hotel`;
+DROP TABLE IF EXISTS `peakperiod`;
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -209,6 +210,8 @@ INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, bookin
 (1,1,'repair', '2016-07-28','2016-07-30','100');
 INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
 (1,3,'repair', '2016-07-28','2016-07-30','100');
+INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
+(2,10,'occupied', '2016-05-10','2016-05-20','800');
 
 CREATE TABLE `offer` (
   `offer_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -228,5 +231,20 @@ CREATE TABLE `offer` (
 --
 LOCK TABLES `offer` WRITE;
 UNLOCK TABLES;
+
 INSERT INTO offer (offer_price, hotel_id, room_type,start, end) VALUES
 (50,1,'Queen', '2016-07-28','2016-07-30');
+
+CREATE TABLE `peakperiod` (
+`period_id` int(11) NOT NULL AUTO_INCREMENT,
+`period_name` varchar(50) DEFAULT NULL,
+`price_increase` int(11) DEFAULT NULL,
+`start` date DEFAULT NULL,
+`end` date DEFAULT NULL,
+PRIMARY KEY (`period_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `offer` WRITE;
+UNLOCK TABLES;
+
+

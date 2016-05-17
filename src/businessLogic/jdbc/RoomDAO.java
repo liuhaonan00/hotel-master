@@ -145,7 +145,7 @@ public class RoomDAO {
       ArrayList<Room> occRooms = new ArrayList<Room>();
       MysqlOperation o = new MysqlOperation();
       Connection connection = o.DBConnect();
-      String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and hotel_id="
+      String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and room.hotel_id="
             + "" + hotel_id;
       System.out.println(query);
       ResultSet rs = o.searchDB(connection, query);
@@ -353,5 +353,36 @@ public class RoomDAO {
 		return offers;
 	}
 	
+	public ArrayList<Period> getPeriods() throws SQLException{
+		ArrayList<Period> periods= new ArrayList<Period>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * FROM peakperiod";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Period period = new Period();
+			period.setPeriodID(rs.getInt(1));
+			period.setPeriodName(rs.getString(2));
+			period.setPriceIncrease(rs.getInt(3));
+			period.setStartDate(rs.getString(4));
+			period.setEndDate(rs.getString(5));
+			periods.add(period);
+		}
+		return periods;
+	}
+	
+	public String getCity(String hotel_id) throws SQLException {
+		String city = "";
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT city FROM hotel WHERE hotel.hotel_id = '" + hotel_id + "'";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			city = rs.getString(1);
+		}
+		return city;
+		
+	}
+		
 	
 }

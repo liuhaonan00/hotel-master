@@ -52,10 +52,10 @@
 	</table>
 	
 	<h2> Add/Remove Maintenance Status</h2>
-	<form action="maintenance">
+	<form name ="form" action="maintenance">
 	<c:forEach items="${rooms}" var="room2">
 	<c:if test="${!fn:contains(occs, room2)}">
-	<input type="checkbox" name="roomRepair" VALUE=<c:out value="${room2}"/>><c:out value="${room2}"/><BR>
+	<input type="checkbox" name="roomRepair" id="roomRepair" VALUE=<c:out value="${room2}"/>><c:out value="${room2}"/><BR>
 	</c:if>
 	</c:forEach>
 	<input type="hidden" name="hidden" value=<c:out value='${hotel}'/>>
