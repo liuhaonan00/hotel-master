@@ -177,9 +177,9 @@ UNLOCK TABLES;
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`) 
-VALUES (NULL, 2, 1, 'Queen', 1, 1,0),
-(NULL, 2, 1, 'Single', 1, 0,0);
+INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`,`checkin`,`checkout`) 
+VALUES (NULL, 2, 1, 'Queen', 1, 1,0,'2016-07-28','2016-07-30'),
+(NULL, 2, 1, 'Single', 1, 0,0,'2016-07-28','2016-07-30');
 
 
 CREATE TABLE `room_status` (
