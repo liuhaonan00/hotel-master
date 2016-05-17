@@ -22,7 +22,10 @@ public class PeriodServlet extends HttpServlet {
         super();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
+       if (request.getSession().getAttribute("logged_in_owner") == null) {
+          response.sendRedirect(request.getContextPath() + "/staff");
+       } else {
+
     	RequestDispatcher rd = request.getRequestDispatcher("availability");
     	if(request.getParameter("pName") != null){
     	String pName = request.getParameter("pName");
@@ -57,6 +60,6 @@ public class PeriodServlet extends HttpServlet {
 			}
 		};
 		 
-    
+       } 
 }
 }

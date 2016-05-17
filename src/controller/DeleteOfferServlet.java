@@ -24,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+	      if (request.getSession().getAttribute("logged_in_owner") == null) {
+            response.sendRedirect(request.getContextPath() + "/staff");
+         } else {
+            
 			String hotelName = request.getParameter("hidden");
 			String roomType = request.getParameter("roomType");
 			RoomDAO roomdao = new RoomDAO();
@@ -38,5 +42,6 @@ import javax.servlet.http.HttpServletResponse;
 			}
 			rd.forward(request, response);
 			
+         }
 }
 }
