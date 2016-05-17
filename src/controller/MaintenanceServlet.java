@@ -1,6 +1,7 @@
 package controller;
 import java.io.IOException;
 import java.sql.*;
+import java.sql.Date;
 import java.util.*;
 
 import javax.servlet.http.HttpServlet;
@@ -81,11 +82,25 @@ public class MaintenanceServlet extends HttpServlet {
 		return roomID;
 	}
 	
+	public int checkRecord(String room_id) throws SQLException {
+		int i = 0;
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT COUNT(room_id) FROM room_status WHERE room_id = " + room_id + " AND status = 'maintenance'";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			i = Integer.valueOf(rs.getString(1));
+		}
+		return i;
+		
+	}
+	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String hotel_id = ""; 
 		hotel_id = request.getParameter("hotel");
-		if (hotel_id.length() > 0){
+		
+		if ( hotel_id != null && hotel_id.length() > 0){
 		ArrayList<String> maintRooms = new ArrayList<String>();
 		ArrayList<String> occRooms = new ArrayList<String>();
 		String hotelName = "";
@@ -108,29 +123,61 @@ public class MaintenanceServlet extends HttpServlet {
 //		INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
 //		(1,1,2,'Booked', '2016-07-28','2016-07-30','100');
 		
-		String maintHotelName = "";
-		String maintRoomName = "";
-		maintHotelName = request.getParameter("hidden");
-		maintRoomName = request.getParameter("roomRepair");
+
+
+String maintHotelStringName = "";
+		String maintRoomStringNumber = "";
+		maintHotelStringName = request.getParameter("hidden");
+		maintRoomStringNumber = request.getParameter("roomRepair");
 		Statement stmt = null;
-		String mHotelName = "";
-		String roomID = "";
-		if (maintHotelName.length() > 0){
-			
+		
+		java.sql.Date dateNow = new Date(Calendar.getInstance().getTimeInMillis());
+		java.sql.Date dateEnd = java.sql.Date.valueOf("2100-01-01");
+		
+		
+		if (maintHotelStringName.length() > 0){
 			try{
 				
+
 			MysqlOperation o = new MysqlOperation();
 			Connection connection = o.DBConnect();
 			stmt = connection.createStatement();
-			mHotelName = getHotel_Id(maintHotelName);
-			String roomID = getRoom_Id();
-			String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date)";
+			String mHotelId = getHotel_Id(maintHotelStringName);
+			String roomID = getRoom_Id(mHotelId, maintRoomStringNumber);
+			int intRoomId = Integer.valueOf(roomID);
+			int intHotelId = Integer.valueOf(mHotelId);
+			
+			int roomExist = checkRecord(roomID);
+			
+			if (roomExist == 0){
+				System.out.println("sup");
+				String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date) VALUES"
+				+ "(" + mHotelId + "," + roomID + ",'maintenance','" + dateNow + "','" + dateEnd + "')";
+				stmt.executeUpdate(sql);
+				connection.commit();
+
+			}
+			
+//			INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
+//			(1,1,2,'Booked', '2016-07-28','2016-07-30','100');
+
+			
+//			String sql = "INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date) VALUES"
+//					+ "(?,?,?,?,?)";
+//			
+//			PreparedStatement ps = connection.prepareStatement(sql);
+//			ps.setInt(1, intHotelId);
+//			ps.setInt(2, intRoomId);
+//			ps.setString(3, "maintenance");
+//			ps.setDate(4, dateNow);
+//			ps.setDate(5, dateEnd);
+//			ps.executeUpdate();
+
 			}catch (Exception e){
 				e.printStackTrace();
 			}
-		
-		
-		
+			RequestDispatcher rd2 = request.getRequestDispatcher("availability");
+			rd2.forward(request, response);
 
 }
 
