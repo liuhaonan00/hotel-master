@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businessLogic.javaClass.Booking;
-import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
 import businessLogic.javaClass.TypeRequest;
 
@@ -62,7 +61,7 @@ public class AssignRoomsServlet extends HttpServlet {
                Room dummyRoom = new Room();
                dummyRoom.setRoomNo("87678");
                dummyRoom.setRoomId(86);
-               dummyRoom.setRoomType("dummy room type");
+               dummyRoom.setRoomDescription("a dummy room");
                List<Room> fakeRooms = new ArrayList<Room>();
                fakeRooms.add(dummyRoom);
 
@@ -90,20 +89,31 @@ public class AssignRoomsServlet extends HttpServlet {
             // manager is selecting rooms
 
             // TODO: obtain all the selected rooms submitted
+            String[] roomIDs = request.getParameterValues("assign_rooms");
+            List<Room> assignedRooms = new LinkedList<Room>(); // possibly just to test?
+
+            if (roomIDs != null) {
+               for (String roomID : roomIDs) {
+                  // TODO: set the actual room to available in the database!
+                  Room room = new Room();
+                  room.setRoomId(Integer.parseInt(roomID));
+                  assignedRooms.add(room);
+               }
+            }
 
             // TODO (restriction once the base is working) check if the correct number of rooms for requests is given
             {
                // TODO assign them to the booking
-               // TODO success message
-               // TODO success fact passed on
+               request.setAttribute("assign_message", "Room(s) assigned successfully!");
+               request.setAttribute("assign_succeeded", true);
 
             }
             // TODO else
             {
                // TODO error message, assigned does not match required, some are missing or something?
-               //               RequestDispatcher rd = request.getRequestDispatcher("/assignrooms.jsp");
-               //               rd.forward(request, response);
             }
+            RequestDispatcher rd = request.getRequestDispatcher("/assignrooms.jsp");
+            rd.forward(request, response);
          }
       }
       // TODO else {
