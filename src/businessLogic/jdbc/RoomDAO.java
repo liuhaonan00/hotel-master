@@ -13,17 +13,18 @@ public class RoomDAO {
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "select * from room ORDER BY RAND() limit "+n;
+		String query = "select * from room natural join hotel ORDER BY RAND() limit "+n;
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Room this_room = new Room();
-			this_room.setRoomId(rs.getInt(1));
-			this_room.setHotelId(rs.getInt(2));
-			this_room.setRoomType(rs.getString(3));
-			this_room.setRoomNo(rs.getString(4));
-			this_room.setPrice(rs.getInt(5));
-			this_room.setRoomDescription(rs.getString(6));
+			this_room.setRoomId(rs.getInt("room_id"));
+			this_room.setHotelId(rs.getInt("hotel_id"));
+			this_room.setRoomType(rs.getString("room_type"));
+			this_room.setRoomNo(rs.getString("room_no"));
+			this_room.setPrice(rs.getFloat("normal_price"));
+			this_room.setRoomDescription(rs.getString("room_description"));
+			this_room.setCity(rs.getString("city"));
 			rooms.add(this_room);	
 		}
 
