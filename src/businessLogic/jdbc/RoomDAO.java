@@ -138,7 +138,7 @@ public class RoomDAO {
 		return room;
 	}
 	
-	public ArrayList<Room> allOccRooms(String StartDate,String EndDate,int hotel_id) throws SQLException
+	public ArrayList<Room> allOccRooms(int hotel_id) throws SQLException
 	{
 		ArrayList<Room> occRooms= new ArrayList<Room>();
 		MysqlOperation o = new MysqlOperation();
@@ -173,7 +173,37 @@ public class RoomDAO {
 		return i;
 	}
 	
+	//find all avaiable rooms in a hotel of a type.
+	public ArrayList<Room> allAvailableRooms(int hotel_id,String roomType) throws SQLException
+	{
+		ArrayList<Room> occRooms= new ArrayList<Room>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * FROM room  where room.room_id NOT in(select room_status.room_id from room_status where room_status.status = 'repair' or room_status.status = 'occupied') and room.hotel_id= "+hotel_id+" and room.room_type='"+roomType+"'";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Room room = new Room();
+			room.setRoomId(rs.getInt(1));
+			room.setHotelId(rs.getInt(2));
+			room.setRoomType(rs.getString(3));
+			room.setRoomNo(rs.getString(4));
+			room.setPrice(rs.getInt(5));
+			room.setRoomDescription(rs.getString(6));
+			occRooms.add(room);
+		}
+		return occRooms;
+	}
 	
+	
+	public void markRoomAccupied(){
+		
+	}
+	
+	
+	public void markRoomFree(){
+		
+	}
 	
 	
 }

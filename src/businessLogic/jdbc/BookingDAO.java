@@ -71,4 +71,22 @@ public class BookingDAO {
 			
 		}
 	
+	public ArrayList<Booking> currentUnassignedBooking(String start,String end,int hotel_id){
+		
+		
+		return null;
+		
+	}
+	
+	public ArrayList<Booking> currentAssignedBooking(String start,String end,int hotel_id){
+		
+		
+		return null;
+		
+	}
+	
+	public void markBookingAssign(){
+		
+	}
+	
 }
