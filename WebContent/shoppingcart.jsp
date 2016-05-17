@@ -29,7 +29,7 @@
    	  else{%>
    	  
    	<table border =1>  
-   		<form action="control" method="get">
+   		<form action=ShoppingCart method="get">
    			<tr>
     <td>
     </td>
@@ -81,6 +81,9 @@
     </td>
     </tr>
 	<%}%>
+	 
+	 </form>
+	 <form action=ShoppingCart method="post">
 	 <input type="submit" value="Confirm Booking">
 	 </form>
 	</table>

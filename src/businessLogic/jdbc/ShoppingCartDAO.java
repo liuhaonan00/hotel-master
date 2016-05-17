@@ -12,6 +12,7 @@ import businessLogic.javaClass.ShoppingCart;
 import businessLogic.javaClass.Room;
 import businessLogic.javaClass.Search;
 public class ShoppingCartDAO {
+	//useless for now
 	public ShoppingCart addToCart(String check_in,String check_out,Search room)
 	{
 		ShoppingCart shoppingCart = new ShoppingCart();
@@ -24,52 +25,66 @@ public class ShoppingCartDAO {
 		return shoppingCart;
 		
 	}
+	
+	
 	//insert to database
-	public void insert(ArrayList<ShoppingCart> rooms,int user_id)
+	public void insert(ArrayList<ShoppingCart> rooms,int user_id) throws SQLException
 	{
 		float total_price = 0;
 		MysqlOperation o = new MysqlOperation();
 		for (int i = 0; i < rooms.size(); i++) {
-			total_price =total_price+ rooms.get(i).getprice(); //todo: add discount
+			total_price =total_price+ rooms.get(i).getprice(); 
 		}
 		
-	//	insertBooking(user_id,Room,total_price);
-		
+		insertBooking(user_id,total_price);
+		int id = findLastBookingID();
+		for (int i =0; i<rooms.size();i++){
+			insertBooking_detail(id,rooms.get(i));
+		}
 	}
 	
-	public static void insertBooking(int user_id,ShoppingCart Room,float total_price){
+	public static void insertBooking(int user_id,float total_price){
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		int randomPIN = (int)(Math.random()*9000)+1000;
-		String query = "INSERT INTO booking (user_id, checkin, checkout,pin,number_of_room,total_price) VALUES ("+user_id+","+Room.getcheck_in()+","+Room.getcheck_out()+","+randomPIN+","+Room.getno()+","+total_price+")";
+		String query = "INSERT INTO booking (user_id,pin,total_price) VALUES ("+user_id+","+randomPIN+","+total_price+")";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		}
 	
-	public static void insertRoom_status(int booking_id,ArrayList<Room> room,String check_in,String check_out){
+	public static void insertBooking_detail(int booking_id,ShoppingCart cart){
 		
-		for (int i = 0; i < room.size(); i++) {
-			MysqlOperation o = new MysqlOperation();
-			PreparedStatement pst = null;
-			try {
+				MysqlOperation o = new MysqlOperation();
+				PreparedStatement pst = null;
 				Connection connection = o.DBConnect();
-				String sqlInsert = "INSERT INTO booking (hotel_id, room_id, booking_id,status,start_date,end_date,price) VALUES (?,?,?,?,?,?,?)";
-				pst = connection.prepareStatement(sqlInsert);
-				pst.setString(1, ""+room.get(i).getHotelId());
-				pst.setString(2, ""+room.get(i).getRoomId());
-				pst.setString(3, ""+booking_id);
-				pst.setString(4, "Booked");
-				pst.setString(5, check_in);
-				pst.setString(6, check_out);
-				pst.setString(7, ""+room.get(i).getPrice()); // todo:offer on price
-				pst.executeUpdate();
-				pst.close();
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
+				String query = "INSERT INTO booking (booking_id,hotel_id,room_type,num_of_room,extra_bed,checkin,checkout,assign) VALUES ("+booking_id+","+cart.gethotel_id()+","+cart.getroomType()+","+cart.getno()+","+cart.getextrabed()+","+cart.getcheck_in()+","+cart.getcheck_out()+",'0')";
+				ResultSet rs = o.searchDB(connection, query);
 			}
-		}
 			
-		}
+		
+	
+	public int findLastBookingID() throws SQLException{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT  booking_id FROM booking ORDER BY booking_id DESC LIMIT 1";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		rs.next();
+		int i = rs.getInt("booking_id");
+		return i;
+		
+	}
+	
+	public String findpin(int booking_id) throws SQLException{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT pin FROM booking where booking_id="+booking_id;
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		rs.next();
+		String i = rs.getString("pin");
+		return i;
+		
+	}
 	
 }

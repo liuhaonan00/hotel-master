@@ -164,6 +164,32 @@ public int findUser(String user,String password) {
 		return this_user.getUsername();
 	}
 	
+	public String getEmail(int id) {
+		User this_user= new User();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "select * from user where "+ "user_id = '" + id + "'";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		String pass = null;
+		try {
+			if(!rs.next()) {
+			}
+			else {
+					this_user.setUserId(rs.getInt("user_id"));
+					this_user.setEmail(rs.getString("email"));
+					this_user.setUsername(rs.getString("Username"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		o.closeDB(connection);
+		return this_user.getEmail();
+	}
+	
 	public void addUser(String username, String password, String email) 
 	{
 		MysqlOperation o = new MysqlOperation();

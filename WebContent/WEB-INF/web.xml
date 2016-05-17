@@ -48,6 +48,10 @@
     <servlet-name>SubmitUpdateProfileServlet</servlet-name>
     <servlet-class>controller.SubmitUpdateProfileServlet</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>ShoppingCartServlet</servlet-name>
+    <servlet-class>controller.ShoppingCartServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
@@ -91,5 +95,9 @@
   <servlet-mapping>
     <servlet-name>SubmitUpdateProfileServlet</servlet-name>
     <url-pattern>/submitupdateprofile</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>ShoppingCartServlet</servlet-name>
+    <url-pattern>/ShoppingCart</url-pattern>
   </servlet-mapping>
 </web-app>
