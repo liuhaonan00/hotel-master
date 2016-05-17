@@ -33,7 +33,7 @@ public class ShoppingCartServlet extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<ShoppingCart> thisCart = new ArrayList<ShoppingCart>();
-		int user_id = (int)request.getSession().getAttribute("current_user_id");
+		int user_id = ((Integer)request.getSession().getAttribute("current_user_id")).intValue();
 		if(request.getSession().getAttribute("ShoppingCart") != null){
 			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
 		}
@@ -44,13 +44,20 @@ public class ShoppingCartServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		int bookingid = shoppingcart.findLastBookingID();
-		String pin = shoppingcart.findpin(bookingid);
+		String pin = "0000";
+		int bookingid = -1;
+      try {
+         bookingid = shoppingcart.findLastBookingID();
+		pin = shoppingcart.findpin(bookingid);
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
 		UserDAO userDAO = new UserDAO();
 		String username = (String)request.getSession().getAttribute("current_user");
 		String email = userDAO.getEmail(user_id);
 		EmailApi emailapi = new EmailApi();
-		EmailApi.sendBookingConfirmation(bookingid,username,email,pin);
+		emailapi.sendBookingConfirmation(bookingid,username,email,pin);
 //		for (int i =0;i<thisCart.size();i++){
 			
 //			//shoppingcart.insert(thisCart.get(i),uesr_id);
