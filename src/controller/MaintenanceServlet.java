@@ -85,8 +85,7 @@ public class MaintenanceServlet extends HttpServlet {
 			}
 			RequestDispatcher rd2 = request.getRequestDispatcher("availability");
 			rd2.forward(request, response);
-
-}
+		}
 
 }
 }

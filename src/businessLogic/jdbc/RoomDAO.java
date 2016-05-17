@@ -251,6 +251,21 @@ public class RoomDAO {
 		return i;
 		
 	}
+	public int checkOffer(String hotel_id, String room_type) throws SQLException {
+		int i = 0;
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT COUNT(*) FROM offer WHERE hotel_id = " + hotel_id + " AND room_type = " + "'" + room_type + "'";
+		
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			i = Integer.valueOf(rs.getString(1));
+		}
+		return i;
+		
+	}
+	
+	
 	
 	//find all avaiable rooms in a hotel of a type.
 	public ArrayList<Room> allAvailableRooms(int hotel_id,String roomType) throws SQLException
