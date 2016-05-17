@@ -4,19 +4,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import businessLogic.javaClass.ShoppingCart;
-import businessLogic.javaClass.Room;
+import businessLogic.javaClass.Search;
 public class ShoppingCartDAO {
-	public ShoppingCart addToCart(String check_in,String check_out,Room room)
+	public ShoppingCart addToCart(String check_in,String check_out,Search room)
 	{
 		ShoppingCart shoppingCart = new ShoppingCart();
 		shoppingCart.setcheck_in(check_in);
 		shoppingCart.setcheck_out(check_out);
-		shoppingCart.sethotel_id(room.getHotelId());
-		shoppingCart.setroom_no(room.getRoomNo());
+		shoppingCart.sethotel_id(room.getHotel_id());
+		shoppingCart.setroomType(room.getRoomtype());
 		shoppingCart.setprice(room.getPrice()); //todo offer
-		shoppingCart.setroom_id(room.getRoomId());
-		
+		shoppingCart.setno(room.getNo());
 		return shoppingCart;
 		
 	}
+	
 }

@@ -6,20 +6,20 @@ public class ShoppingCart implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int hotel_id;
-	private int room_id;
+	private int no;
 	private String check_in;
 	private String check_out;
 	private float price;
-	private String room_no;
+	private String roomType;
 	
 	public ShoppingCart() {
 		
 	}	
-	public int getroom_id() {
-		return room_id;
+	public int getno() {
+		return no;
 	}
-	public void setroom_id(int room_id) {
-		this.room_id = room_id;
+	public void setno(int no) {
+		this.no = no;
 	}
 	public int gethotel_id() {
 		return hotel_id;
@@ -45,10 +45,10 @@ public class ShoppingCart implements java.io.Serializable{
 	public void setprice(float price) {
 		this.price = price;
 	}
-	public void setroom_no(String room_no) {
-		this.room_no = room_no;
+	public void setroomType(String roomType) {
+		this.roomType = roomType;
 	}
-	public String getroom_no() {
-		return room_no;
+	public String getroomType() {
+		return roomType;
 	}
 }

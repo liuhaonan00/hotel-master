@@ -17,19 +17,16 @@
 </head>
 <body>
 <%
-	ArrayList<Room> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
+	ArrayList<Search> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
 	if(rooms.size()==0){%>
 	<p>Sorry, no matching data was found!</p>
 	<%}else{ %>
 	
 	<form action ="booking" method="post">
-	<table>
+	<table border=1>
 	<tr>
 		<td>
 		Book
-	</td>
-	<td>
-	<p>Room Number</p>
 	</td>
 	<td>
 	<p>Hotel</p>
@@ -38,45 +35,71 @@
 	<p>Room Type</p>
 	</td>
 	<td>
-	<p>Price</p>
+	<p>Number of Rooms</p>
 	</td>
 	<td>
-	<p>Description</p>
+	<p>Price</p>
 	</td>
 
 	</tr>
 	<%
 	for (int i =0;i<rooms.size();i++){
-		int this_room = rooms.get(i).getRoomId();
+		//int this_room = rooms.get(i).getRoomId();
 	
 	%>
 	<tr>
 		<td>
-		<input type="checkbox" name="bookRoom" value="<%=this_room%>">
+		<input type="radio" name="bookRoom" value="<%=rooms.get(i)%>">
 	</td>
 	<td>
-	<p><%=rooms.get(i).getRoomNo()%></p>
+	<p><%=rooms.get(i).getHotel_id()%></p>
 	</td>
 	<td>
-	<p><%=rooms.get(i).getHotelId()%></p>
+	<p><%=rooms.get(i).getNo()%></p>
 	</td>
 	<td>
-	<p><%=rooms.get(i).getRoomType()%></p>
+	<p><%=rooms.get(i).getRoomtype()%></p>
 	</td>
 	<td>
 	<p><%=rooms.get(i).getPrice()%></p>
 	</td>
-	<td>
-	<p><%=rooms.get(i).getRoomDescription()%></p>
-	</td>
-
 	</tr>
 	<%}%>
 	</table>
-	<input type="submit" value="Add To Cart"> 
+	<p>Number of rooms
+	<input type="textbox" name ="number_of_booking" value=""></p>
+	<input type="submit" value="Book"> 
 	<input type="hidden" name="op" value="add">
 	</form>
 
+	<form action='search' method='POST'>
+		<table>
+		<tr>
+			<td align="left">Check in time : </td> <td align="left"><input type="text" name="check_in" /></td>
+		</tr>
+		<tr>
+			<td align="left">Check out time : </td> <td align="left"><input type="text" name="check_out" /></td>
+		</tr>
+		<tr>
+			<td align="left">City : </td>
+			<td><select name ="city">
+  					<option value="Sydney">Sydney</option>
+  					<option value="Melbourne">Melbourne</option>
+  					<option value="Adelaide">Adelaide</option>
+  					<option value="Brisbane">Brisbane</option>
+				</select></td>
+		</tr>
+		<tr>
+			<td align="left">Price(Less Than) : </td> <td align="left"><input type="text" name="price" /></td>
+		</tr>
+		</table>
+		<p></p>
+		<input type='submit' value='Search' class="button">
+		
+		<br>
+		</form>
 <%}%>
+
+
 </body>
 </html>

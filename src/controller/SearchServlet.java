@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businessLogic.javaClass.Room;
+import businessLogic.javaClass.Search;
 import businessLogic.jdbc.RoomDAO;
 
 
@@ -42,10 +43,10 @@ private static final long serialVersionUID = 1L;
 			price = Integer.parseInt(price1);
 		}
 		RoomDAO roomDAO = new RoomDAO();
-		ArrayList<Room> rooms;
+		ArrayList<Search> rooms;
 		try {
 			
-			rooms = roomDAO.findAllRoom(check_in,check_out,city,price);
+			rooms = roomDAO.findAll(check_in,check_out,city,price);
 			System.out.println("size: "+rooms.size());
 			request.getSession().setAttribute("roomResult", rooms);
 			request.getSession().setAttribute("check_in", check_in);

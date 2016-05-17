@@ -35,6 +35,5 @@
 		<input type='submit' value='Search' class="button">
 		</form>
 		<br>
-		<table>
 </body>
 </html>

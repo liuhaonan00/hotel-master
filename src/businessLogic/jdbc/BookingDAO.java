@@ -5,6 +5,8 @@ import java.sql.*;
 import businessLogic.javaClass.*;
 
 public class BookingDAO {
+	
+	
 	public int findbookingID() throws SQLException
 	{
 		int lastbookingid = 0;
