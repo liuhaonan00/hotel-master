@@ -38,9 +38,11 @@
 	<p>Number of Rooms</p>
 	</td>
 	<td>
-	<p>Price</p>
+	<p>Normal Price</p>
 	</td>
-
+	<td>
+	<p>Current Price</p>
+	</td>
 	</tr>
 	<%
 	for (int i =0;i<rooms.size();i++){
@@ -49,27 +51,35 @@
 	%>
 	<tr>
 		<td>
-		<input type="radio" name="bookRoom" value="<%=rooms.get(i)%>">
+		<input type="radio" name="123" value="<%=rooms.get(i)%>" >
 	</td>
 	<td>
 	<p><%=rooms.get(i).getHotel_id()%></p>
+	<input type="hidden" name="hotelid" value=<%=rooms.get(i).getHotel_id()%>>
 	</td>
 	<td>
-	<p><%=rooms.get(i).getNo()%></p>
+	<p><%=rooms.get(i).getNo()%></p> 
 	</td>
 	<td>
-	<p><%=rooms.get(i).getRoomtype()%></p>
+	<p><%=rooms.get(i).getRoomtype() %></p>
+	<input type="hidden" name="roomtype" value=<%=rooms.get(i).getRoomtype()%>>
 	</td>
 	<td>
+	<p><%=rooms.get(i).getPrice() %></p>
+	<input type="hidden" name="price" value=<%=rooms.get(i).getPrice()%>>
+	</td>
+	
+	<td>
+	
 	<p><%=rooms.get(i).getPrice()%></p>
 	</td>
 	</tr>
 	<%}%>
 	</table>
-	<p>Number of rooms
-	<input type="textbox" name ="number_of_booking" value=""></p>
-	<input type="submit" value="Book"> 
-	<input type="hidden" name="op" value="add">
+	<p>Rooms to book <input type="textbox" name="number_of_room" value="" ></p>
+	<p>Extra beds <input type="textbox" name="extrabed" value="" ></p>
+	<input type="submit" value="Add to Cart"> 
+	
 	</form>
 
 	<form action='search' method='POST'>

@@ -11,6 +11,7 @@ public class ShoppingCart implements java.io.Serializable{
 	private String check_out;
 	private float price;
 	private String roomType;
+	private int extrabed;
 	
 	public ShoppingCart() {
 		
@@ -50,5 +51,11 @@ public class ShoppingCart implements java.io.Serializable{
 	}
 	public String getroomType() {
 		return roomType;
+	}
+	public void setextrabed(int extrabed) {
+		this.extrabed = extrabed;
+	}
+	public int getextrabed() {
+		return extrabed;
 	}
 }

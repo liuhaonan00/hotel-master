@@ -27,7 +27,7 @@ public class ManagerServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      // TODO log in the manager in the staff servlet, put a hotel in the session
+      // TODO log in the manager in the staff servlet, get hotel ID, put a hotel in the session
 
       // TODO if (valid manager session)
       {

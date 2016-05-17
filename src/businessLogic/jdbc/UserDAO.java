@@ -12,7 +12,8 @@ import businessLogic.library.*;
 import businessLogic.javaClass.User;
 public class UserDAO {
 	
-	public int findUser(String user,String password) {
+
+public int findUser(String user,String password) {
 		int result = 0; //0 =  success;
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
@@ -43,10 +44,49 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 
-		o.closeDB(connection);
-		return result;
-	}
-	
+
+      o.closeDB(connection);
+      return result;
+   }
+   
+   /**
+    * @return hotel ID, or -1 if invalid
+    */
+   public int findManager(String user,String password) {
+      int result = -1; //-1 =  fail;
+      MysqlOperation o = new MysqlOperation();
+      Connection connection = o.DBConnect();
+      Md5Encryption md5 = new Md5Encryption();
+//    password = md5.MD5(password);
+      String query = "select * from manager where "+ "username = '" + user + "'";
+      System.out.println(query);
+      ResultSet rs = o.searchDB(connection, query);
+      String pass = null;
+      try {
+         if(!rs.next()) {
+            result = -1;
+            System.out.println("No such user!");
+         }
+         else {
+            pass = rs.getString("password");
+            if (pass.equals(md5.MD5(password))) {
+               result = rs.getInt("hotel_id"); //return hotel ID;
+               System.out.println("login successful!");
+            } else {
+               result = -1;
+               System.out.println("wrong password!");
+            }
+         }
+         
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+
+      o.closeDB(connection);
+      return result;
+   }
+   
 	//call this only if pass the above one
 	//wait... I don't need it
 	public String findOneUser(String user,String password) {

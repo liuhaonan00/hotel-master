@@ -22,6 +22,9 @@
 </head>
 <body>
 
+<form action="availability">
+<input type="submit" value="Go Back to Owner Page">
+</form>
 	<h2>
 		Room Statuses:
 		<c:out value="${hotel}" />
@@ -48,21 +51,19 @@
 		</c:forEach>
 	</table>
 	
-	<h2> Set Room for Maintenance</h2>
+	<h2> Add/Remove Maintenance Status</h2>
 	<form action="maintenance">
-  	<select name="roomRepair">
-    <option value="101">101</option>
-    <option value="102">102</option>
-    <option value="201">201</option>
-    <option value="202">202</option>
-    <option value="301">301</option>
-    <option value="302">302</option>
-    <option value="401">401</option>
-    <option value="501">501</option>
-  </select>
-  <input type="hidden" name="hidden" value=hotelName>
+	<c:forEach items="${rooms}" var="room2">
+	<c:if test="${!fn:contains(occs, room2)}">
+	<input type="checkbox" name="roomRepair" VALUE=<c:out value="${room2}"/>><c:out value="${room2}"/><BR>
+	</c:if>
+	</c:forEach>
+	<input type="hidden" name="hidden" value=<c:out value='${hotel}'/>>
   <input type="submit" value="Submit">
-</form>
+</form>	
+	
+	
+  
 	
 </body>
 </html>
