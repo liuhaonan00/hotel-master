@@ -48,7 +48,7 @@
             <td>${booking.user}</td>
             <td>${booking.startDate}</td>
             <td>${booking.endDate}</td>
-            <td>${booking.roomString}</td>
+            <td>${booking.roomTypeString}</td>
             <td>
                <form action="assignrooms" method="POST">
                   <input type="hidden" name="id_to_book"

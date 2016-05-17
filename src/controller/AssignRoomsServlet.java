@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
+import businessLogic.javaClass.TypeRequest;
 
 /**
  * Servlet implementation class AssignRoomsServlet
@@ -39,20 +41,40 @@ public class AssignRoomsServlet extends HttpServlet {
 
       // TODO if (valid session)
       {
-         if (request.getParameter("setting_rooms") == null) {
+         if (request.getParameter("assign_setting_rooms") == null) {
             // manager has just chosen this booking...
             String bookingID = request.getParameter("id_to_book");
 
             // TODO: retrieve the actual booking by ID
 
+            // TODO retrieve the actual user from the booking
+            String userName = "fake user";
+            request.setAttribute("assign_user", userName);
+
             // TODO: get requested room types for the booking
-            // TODO: find available rooms of required types
-            
+            // TODO: find available rooms of required types (or all available rooms?)
+
             // TODO(restriction once the base is working) if all requested types are fewer than available types
             {
-               // TODO: Create a TypeRequest bean!!!
+               // TODO for relevant types:
                // TODO: put in type name, requested number, available rooms of that type
                // TODO (restriction once the base is working) ignore types with 0 requests, *unless* we need to override booking due to limited availability
+               Room dummyRoom = new Room();
+               dummyRoom.setRoomNo("87678");
+               dummyRoom.setRoomId(86);
+               dummyRoom.setRoomType("dummy room type");
+               List<Room> fakeRooms = new ArrayList<Room>();
+               fakeRooms.add(dummyRoom);
+
+               TypeRequest dummyType = new TypeRequest();
+               dummyType.setNumberRequested(2);
+               dummyType.setTypeName("dummy room type");
+               dummyType.setAvailableRooms(fakeRooms);
+
+               List<TypeRequest> requestedTypes = new ArrayList<TypeRequest>();
+               requestedTypes.add(dummyType);
+
+               request.setAttribute("assign_requested_types", requestedTypes);
             }
             // TODO else
             {
@@ -68,13 +90,13 @@ public class AssignRoomsServlet extends HttpServlet {
             // manager is selecting rooms
 
             // TODO: obtain all the selected rooms submitted
-            
+
             // TODO (restriction once the base is working) check if the correct number of rooms for requests is given
             {
                // TODO assign them to the booking
                // TODO success message
                // TODO success fact passed on
-               
+
             }
             // TODO else
             {

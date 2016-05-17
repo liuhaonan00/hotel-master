@@ -13,7 +13,28 @@
    <em>${assign_message}</em>
 
    <form action="assignrooms" method="POST">
-      <!--  TODO for each type of room, show desired number, list available rooms -->
+      <c:forEach var="type" items="${assign_requested_types}">
+      <h3>${type.typeName}</h3>
+         <%--
+      <table>
+         <tr>
+            <!-- Room number, Room type, Empty this room -->
+            <th>Room number</th>
+            <th>Room type</th>
+            <th>Empty this room</th>
+         </tr>
+         <c:forEach var="room" items="${manager_occupancy}">
+            <tr>
+               <td>${room.roomNo}</td>
+               <td>${room.roomType}</td>
+               <td><input type="checkbox" name="clear_rooms"
+                  value='${room.roomId}' /></td>
+            </tr>
+         </c:forEach>
+      </table>
+      <input type="submit" value="Mark selected rooms as available" />
+--%>
+      </c:forEach>
    </form>
 
    <p>
