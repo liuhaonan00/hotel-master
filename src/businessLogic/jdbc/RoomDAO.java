@@ -138,26 +138,28 @@ public class RoomDAO {
 		return room;
 	}
 	
-	public ArrayList<Room> allOccRooms(int hotel_id) throws SQLException
-	{
-		ArrayList<Room> occRooms= new ArrayList<Room>();
-		MysqlOperation o = new MysqlOperation();
-		Connection connection = o.DBConnect();
-		String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and hotel_id="+""+hotel_id+")";
-		System.out.println(query);
-		ResultSet rs = o.searchDB(connection, query);
-		while(rs.next()){
-			Room room = new Room();
-			room.setRoomId(rs.getInt(1));
-			room.setHotelId(rs.getInt(2));
-			room.setRoomType(rs.getString(3));
-			room.setRoomNo(rs.getString(4));
-			room.setPrice(rs.getInt(5));
-			room.setRoomDescription(rs.getString(6));
-			occRooms.add(room);
-		}
-		return occRooms;
-	}
+   public ArrayList<Room> allOccRooms(int hotel_id) throws SQLException {
+      ArrayList<Room> occRooms = new ArrayList<Room>();
+      MysqlOperation o = new MysqlOperation();
+      Connection connection = o.DBConnect();
+      String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and hotel_id="
+            + "" + hotel_id;
+      System.out.println(query);
+      ResultSet rs = o.searchDB(connection, query);
+      if (rs != null) {
+         while (rs.next()) {
+            Room room = new Room();
+            room.setRoomId(rs.getInt(1));
+            room.setHotelId(rs.getInt(2));
+            room.setRoomType(rs.getString(3));
+            room.setRoomNo(rs.getString(4));
+            room.setPrice(rs.getInt(5));
+            room.setRoomDescription(rs.getString(6));
+            occRooms.add(room);
+         }
+      }
+      return occRooms;
+   }
 	
 	//returns the amount of rooms that are unavailable at a hotel id. 
 	public int unavailablerooms(int hotel_id) throws SQLException
@@ -172,6 +174,100 @@ public class RoomDAO {
 		}
 		return i;
 	}
+	public ArrayList<String> maintenanceRoomNames(String hotel_id) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT room_no FROM room WHERE room_id IN (SELECT room_id FROM room_status WHERE room_status.status = 'maintenance' AND room_status.hotel_id = " + hotel_id + ")";
+		ResultSet rs = o.searchDB(connection, query);
+		ArrayList<String> maintRooms = new ArrayList<String>();
+		while(rs.next()){
+			String i = rs.getString(1);
+			maintRooms.add(i);
+		}
+		return maintRooms;
+	}
+	
+	public ArrayList<String> occupiedRoomNames(String hotel_id) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT room_no FROM room WHERE room_id IN (SELECT room_id FROM room_status WHERE room_status.status = 'occupied' AND room_status.hotel_id = " + hotel_id + ")";
+		ResultSet rs = o.searchDB(connection, query);
+		ArrayList<String> occRooms = new ArrayList<String>();
+		while(rs.next()){
+			String i = rs.getString(1);
+			occRooms.add(i);
+		}
+		return occRooms;
+	}
+	
+	public String getHotelName(String hotel_id) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT hotel_name FROM hotel WHERE hotel_id = " + hotel_id +"";
+		ResultSet rs = o.searchDB(connection, query);
+		String hotelName = "";
+		while(rs.next()){
+			hotelName = rs.getString(1);
+		}
+		return hotelName;
+	}
+	
+	public String getHotel_Id(String hotel_name) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT hotel_id FROM hotel WHERE hotel_name = " +"'"+ hotel_name +"'";
+		ResultSet rs = o.searchDB(connection, query);
+		String hotelName = "";
+		while(rs.next()){
+			hotelName = rs.getString(1);
+		}
+		return hotelName;
+	}
+	
+	public String getRoom_Id(String hotel_id, String room_no) throws SQLException
+	{
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT room_id FROM room WHERE (room.hotel_id = " + hotel_id + " AND room.room_no = " + room_no + ")";
+		ResultSet rs = o.searchDB(connection, query);
+		String roomID = "";
+		while(rs.next()){
+			roomID = rs.getString(1);
+		}
+		return roomID;
+	}
+	
+	public int checkRecord(String room_id) throws SQLException {
+		int i = 0;
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT COUNT(room_id) FROM room_status WHERE room_id = " + room_id + " AND status = 'maintenance'";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			i = Integer.valueOf(rs.getString(1));
+		}
+		return i;
+		
+	}
+	public int checkOffer(String hotel_id, String room_type) throws SQLException {
+		int i = 0;
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT COUNT(*) FROM offer WHERE hotel_id = " + hotel_id + " AND room_type = " + "'" + room_type + "'";
+		
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			i = Integer.valueOf(rs.getString(1));
+		}
+		return i;
+		
+	}
+	
+	
 	
 	//find all avaiable rooms in a hotel of a type.
 	public ArrayList<Room> allAvailableRooms(int hotel_id,String roomType) throws SQLException
