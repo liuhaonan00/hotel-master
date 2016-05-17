@@ -17,6 +17,10 @@
 			<input type = "hidden" name = "user_id" value =<%=request.getSession().getAttribute("current_user_id")%>>
 			<input type="submit"  value="View shoppingcart" class="button"/>	
 		</form><br>
+      <form action="staff" method="POST">
+         <input type="submit" name="staff_logout" value="Log out" /> <%-- can be same logout, session stuff --%>
+      </form>
+
 	<%} %>
 	
 	
