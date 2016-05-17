@@ -131,7 +131,6 @@ INSERT INTO room (hotel_id, room_type, room_no, normal_price, room_description) 
 CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `hotel_id` int(11) DEFAULT NULL,
   `checkin` date DEFAULT NULL,
   `checkout` date DEFAULT NULL,
   `roomtype` varchar(50) DEFAULT NULL,
@@ -142,7 +141,6 @@ CREATE TABLE `booking` (
   PRIMARY KEY (`booking_id`),
   UNIQUE KEY `booking_id_UNIQUE` (`booking_id`),
   KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `hotel_id_1` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `user_id_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
@@ -151,10 +149,10 @@ CREATE TABLE `booking` (
 LOCK TABLES `booking` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,number_of_room) 
-VALUES (1,1,'2000-07-28','2100-07-30', 0,'Queen',1);
-INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,number_of_room) 
-VALUES (2,1,'2016-07-28','2016-07-30', 200,'Queen',1);
+INSERT INTO booking (user_id,checkin,checkout,total_price,roomtype,number_of_room) 
+VALUES (1,'2000-07-28','2100-07-30', 0,'Queen',1);
+INSERT INTO booking (user_id,checkin,checkout,total_price,roomtype,number_of_room) 
+VALUES (2,'2016-07-28','2016-07-30', 200,'Queen',1);
 
 CREATE TABLE `booking_detail` (
   `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
