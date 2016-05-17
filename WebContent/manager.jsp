@@ -79,20 +79,19 @@
          <th>Customer</th>
          <th>Start date</th>
          <th>End date</th>
-         <th>Rooms assigned</th>
       </tr>
       <c:forEach var="booking" items="${manager_filled_bookings}">
          <tr>
             <td>${booking.user}</td>
             <td>${booking.startDate}</td>
             <td>${booking.endDate}</td>
-            <td>TODO</td>
          </tr>
       </c:forEach>
    </table>
 
-   <%--  TODO future bookings? --%>
-   <%--  TODO logout --%>
+   <form action="staff" method="POST">
+      <input type="submit" name="staff_logout" value="Log out" />
+   </form>
 
 </body>
 </html>

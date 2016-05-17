@@ -22,8 +22,7 @@
            </tr>
            <tr>
                <td colspan=2>
-                   <input type="hidden" name="staff_login"/>
-                   <input type="submit" value = "Login"/>
+                   <input type="submit" name="staff_login" value = "Login"/>
                </td>
            </tr>
        </table>

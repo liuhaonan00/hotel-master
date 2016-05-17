@@ -47,7 +47,10 @@
    <p>
       <a href="manage">Back to Manager Home</a>
    </p>
-   <%--  TODO logout --%>
+   <form action="staff" method="POST">
+      <input type="submit" name="staff_logout" value="Log out" />
+   </form>
+
 
 </body>
 </html>
