@@ -86,25 +86,27 @@ public class BookingDAO {
 		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
-		while(rs.next()){
-			Booking booking = new Booking();
-			booking.setBookingID(rs.getInt(1));
-			booking.setBookingDetailID(rs.getInt(9));
-			booking.setEndDate(rs.getString(3));
-			booking.setStartDate(rs.getString(4));
-			booking.setExtrabed(rs.getInt(14));
-			booking.setHotel_id(rs.getInt(11));
-			booking.setPrice(rs.getFloat(8));
-			booking.setNo_of_room(rs.getInt(13));
-			booking.setRoomTypeString(rs.getString(12));
-			booking.setUser(rs.getString(2));
-			bookings.add(booking);
+		if (rs != null){
+   		while(rs.next()){
+   			Booking booking = new Booking();
+   			booking.setBookingID(rs.getInt(1));
+   			booking.setBookingDetailID(rs.getInt(9));
+   			booking.setEndDate(rs.getString(3));
+   			booking.setStartDate(rs.getString(4));
+   			booking.setExtrabed(rs.getInt(14));
+   			booking.setHotel_id(rs.getInt(11));
+   			booking.setPrice(rs.getFloat(8));
+   			booking.setNo_of_room(rs.getInt(13));
+   			booking.setRoomTypeString(rs.getString(12));
+   			booking.setUser(rs.getString(2));
+   			bookings.add(booking);
+   		}
 		}
 		return bookings;
 		
 	}
 	
-	public ArrayList<Booking> currentAssignedBooking(String start,String end,int hotel_id) throws SQLException{
+	public ArrayList<Booking> currentAssignedBooking(int hotel_id) throws SQLException{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		String date1 = dateFormat.format(date);
@@ -115,20 +117,22 @@ public class BookingDAO {
 		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=1 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
-		while(rs.next()){
-			Booking booking = new Booking();
-			booking.setBookingID(rs.getInt(1));
-			booking.setBookingDetailID(rs.getInt(9));
-			booking.setEndDate(rs.getString(3));
-			booking.setStartDate(rs.getString(4));
-			booking.setExtrabed(rs.getInt(14));
-			booking.setHotel_id(rs.getInt(11));
-			booking.setPrice(rs.getFloat(8));
-			booking.setNo_of_room(rs.getInt(13));
-			booking.setRoomTypeString(rs.getString(12));
-			booking.setUser(rs.getString(2));
-			bookings.add(booking);
-		}
+      if (rs != null){
+   		while(rs.next()){
+   			Booking booking = new Booking();
+   			booking.setBookingID(rs.getInt(1));
+   			booking.setBookingDetailID(rs.getInt(9));
+   			booking.setEndDate(rs.getString(3));
+   			booking.setStartDate(rs.getString(4));
+   			booking.setExtrabed(rs.getInt(14));
+   			booking.setHotel_id(rs.getInt(11));
+   			booking.setPrice(rs.getFloat(8));
+   			booking.setNo_of_room(rs.getInt(13));
+   			booking.setRoomTypeString(rs.getString(12));
+   			booking.setUser(rs.getString(2));
+   			bookings.add(booking);
+   		}
+      }
 		return bookings;
 		
 		
