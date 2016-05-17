@@ -182,16 +182,17 @@ public class UserDAO {
 			ResultSet rs = o.searchDB(connection, query);
 			rs.next();
 			String oldEmail = rs.getString("email");
+			System.out.println(oldEmail + "=="+user.getEmail());
 			int email_verification = 1;
 			if (oldEmail.equals(user.getEmail())) {
-				email_verification = 0;
-				result = 0;
-			} else {
-				result = 1;
 				email_verification = 1;
+				result = 1;
+			} else {
+				result = 0;
+				email_verification = 0;
 			}
 			
-			
+			System.out.println("email check = "+email_verification);
 			String sqlInsert = "update user SET email = ?, nickname = ?, firstname = ?, lastname = ?, "
 					+ "address = ?, credit_card_type = ?, credit_card_number = ?, credit_card_exp_month = ?, "
 					+ "credit_card_exp_year = ?, credit_card_cvv = ?, email_verification = ?"

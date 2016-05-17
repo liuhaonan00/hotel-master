@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.User;
 import businessLogic.jdbc.UserDAO;
+import businessLogic.library.EmailApi;
 
 /**
  * Servlet implementation class SubmitUpdateProfile
@@ -39,6 +40,7 @@ public class SubmitUpdateProfileServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 //		System.out.println("Submit Update Servlet");
 		int userId = Integer.parseInt((String)request.getParameter("user_id"));
+		String username = (String)request.getParameter("username");
 		User user = new User(userId);
 		user.setEmail((String)request.getParameter("email"));
 		user.setNickname((String)request.getParameter("nickname"));
@@ -52,7 +54,13 @@ public class SubmitUpdateProfileServlet extends HttpServlet {
 		user.setCreditCardCvv((String)request.getParameter("credit_card_cvv"));
 		UserDAO u = new UserDAO();
 		int result = u.updateUser(user);
-		System.out.println(result);
+		if (result == 1) {
+			System.out.println("update user profile successful");
+		} else {
+			System.out.println("update successful, but the email: "+ (String)request.getParameter("email")+" must be verified first!");
+			EmailApi emailApi = new EmailApi();
+			emailApi.verifyEmail(userId, username, (String)request.getParameter("email"));
+		}
 		
 		
 		

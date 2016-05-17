@@ -24,11 +24,12 @@
 	if (user.getCreditCardNum() != null) creditNum = user.getCreditCardNum();
 	String cvv = "";
 	if (user.getCreditCardCvv() != null) cvv = user.getCreditCardCvv();
-	System.out.println(user.getUserId());
+	
 
 %>
 <form id = "form" action = "submitupdateprofile" onsubmit="return check(this)" method = "POST">
 	<input type="hidden" name="user_id" value = "<%=user.getUserId()%>"><br>
+	<input type="hidden" name="username" value = "<%=user.getUsername()%>"><br>
 	Username:  <%=user.getUsername() %><br>
 	Email: <input type="text" name="email" value = "<%=email %>" ><br>
 	Nickname: <input type="text" name="nickname" value = "<%=nickname %>"><br>
