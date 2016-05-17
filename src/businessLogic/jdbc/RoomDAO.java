@@ -145,7 +145,7 @@ public class RoomDAO {
       ArrayList<Room> occRooms = new ArrayList<Room>();
       MysqlOperation o = new MysqlOperation();
       Connection connection = o.DBConnect();
-      String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and hotel_id="
+      String query = "SELECT * FROM room  join room_status on room_status.room_id = room.room_id where room_status.status = 'occupied' and room.hotel_id="
             + "" + hotel_id;
       System.out.println(query);
       ResultSet rs = o.searchDB(connection, query);

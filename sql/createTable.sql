@@ -210,6 +210,8 @@ INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, bookin
 (1,1,'repair', '2016-07-28','2016-07-30','100');
 INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
 (1,3,'repair', '2016-07-28','2016-07-30','100');
+INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
+(2,10,'occupied', '2016-05-10','2016-05-20','800');
 
 CREATE TABLE `offer` (
   `offer_id` int(11) NOT NULL AUTO_INCREMENT,
