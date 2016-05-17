@@ -57,11 +57,16 @@ public class ShoppingCartServlet extends HttpServlet {
 		String username = (String)request.getSession().getAttribute("current_user");
 		String email = userDAO.getEmail(user_id);
 		EmailApi emailapi = new EmailApi();
+<<<<<<< HEAD
+		//EmailApi.sendBookingConfirmation(bookingid,username,email,pin);
+
+=======
 		emailapi.sendBookingConfirmation(bookingid,username,email,pin);
 //		for (int i =0;i<thisCart.size();i++){
 			
 //			//shoppingcart.insert(thisCart.get(i),uesr_id);
 //		}
+>>>>>>> 5a77f451bf0d10f149bd0088cbe34d7c2c70f6c2
 		request.getSession().setAttribute("ShoppingCart", null);
 		request.getRequestDispatcher("thankyou.jsp").forward(request,response);	
 		
