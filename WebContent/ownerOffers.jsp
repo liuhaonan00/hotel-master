@@ -44,7 +44,7 @@ function isNumberKey(evt){
 		Start Date <input type="date" name="startDate"><BR> 
 		End	Date <input type="date" name="endDate"><BR> 
 		<input type="hidden" name="hidden" value="<c:out value='${hotel}'/>">
-		<input type="submit" value="Submit">
+		<input type="submit" value="Create Offer">
 	</form>
 	
 
@@ -69,7 +69,7 @@ function isNumberKey(evt){
 				
 			</table>
 			<input type="hidden" name="hidden" value="<c:out value='${hotel}'/>">
-			<input type="submit" value="Submit">
+			<input type="submit" value="Remove Offer">
 		</form>
 	</c:if>
 

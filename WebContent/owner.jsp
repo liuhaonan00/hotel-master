@@ -51,6 +51,10 @@
 </form>
 
 <h2> Current Special Offers</h2>
+<c:if test="${offers.size() < 1}">
+	<h4>There are no offers at the moment.</h4>
+	</c:if>
+<c:if test="${offers.size() > 0}">
 	<table>
 		<tr>
 			<th>Hotel</th>
@@ -69,6 +73,9 @@
 		</tr>
 	</c:forEach>
 	</table>
+	</c:if>
+	
+	
 
 
 	<h2>Manage Special Offers</h2>
