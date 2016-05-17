@@ -35,6 +35,8 @@ public class WelcomeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		System.out.println("System started!");
+		request.getSession().setAttribute("current_user", null);
+		request.getSession().setAttribute("current_user_id", null);
 		RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
 		
 		//create random room list and send to login.jsp for display

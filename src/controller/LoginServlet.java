@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		this.username = request.getParameter("login_username");
 		this.password = request.getParameter("login_pswd");	
-		//System.out.println(username+ ":"+ password); 
+		System.out.println(username+ ":"+ password); 
 		if (username == "" || password == "") {
 			request.setAttribute("error", "No username or password");
 			RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
@@ -54,13 +54,13 @@ public class LoginServlet extends HttpServlet {
 			//new servlet with DAO
 			UserDAO userDAO = new UserDAO();
 			int result = userDAO.findUser(username, password);
-			if (result == 1)
+			if (result == -1)
 			{
 				request.setAttribute("error", "No such user");
 				RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 				rd.forward(request, response);
 			}
-			else if(result == 2)
+			else if(result == -2)
 			{
 				request.setAttribute("error", "Wrong password");
 				RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
@@ -70,7 +70,8 @@ public class LoginServlet extends HttpServlet {
 			{ //success
 				request.getSession().setAttribute("current_user", username);
 				request.getSession().setAttribute("current_user_id", result);
-				RequestDispatcher rd = request.getRequestDispatcher("/userhome.jsp");
+				System.out.println("Login successful: userID = " + result);
+				RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
 				rd.forward(request, response);
 			}
 		}

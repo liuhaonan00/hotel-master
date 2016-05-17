@@ -24,16 +24,16 @@ public class UserDAO {
 		String pass = null;
 		try {
 			if(!rs.next()) {
-				result = 1; // 1 = "error", "No such user"
+				result = -1; // 1 = "error", "No such user"
 				System.out.println("No such user!");
 			}
 			else {
 				pass = rs.getString("password");
 				if (pass.equals(md5.MD5(password))) {
 					result = rs.getInt("user_id"); //return user ID;
-					System.out.println("login successful!");
+//					System.out.println("login successful!");
 				} else {
-					result = 2; //2 = "error", "Wrong pass word"
+					result = -2; //2 = "error", "Wrong pass word"
 					System.out.println("wrong password!");
 				}
 			}

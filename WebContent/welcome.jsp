@@ -16,6 +16,7 @@
 <title>Welcome!</title>
 </head>
 <body>
+<%@ include file="Header.jsp" %>
 	<h2>Welcome to RAMPAGE PENTAKILL HOTELS</h2>
 		<div class="inner-left">
 			<form action="">
