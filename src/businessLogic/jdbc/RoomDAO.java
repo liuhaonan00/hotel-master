@@ -54,8 +54,12 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "SELECT hotel_id, room_type,count(*)AS num_of_room,room.normal_price FROM room natural join hotel WHERE room_id not in "+
-"(SELECT room.room_id FROM room natural join room_status where room_status.status = 'repair') AND hotel.city = '"+City+"'"+" AND room.normal_price < "+price+
-" group by hotel_id,room_type,room.normal_price;";
+			"(SELECT room.room_id FROM room natural join room_status "
+			+ "where room_status.status = 'repair' AND "
+			+ "(room_status.end_date <= "+EndDate+" AND room_status.end_date > "+StartDate+") OR "
+			+ "(room_status.start_date < "+EndDate+" AND room_status.start_date >= "+StartDate+")) "
+			+ "AND hotel.city = '"+City+"'"+" AND room.normal_price < "+price+
+			" group by hotel_id,room_type,room.normal_price;";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){

@@ -151,7 +151,7 @@ UNLOCK TABLES;
 INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
 VALUES (1,'2000-07-28','2100-07-30', 0,1);
 INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
-VALUES (2,'2016-07-28','2016-07-30', 200,1);
+VALUES (2,'2016-07-28','2016-07-30', 200,2);
 
 CREATE TABLE `booking_detail` (
   `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -174,13 +174,14 @@ UNLOCK TABLES;
 --
 -- Dumping data for table `booking`
 --
-INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`) VALUES (NULL, '2', '1', 'Queen', '1', '1','0');
+INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`) 
+VALUES (NULL, 2, 1, 'Queen', 1, 1,0),
+(NULL, 2, 1, 'Single', 1, 0,0);
 
 CREATE TABLE `room_status` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,
   `hotel_id` int(11) DEFAULT NULL,
   `room_id` int(11) DEFAULT NULL,
-  `booking_id` int(11) DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
@@ -189,10 +190,9 @@ CREATE TABLE `room_status` (
   UNIQUE KEY `status_id_UNIQUE` (`status_id`),
   KEY `hotel_id2_idx` (`hotel_id`),
   KEY `room_id2_idx` (`room_id`),
-  KEY `booking_id2_idx` (`booking_id`),
   CONSTRAINT `hotel_id2` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `room_id2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `booking_id2` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `room_id2` FOREIGN KEY (`room_id`) REFERENCES `room` (`room_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  
 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 --
@@ -201,10 +201,10 @@ CREATE TABLE `room_status` (
 LOCK TABLES `room_status` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
-(1,1,2,'Booked', '2016-07-28','2016-07-30','100');
-INSERT INTO room_status (hotel_id, room_id,booking_id, status, start_date, end_date, booking_price) VALUES
-(1,3,2,'Booked', '2016-07-28','2016-07-30','100');
+INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
+(1,1,'repair', '2016-07-28','2016-07-30','100');
+INSERT INTO room_status (hotel_id, room_id, status, start_date, end_date, booking_price) VALUES
+(1,3,'repair', '2016-07-28','2016-07-30','100');
 
 CREATE TABLE `offer` (
   `offer_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -224,3 +224,5 @@ CREATE TABLE `offer` (
 --
 LOCK TABLES `offer` WRITE;
 UNLOCK TABLES;
+INSERT INTO offer (offer_price, hotel_id, room_type,start, end) VALUES
+(50,1,'Queen', '2016-07-28','2016-07-30');
