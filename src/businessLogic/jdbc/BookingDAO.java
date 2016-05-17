@@ -73,8 +73,26 @@ public class BookingDAO {
 	
 	public ArrayList<Booking> currentUnassignedBooking(String start,String end,int hotel_id){
 		
-		
-		return null;
+		ArrayList<Booking> bookings= new ArrayList<Booking>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Booking booking = new Booking();
+			booking.setBookingID(bookingID);
+			booking.setEndDate();
+			booking.setStartDate();
+			booking.setExtrabed(extrabed);
+			booking.setHotel_id(hotel_id);
+			booking.setPrice(price);
+			booking.setNo_of_room(no_of_room);
+			booking.setRoomTypeString(roomTypeString);
+			booking.setUser(user);
+			bookings.add(booking);
+		}
+		return bookings;
 		
 	}
 	
