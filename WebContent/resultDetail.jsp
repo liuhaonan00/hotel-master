@@ -16,6 +16,7 @@
 <title>Result Detail</title>
 </head>
 <body>
+<%@ include file="Header.jsp" %>
 <%
 	ArrayList<Room> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
 	if(rooms.size()==0){%>

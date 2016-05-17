@@ -16,6 +16,7 @@
 <title>Shopping Cart</title>
 </head>
 <body>
+<%@ include file="Header.jsp" %>
 
     <H2>My Shopping Cart</H2>
     <% 
