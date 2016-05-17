@@ -7,6 +7,8 @@
 <title>Staff login</title>
 </head>
 <body>
+   <h2>Staff login</h2>
+   <em>${error}</em>
    <ol>
       <li>TODO mimic the main login page</li>
       <li>TODO make a servlet to check against manager and owner

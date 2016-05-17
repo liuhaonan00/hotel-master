@@ -7,6 +7,7 @@
 <title>Search</title>
 </head>
 <body>
+<%@ include file="Header.jsp" %>
 	    <h2>Search for rooms</h2>
 		Search by:
 		<br> <br>
