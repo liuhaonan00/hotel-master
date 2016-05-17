@@ -27,6 +27,9 @@ function isNumberKey(evt){
 <title>Manage Special Offers</title>
 </head>
 <body>
+<form action="availability">
+<input type="submit" value="Go Back to Owner Page">
+</form>
 
 	<h1>
 		Special Offers:

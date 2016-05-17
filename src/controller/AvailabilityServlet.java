@@ -37,6 +37,7 @@ public class AvailabilityServlet extends HttpServlet {
 		int occupancy[] = {0,0,0,0,0,0,0,0,0};
 		RoomDAO roomdao = new RoomDAO();
 		ArrayList<Offer> offers = new ArrayList<Offer>();
+		ArrayList<Period> periods = new ArrayList<Period>();
 		
 		try{
 		occupancy[1] = roomdao.unavailablerooms(1);
@@ -47,7 +48,9 @@ public class AvailabilityServlet extends HttpServlet {
 		occupancy[6] = roomdao.unavailablerooms(6);
 		occupancy[7] = roomdao.unavailablerooms(7);
 		occupancy[8] = roomdao.unavailablerooms(8);
+		
 		offers = roomdao.getOffers();
+		periods = roomdao.getPeriods();
 		
 		}catch (Exception e){
 			e.printStackTrace();
@@ -66,9 +69,10 @@ public class AvailabilityServlet extends HttpServlet {
 		
 		request.setAttribute("occupancies", occs);
 		request.setAttribute("offers", offers);
+		request.setAttribute("periods", periods);
 		rd.forward(request, response);
 
-       // login test
+
        
           
        

@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `manager`;
 DROP TABLE IF EXISTS `hotel`;
+DROP TABLE IF EXISTS `peakperiod`;
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -224,3 +225,17 @@ CREATE TABLE `offer` (
 --
 LOCK TABLES `offer` WRITE;
 UNLOCK TABLES;
+
+CREATE TABLE `peakperiod` (
+`period_id` int(11) NOT NULL AUTO_INCREMENT,
+`period_name` varchar(50) DEFAULT NULL,
+`price_increase` int(11) DEFAULT NULL,
+`start` date DEFAULT NULL,
+`end` date DEFAULT NULL,
+PRIMARY KEY (`period_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `offer` WRITE;
+UNLOCK TABLES;
+
+

@@ -3,6 +3,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="businessLogic.javaClass.Offer" %>
+<%@ page import="businessLogic.javaClass.Period" %>
 <%@  taglib  prefix="c"   uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,11 +12,13 @@
 	pageContext.setAttribute("occupancies", occs);
 	ArrayList<Offer> offers = (ArrayList<Offer>) request.getAttribute("offers");
 	pageContext.setAttribute("offers", offers);
+	ArrayList<Period> periods = (ArrayList<Period>) request.getAttribute("periods");
+	pageContext.setAttribute("periods", periods);
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Manager Page</title>
+<title>Owner Page</title>
 </head>
 <body>
 
@@ -93,9 +96,40 @@
   <input type="submit" value="Submit">
 </form>
 
-   <form action="staff" method="POST">
+
+   
+   <h2>Scheduled Peak Periods</h2>
+   <c:if test="${periods.size() < 1}">
+	<h4>There are no scheduled periods at the moment.</h4>
+	</c:if>
+	<c:if test="${periods.size() > 0}">
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Price Increase</th>
+			<th>Start Date</th>
+			<th>End Date</th>
+		</tr>
+	<c:forEach items="${periods}" var ="period">
+	<tr>
+	<td><c:out value="${period.getPeriodName()}" /></td>
+	<td><c:out value="${period.getPriceIncrease()}" />%</td>
+	<td><c:out value="${period.getStartDate()}" /></td>
+	<td><c:out value="${period.getEndDate()}" /></td>
+	</tr>
+	</c:forEach>
+	</table>		
+	</c:if>
+	
+	<form action="ownerPeriod.jsp">
+	<input type="submit" value="Manage Peak Periods" />
+	</form>
+	
+	
+	   <form action="staff" method="POST">
       <input type="submit" name="staff_logout" value="Log out" />
    </form>
+   
 
 
 </body>

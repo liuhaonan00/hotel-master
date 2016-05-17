@@ -349,5 +349,23 @@ public class RoomDAO {
 		return offers;
 	}
 	
+	public ArrayList<Period> getPeriods() throws SQLException{
+		ArrayList<Period> periods= new ArrayList<Period>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * FROM peakperiod";
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Period period = new Period();
+			period.setPeriodID(rs.getInt(1));
+			period.setPeriodName(rs.getString(2));
+			period.setPriceIncrease(rs.getInt(3));
+			period.setStartDate(rs.getString(4));
+			period.setEndDate(rs.getString(5));
+			periods.add(period);
+		}
+		return periods;
+	}
+		
 	
 }
