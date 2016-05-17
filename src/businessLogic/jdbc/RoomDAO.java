@@ -292,12 +292,15 @@ public class RoomDAO {
 	}
 	
 	
-	public void markRoomAccupied(){
-		
+	public void markRoomAccupied(int hotel_id,int room_id,int booking_id){ 
+		// i think you should be able to get booking_id, if you don't booking_id was useful, just detele it
+		MysqlOperation o = new MysqlOperation();
+		PreparedStatement pst = null;
+
 	}
 	
 	
-	public void markRoomFree(){
+	public void markRoomFree(int room_id){
 		
 	}
 	

@@ -2,6 +2,9 @@ package businessLogic.jdbc;
 
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import businessLogic.javaClass.*;
 
 public class BookingDAO {
@@ -71,40 +74,72 @@ public class BookingDAO {
 			
 		}
 	
-	public ArrayList<Booking> currentUnassignedBooking(String start,String end,int hotel_id){
+	public ArrayList<Booking> currentUnassignedBooking(int hotel_id) throws SQLException{
+		//get current date
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String date1 = dateFormat.format(date);
 		
 		ArrayList<Booking> bookings= new ArrayList<Booking>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "";
+		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Booking booking = new Booking();
-			booking.setBookingID(bookingID);
-			booking.setEndDate();
-			booking.setStartDate();
-			booking.setExtrabed(extrabed);
-			booking.setHotel_id(hotel_id);
-			booking.setPrice(price);
-			booking.setNo_of_room(no_of_room);
-			booking.setRoomTypeString(roomTypeString);
-			booking.setUser(user);
+			booking.setBookingID(rs.getInt(1));
+			booking.setBookingDetailID(rs.getInt(9));
+			booking.setEndDate(rs.getString(3));
+			booking.setStartDate(rs.getString(4));
+			booking.setExtrabed(rs.getInt(14));
+			booking.setHotel_id(rs.getInt(11));
+			booking.setPrice(rs.getFloat(8));
+			booking.setNo_of_room(rs.getInt(13));
+			booking.setRoomTypeString(rs.getString(12));
+			booking.setUser(rs.getString(2));
 			bookings.add(booking);
 		}
 		return bookings;
 		
 	}
 	
-	public ArrayList<Booking> currentAssignedBooking(String start,String end,int hotel_id){
+	public ArrayList<Booking> currentAssignedBooking(String start,String end,int hotel_id) throws SQLException{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String date1 = dateFormat.format(date);
 		
+		ArrayList<Booking> bookings= new ArrayList<Booking>();
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=1 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
+		while(rs.next()){
+			Booking booking = new Booking();
+			booking.setBookingID(rs.getInt(1));
+			booking.setBookingDetailID(rs.getInt(9));
+			booking.setEndDate(rs.getString(3));
+			booking.setStartDate(rs.getString(4));
+			booking.setExtrabed(rs.getInt(14));
+			booking.setHotel_id(rs.getInt(11));
+			booking.setPrice(rs.getFloat(8));
+			booking.setNo_of_room(rs.getInt(13));
+			booking.setRoomTypeString(rs.getString(12));
+			booking.setUser(rs.getString(2));
+			bookings.add(booking);
+		}
+		return bookings;
 		
-		return null;
 		
 	}
 	
-	public void markBookingAssign(){
-		
+	public void markBookingAssign(int bookingDetailID){
+		MysqlOperation o = new MysqlOperation();
+		Connection connection = o.DBConnect();
+		String query = "UPDATE booking_detail SET assign=1 WHERE booking_detail_id="+bookingDetailID;
+		System.out.println(query);
+		ResultSet rs = o.searchDB(connection, query);
 	}
 	
 }

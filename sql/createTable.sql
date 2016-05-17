@@ -133,7 +133,6 @@ CREATE TABLE `booking` (
   `user_id` int(11) DEFAULT NULL,
   `checkin` date DEFAULT NULL,
   `checkout` date DEFAULT NULL,
-  `roomtype` varchar(50) DEFAULT NULL,
   `pin` varchar(50) DEFAULT NULL,
   `number_of_room` int DEFAULT NULL,
   `total_price` float DEFAULT NULL,
@@ -149,10 +148,10 @@ CREATE TABLE `booking` (
 LOCK TABLES `booking` WRITE;
 UNLOCK TABLES;
 
-INSERT INTO booking (user_id,checkin,checkout,total_price,roomtype,number_of_room) 
-VALUES (1,'2000-07-28','2100-07-30', 0,'Queen',1);
-INSERT INTO booking (user_id,checkin,checkout,total_price,roomtype,number_of_room) 
-VALUES (2,'2016-07-28','2016-07-30', 200,'Queen',1);
+INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
+VALUES (1,'2000-07-28','2100-07-30', 0,1);
+INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
+VALUES (2,'2016-07-28','2016-07-30', 200,1);
 
 CREATE TABLE `booking_detail` (
   `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -161,6 +160,7 @@ CREATE TABLE `booking_detail` (
   `room_type` varchar(45) DEFAULT NULL,
   `num_of_room` int(11) DEFAULT NULL,
   `extra_bed` int(11) DEFAULT NULL,
+  `assign` int DEFAULT 0,
   PRIMARY KEY (`booking_detail_id`),
   UNIQUE KEY `booking_detail_id_UNIQUE` (`booking_detail_id`),
   KEY `booking_id_detail_idx` (`booking_id`),
@@ -171,8 +171,10 @@ CREATE TABLE `booking_detail` (
 
 LOCK TABLES `booking_detail` WRITE;
 UNLOCK TABLES;
-
-
+--
+-- Dumping data for table `booking`
+--
+INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`) VALUES (NULL, '2', '1', 'Queen', '1', '1','0');
 
 CREATE TABLE `room_status` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,

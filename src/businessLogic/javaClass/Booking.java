@@ -11,6 +11,7 @@ public class Booking {
    private int extrabed;
    private int hotel_id;
    private float price;
+   private int bookingDetailID;
    
    
    public int getBookingID() {
@@ -20,7 +21,15 @@ public class Booking {
    public void setBookingID(int bookingID) {
       this.bookingID = bookingID;
    }
+   
+   public int getBookingDetailID() {
+	      return bookingID;
+	   }
 
+	   public void setBookingDetailID(int bookingDetailID) {
+	      this.bookingDetailID = bookingDetailID;
+	  }
+	   
    public int getNo_of_room() {
 	      return no_of_room;
 	   }
