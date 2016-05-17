@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="businessLogic.javaClass.Room"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -14,6 +16,13 @@
 
    <form action="manage" method="POST">
       <h3>Occupied rooms:</h3>
+      <%
+         if (((List<Room>) request.getAttribute("manager_occupancy")).isEmpty()) {
+      %>
+      None!
+      <%
+         } else {
+      %>
       <table>
          <tr>
             <!-- Room number, Room type, Empty this room -->
@@ -31,6 +40,9 @@
          </c:forEach>
       </table>
       <input type="submit" value="Mark selected rooms as available" />
+      <%
+         }
+      %>
    </form>
 
    <h3>Pending Bookings:</h3>

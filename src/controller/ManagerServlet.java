@@ -15,6 +15,7 @@ import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
 import businessLogic.jdbc.HotelDAO;
+import businessLogic.jdbc.RoomDAO;
 
 /**
  * Servlet implementation class ManagerServlet
@@ -37,24 +38,28 @@ public class ManagerServlet extends HttpServlet {
          Hotel fakeHotel = hotelDao.findHotelById(fakeHotelID);
          request.getSession().setAttribute("manager_hotel", fakeHotel);
       } catch (SQLException e) {
-         // TODO Auto-generated catch block
+         Hotel failHotel = new Hotel();
+         failHotel.setHotelName("Error");
+         request.getSession().setAttribute("manager_hotel", failHotel);
          e.printStackTrace();
       }
 
       // TODO if (valid manager session)
       {
-         //         Hotel managedHotel = (Hotel) request.getSession().getAttribute("manager_hotel");
+         Hotel managedHotel = (Hotel) request.getSession().getAttribute("manager_hotel");
          ArrayList<Room> occupiedRooms = new ArrayList<Room>();
          ArrayList<Booking> emptyBookings = new ArrayList<Booking>();
          ArrayList<Booking> filledBookings = new ArrayList<Booking>();
 
-         // TODO get from the database, and set, a list of currently occupied rooms for this hotel (Chang is adding this)
-         // test room for page
-         Room testRoom = new Room();
-         testRoom.setRoomId(1234);
-         testRoom.setRoomNo("Not an actual number :p");
-         testRoom.setRoomType("TARDIS");
-         occupiedRooms.add(testRoom);
+         // get a list of currently occupied rooms for this hotel
+         RoomDAO roomDao = new RoomDAO();
+         try {
+            occupiedRooms = roomDao.allOccRooms(managedHotel.getHotelId());
+         } catch (SQLException e) {
+            Room failRoom = new Room();
+            failRoom.setRoomType("Error");
+            e.printStackTrace();
+         }
 
          // TODO get from the database a list of current bookings which are not yet assigned rooms
          // test bookings for page
