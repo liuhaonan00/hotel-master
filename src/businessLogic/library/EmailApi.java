@@ -39,7 +39,7 @@ public class EmailApi {
 			generateMailMessage.setSubject("Email Verification: "+ username);
 			String urlLink = "http://localhost:8080/Assignment2/emailverify?user_id="
 					+Integer.toString(userID)+"&email="+email+"&username="+username;
-			String emailBody = "Test email by Crunchify.com JavaMail API example. " + "<br><br> Regards, <br>Crunchify Admin";
+			String emailBody = "";
 			emailBody = "Dear "+username+": <br><br>"
 					  + "This is a confirmation email<br><br>"
 					  + "To verify this email address, please click here: <br><br>"
@@ -63,7 +63,38 @@ public class EmailApi {
 		} catch (MessagingException e) {
 	        System.out.println("send failed, exception: " + e);
 	    }
-		// Step1
-		
+		// Step1		
+	}
+	
+	public void sendBookingConfirmation(int bookingId, String username, String email, String pin){
+		try {
+			mailServerProperties = System.getProperties();
+			mailServerProperties.put("mail.smtp.port", "587");
+			mailServerProperties.put("mail.smtp.auth", "true");
+			mailServerProperties.put("mail.smtp.starttls.enable", "true");
+			
+			getMailSession = Session.getDefaultInstance(mailServerProperties, null);
+			generateMailMessage = new MimeMessage(getMailSession);
+			generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			generateMailMessage.setSubject("Booking Confirmation: "+ username);
+			
+			String emailBody = "";
+			emailBody = "Dear "+username+": <br><br>"
+					  + "This is a booking confirmation email<br><br>"
+					  + "Your booking ID is: "+bookingId+", "
+					  + "and your pin code is: "+pin+" <br><br>"
+					  + "You can user your bookingID and pin to check your bookings <br><br>"
+					  + "Best Regards";
+			
+			generateMailMessage.setContent(emailBody, "text/html");
+			Transport transport = getMailSession.getTransport("smtp");		 
+			// Enter your correct gmail UserID and Password
+			// if you have 2FA enabled then provide App Specific Password
+			transport.connect("smtp.gmail.com", "comp9321.group.rampage", "Rampage9321");
+			transport.sendMessage(generateMailMessage, generateMailMessage.getAllRecipients());
+			transport.close();
+		} catch (MessagingException e) {
+	        System.out.println("send failed, exception: " + e);
+	    }
 	}
 }
