@@ -25,8 +25,8 @@
 	<form action ="booking" method="post">
 	<table border=1>
 	<tr>
-		<td>
-		Book
+	<td>
+	Book
 	</td>
 	<td>
 	<p>Hotel</p>
@@ -35,14 +35,21 @@
 	<p>Room Type</p>
 	</td>
 	<td>
-	<p>Number of Rooms</p>
-	</td>
-	<td>
 	<p>Normal Price</p>
 	</td>
 	<td>
 	<p>Current Price</p>
 	</td>
+	<td>
+	<p>Number of Rooms</p>
+	</td>
+	<td>
+	<p>Room to Book</p>
+	</td>
+	<td>
+	<p>Extra Bed(S)</p>
+	</td>
+	
 	</tr>
 	<%
 	for (int i =0;i<rooms.size();i++){
@@ -57,9 +64,7 @@
 	<p><%=rooms.get(i).getHotel_id()%></p>
 	<input type="hidden" name="hotelid" value=<%=rooms.get(i).getHotel_id()%>>
 	</td>
-	<td>
-	<p><%=rooms.get(i).getNo()%></p> 
-	</td>
+	
 	<td>
 	<p><%=rooms.get(i).getRoomtype() %></p>
 	<input type="hidden" name="roomtype" value=<%=rooms.get(i).getRoomtype()%>>
@@ -68,11 +73,15 @@
 	<p><%=rooms.get(i).getPrice() %></p>
 	<input type="hidden" name="price" value=<%=rooms.get(i).getPrice()%>>
 	</td>
-	
 	<td>
 	
 	<p><%=rooms.get(i).getPrice()%></p>
 	</td>
+	<td>
+	<p><%=rooms.get(i).getNo()%></p> 
+	</td>
+	
+	
 	</tr>
 	<%}%>
 	</table>

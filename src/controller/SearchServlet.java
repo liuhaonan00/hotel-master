@@ -38,7 +38,7 @@ private static final long serialVersionUID = 1L;
 		String check_out = "'"+request.getParameter("check_out")+"'";
 		String city = request.getParameter("city");
 		String price1 = request.getParameter("price");
-		int price = 0;
+		int price = 99999999;
 		if (!price1.equals("")){
 			price = Integer.parseInt(price1);
 		}

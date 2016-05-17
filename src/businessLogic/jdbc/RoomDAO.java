@@ -13,18 +13,17 @@ public class RoomDAO {
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "select * from room natural join hotel ORDER BY RAND() limit "+n;
+		String query = "select * from room ORDER BY RAND() limit "+n;
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Room this_room = new Room();
-			this_room.setRoomId(rs.getInt("room_id"));
-			this_room.setHotelId(rs.getInt("hotel_id"));
-			this_room.setRoomType(rs.getString("room_type"));
-			this_room.setRoomNo(rs.getString("room_no"));
-			this_room.setPrice(rs.getFloat("normal_price"));
-			this_room.setRoomDescription(rs.getString("room_description"));
-			this_room.setCity(rs.getString("city"));
+			this_room.setRoomId(rs.getInt(1));
+			this_room.setHotelId(rs.getInt(2));
+			this_room.setRoomType(rs.getString(3));
+			this_room.setRoomNo(rs.getString(4));
+			this_room.setPrice(rs.getInt(5));
+			this_room.setRoomDescription(rs.getString(6));
 			rooms.add(this_room);	
 		}
 
@@ -55,9 +54,7 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "SELECT hotel_id, room_type,count(*)AS num_of_room,room.normal_price FROM room natural join hotel WHERE room_id not in "+
-"(SELECT room.room_id FROM room natural join room_status "+
-"where (room_status.end_date <= "+EndDate+" AND room_status.end_date > "+StartDate+") "+
-"OR (room_status.start_date < "+EndDate+" AND room_status.start_date >= "+StartDate+")) AND hotel.city = '"+City+"'"+"AND room.normal_price < "+price+
+"(SELECT room.room_id FROM room natural join room_status where room_status.status = 'repair') AND hotel.city = '"+City+"'"+" AND room.normal_price < "+price+
 " group by hotel_id,room_type;";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
@@ -76,8 +73,9 @@ public class RoomDAO {
 		ArrayList<Search> allRooms = new ArrayList<Search>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "select booking.hotel_id, booking.roomtype,sum(booking.number_of_room) FROM booking join hotel on hotel.hotel_id=booking.hotel_id AND hotel.city = '"+City+"'"+
-				" group by booking.hotel_id,booking.roomtype;";
+		String query = "select booking_detail.hotel_id, booking_detail.room_type,sum(booking_detail.num_of_room) FROM booking_detail join hotel on hotel.hotel_id=booking_detail.hotel_id AND hotel.city = '"+City+"'"+
+				" group by booking_detail.hotel_id,booking_detail.room_type;";
+		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Search this_room = new Search();
