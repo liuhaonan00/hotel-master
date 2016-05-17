@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS `offer`;
 DROP TABLE IF EXISTS `room_status`;
+DROP TABLE IF EXISTS `booking_detail`;
 DROP TABLE IF EXISTS `booking`;
 DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `user`;
@@ -134,6 +135,7 @@ CREATE TABLE `booking` (
   `checkin` date DEFAULT NULL,
   `checkout` date DEFAULT NULL,
   `roomtype` varchar(50) DEFAULT NULL,
+  `pin` varchar(50) DEFAULT NULL,
   `number_of_room` int DEFAULT NULL,
   `total_price` float DEFAULT NULL,
   
@@ -153,6 +155,26 @@ INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,numb
 VALUES (1,1,'2000-07-28','2100-07-30', 0,'Queen',1);
 INSERT INTO booking (user_id,hotel_id,checkin,checkout,total_price,roomtype,number_of_room) 
 VALUES (2,1,'2016-07-28','2016-07-30', 200,'Queen',1);
+
+CREATE TABLE `booking_detail` (
+  `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
+  `booking_id` int(11) DEFAULT NULL,
+  `hotel_id` int(11) DEFAULT NULL,
+  `room_type` varchar(45) DEFAULT NULL,
+  `num_of_room` int(11) DEFAULT NULL,
+  `extra_bed` int(11) DEFAULT NULL,
+  PRIMARY KEY (`booking_detail_id`),
+  UNIQUE KEY `booking_detail_id_UNIQUE` (`booking_detail_id`),
+  KEY `booking_id_detail_idx` (`booking_id`),
+  KEY `hotel_id_detail_idx` (`hotel_id`),
+  CONSTRAINT `booking_id_detail` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `hotel_id_detail` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `booking_detail` WRITE;
+UNLOCK TABLES;
+
+
 
 CREATE TABLE `room_status` (
   `status_id` int(11) NOT NULL AUTO_INCREMENT,
