@@ -45,6 +45,24 @@
   <input type="submit" value="Submit">
 </form>
 
+<h2>Manage Special Offers</h2>
+<form action="offers">
+  <select name="offerHotel">
+    <option value="1">Rampage-SYD-1</option>
+    <option value="2">Rampage-SYD-2</option>
+    <option value="3">Rampage-MEL-1</option>
+    <option value="4">Rampage-MEL-2</option>
+    <option value="5">Rampage-BRI-1</option>
+    <option value="6">Rampage-ADE-1</option>
+    <option value="7">Rampage-PER-1</option>
+    <option value="8">Rampage-HOB-1</option>
+  </select>
+  <input type="submit" value="Submit">
+</form>
+
+
+
+
 
 </body>
 </html>
