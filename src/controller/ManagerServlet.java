@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
+import businessLogic.jdbc.BookingDAO;
 import businessLogic.jdbc.RoomDAO;
 
 /**
@@ -42,28 +43,23 @@ public class ManagerServlet extends HttpServlet {
          try {
             occupiedRooms = roomDao.allOccRooms(managedHotel.getHotelId());
          } catch (SQLException e) {
-            Room failRoom = new Room();
-            failRoom.setRoomType("Error");
             e.printStackTrace();
          }
 
-         // TODO get from the database a list of current bookings which are not yet assigned rooms
-         // test bookings for page
-         Booking testBooking = new Booking();
-         testBooking.setBookingID(246);
-         testBooking.setUser("userrrr");
-         testBooking.setStartDate("start");
-         testBooking.setEndDate("testEnd");
-         testBooking.setRoomTypeString("2 Twins, 1 Queen");
-         emptyBookings.add(testBooking);
+         // get a list of current bookings which are not yet assigned rooms
+         BookingDAO bookingDao = new BookingDAO();
+         try {
+            emptyBookings = bookingDao.currentUnassignedBooking(managedHotel.getHotelId());
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
 
-         // TODO get from the database a list of current bookings which are already assigned rooms
-         testBooking = new Booking();
-         testBooking.setUser("userrrr2");
-         testBooking.setStartDate("start2");
-         testBooking.setEndDate("testEnd2");
-         testBooking.setRoomTypeString("2 Twins, 1 Queen, one TARDIS");
-         filledBookings.add(testBooking);
+         // get a list of current bookings which are already assigned rooms
+         try {
+            filledBookings = bookingDao.currentAssignedBooking(managedHotel.getHotelId());
+         } catch (SQLException e) {
+            e.printStackTrace();
+         }
 
          request.setAttribute("manager_occupancy", occupiedRooms);
          request.setAttribute("manager_empty_bookings", emptyBookings);
@@ -84,14 +80,21 @@ public class ManagerServlet extends HttpServlet {
       if (request.getSession().getAttribute("logged_in_manager") == null) {
          response.sendRedirect(request.getContextPath() + "/staff");
       } else {
-         // TODO: get room IDs from checkboxes
          String[] roomsToClear = request.getParameterValues("clear_rooms");
-         String clearedRooms = ""; // possibly just to test?
+         String clearedRooms = "";
+         RoomDAO roomDao = new RoomDAO();
 
          if (roomsToClear != null) {
             for (String roomID : roomsToClear) {
-               // TODO: set the actual room to available in the database!
-               clearedRooms = clearedRooms + ' ' + roomID;
+               try {
+                  Room room = roomDao.findRoomById(Integer.parseInt(roomID));
+                  roomDao.markRoomFree(room.getRoomId());
+                  clearedRooms = clearedRooms + room.getRoomNo() + ' ';
+               } catch (NumberFormatException e) {
+                  e.printStackTrace();
+               } catch (SQLException e) {
+                  e.printStackTrace();
+               }
             }
             request.setAttribute("manager_message", "Room(s) cleared: " + clearedRooms);
          }
