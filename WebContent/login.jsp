@@ -11,12 +11,12 @@
 
 <%
 	request.getSession().setAttribute("current_user", null);
-	String error_message  = (String)request.getSession().getAttribute("error");
 %>
 
 
 	<form action = "login" method = "POST">
 	<h2>User login</h2>
+   <em>${error}</em>
 		<table>
 
 	        <tr>

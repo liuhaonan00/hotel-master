@@ -32,28 +32,31 @@ public class BookingServlet extends HttpServlet {
     	String check_out = (String)request.getSession().getAttribute("check_out");
     	String city = (String)request.getSession().getAttribute("city");
     	
-    	String hotel_id = request.getParameter("hotelid");
-    	String roomtype = request.getParameter("roomtype");
-    	String no = request.getParameter("number_of_room");
-    	String price = request.getParameter("price");
-    	String extrabed = request.getParameter("extrabed");
+    	String hotel_id[] = request.getParameterValues("hotelid");
+    	String roomtype[] = request.getParameterValues("roomtype");
+    	String no[] = request.getParameterValues("number_of_room");
+    	String price[] = request.getParameterValues("price");
+    	String extrabed[] = request.getParameterValues("extrabed");
 
 		ArrayList<ShoppingCart> thisCart = new ArrayList<ShoppingCart>();
 		if(request.getSession().getAttribute("ShoppingCart") != null){
 			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
 		}
-			ShoppingCart newItem = new ShoppingCart();
-			newItem.setcheck_in(check_in);
-			newItem.setcheck_out(check_out);
-			newItem.sethotel_id(Integer.parseInt(hotel_id));
-			newItem.setno(Integer.parseInt(no));
-			Float total = Float.parseFloat(price)*Integer.parseInt(no);
-			newItem.setprice(total);
-			newItem.setroomType(roomtype);
-			newItem.setextrabed(Integer.parseInt(extrabed));
-			thisCart.add(newItem);
+		for (int i =0;i<no.length;i++){
+			if (Integer.parseInt(no[i])>0){
+				ShoppingCart newItem = new ShoppingCart();
+				newItem.setcheck_in(check_in);
+				newItem.setcheck_out(check_out);
+				newItem.sethotel_id(Integer.parseInt(hotel_id[i]));
+				newItem.setno(Integer.parseInt(no[i]));
+				Float total = Float.parseFloat(price[i])*Integer.parseInt(no[i]);
+				newItem.setprice(total);
+				newItem.setroomType(roomtype[i]);
+				newItem.setextrabed(Integer.parseInt(extrabed[i]));
+				thisCart.add(newItem);
+			}
 		
-		
+		}
 		request.getSession().setAttribute("ShoppingCart", thisCart);
 		request.getRequestDispatcher("shoppingcart.jsp").forward(request,response);		
     }

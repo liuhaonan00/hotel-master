@@ -16,6 +16,7 @@
 <title>Search Result</title>
 </head>
 <body>
+<%@ include file="Header.jsp" %>
 <%
 	ArrayList<Search> rooms = (ArrayList)request.getSession().getAttribute("roomResult");
 	if(rooms.size()==0){%>
@@ -25,9 +26,6 @@
 	<form action ="booking" method="post">
 	<table border=1>
 	<tr>
-		<td>
-		Book
-	</td>
 	<td>
 	<p>Hotel</p>
 	</td>
@@ -35,14 +33,21 @@
 	<p>Room Type</p>
 	</td>
 	<td>
-	<p>Number of Rooms</p>
-	</td>
-	<td>
 	<p>Normal Price</p>
 	</td>
 	<td>
 	<p>Current Price</p>
 	</td>
+	<td>
+	<p>Number of Rooms</p>
+	</td>
+	<td>
+	<p>Room to Book</p>
+	</td>
+	<td>
+	<p>Extra Bed(S)</p>
+	</td>
+	
 	</tr>
 	<%
 	for (int i =0;i<rooms.size();i++){
@@ -50,16 +55,11 @@
 	
 	%>
 	<tr>
-		<td>
-		<input type="radio" name="123" value="<%=rooms.get(i)%>" >
-	</td>
 	<td>
 	<p><%=rooms.get(i).getHotel_id()%></p>
 	<input type="hidden" name="hotelid" value=<%=rooms.get(i).getHotel_id()%>>
 	</td>
-	<td>
-	<p><%=rooms.get(i).getNo()%></p> 
-	</td>
+	
 	<td>
 	<p><%=rooms.get(i).getRoomtype() %></p>
 	<input type="hidden" name="roomtype" value=<%=rooms.get(i).getRoomtype()%>>
@@ -68,16 +68,22 @@
 	<p><%=rooms.get(i).getPrice() %></p>
 	<input type="hidden" name="price" value=<%=rooms.get(i).getPrice()%>>
 	</td>
+	<td>
+	<p><%=rooms.get(i).getPrice()%></p>
+	</td>
+	<td>
+	<p><%=rooms.get(i).getNo()%></p> 
+	</td>
 	
 	<td>
-	
-	<p><%=rooms.get(i).getPrice()%></p>
+	<input type="textbox" name="number_of_room" value="0" >
+	</td>
+	<td>
+	<input type="textbox" name="extrabed" value="0" >
 	</td>
 	</tr>
 	<%}%>
 	</table>
-	<p>Rooms to book <input type="textbox" name="number_of_room" value="" ></p>
-	<p>Extra beds <input type="textbox" name="extrabed" value="" ></p>
 	<input type="submit" value="Add to Cart"> 
 	
 	</form>

@@ -86,8 +86,9 @@
   <input type="submit" value="Submit">
 </form>
 
-
-
+   <form action="staff" method="POST">
+      <input type="submit" name="staff_logout" value="Log out" />
+   </form>
 
 
 </body>

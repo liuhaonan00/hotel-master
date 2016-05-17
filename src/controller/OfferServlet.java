@@ -23,6 +23,10 @@ public class OfferServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		   if (request.getSession().getAttribute("logged_in_owner") == null) {
+		         response.sendRedirect(request.getContextPath() + "/staff");
+		      } else {
+
 		String hotel_id = ""; 
 		hotel_id = request.getParameter("offerHotel");
 		RoomDAO roomdao = new RoomDAO();
@@ -76,6 +80,9 @@ public class OfferServlet extends HttpServlet {
 			}
 		}
 		
+}
+
+
 }
 }
 

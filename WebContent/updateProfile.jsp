@@ -27,6 +27,7 @@
 	
 
 %>
+<%@ include file="Header.jsp" %>
 <form id = "form" action = "submitupdateprofile" onsubmit="return check(this)" method = "POST">
 	<input type="hidden" name="user_id" value = "<%=user.getUserId()%>"><br>
 	<input type="hidden" name="username" value = "<%=user.getUsername()%>"><br>

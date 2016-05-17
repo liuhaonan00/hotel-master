@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
-import businessLogic.jdbc.HotelDAO;
 import businessLogic.jdbc.RoomDAO;
 
 /**
@@ -30,22 +29,9 @@ public class ManagerServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      // TODO log in the manager in the staff servlet, get hotel ID, put a hotel in the session
-      int fakeHotelID = 1;
-      // TODO do all this in login
-      HotelDAO hotelDao = new HotelDAO();
-      try {
-         Hotel fakeHotel = hotelDao.findHotelById(fakeHotelID);
-         request.getSession().setAttribute("manager_hotel", fakeHotel);
-      } catch (SQLException e) {
-         Hotel failHotel = new Hotel();
-         failHotel.setHotelName("Error");
-         request.getSession().setAttribute("manager_hotel", failHotel);
-         e.printStackTrace();
-      }
-
-      // TODO if (valid manager session)
-      {
+      if (request.getSession().getAttribute("logged_in_manager") == null) {
+         response.sendRedirect(request.getContextPath() + "/staff");
+      } else {
          Hotel managedHotel = (Hotel) request.getSession().getAttribute("manager_hotel");
          ArrayList<Room> occupiedRooms = new ArrayList<Room>();
          ArrayList<Booking> emptyBookings = new ArrayList<Booking>();
@@ -86,9 +72,6 @@ public class ManagerServlet extends HttpServlet {
          RequestDispatcher rd = request.getRequestDispatcher("/manager.jsp");
          rd.forward(request, response);
       }
-      // TODO else {
-      // TODO redirect to staff login servlet
-      //}
    }
 
    /**
@@ -98,8 +81,9 @@ public class ManagerServlet extends HttpServlet {
    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
       // post back to manage is a "remove room"
 
-      // TODO if (valid session)
-      {
+      if (request.getSession().getAttribute("logged_in_manager") == null) {
+         response.sendRedirect(request.getContextPath() + "/staff");
+      } else {
          // TODO: get room IDs from checkboxes
          String[] roomsToClear = request.getParameterValues("clear_rooms");
          String clearedRooms = ""; // possibly just to test?
@@ -114,8 +98,5 @@ public class ManagerServlet extends HttpServlet {
 
          doGet(request, response);
       }
-      // TODO else {
-      // TODO redirect to staff login servlet
-      //}
    }
 }

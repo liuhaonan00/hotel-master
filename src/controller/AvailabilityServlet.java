@@ -30,6 +30,9 @@ public class AvailabilityServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
     	
+    	if (request.getSession().getAttribute("logged_in_owner") == null) {
+            response.sendRedirect(request.getContextPath() + "/staff");
+         } else {
     	RequestDispatcher rd = request.getRequestDispatcher("/owner.jsp");
 		int occupancy[] = {0,0,0,0,0,0,0,0,0};
 		RoomDAO roomdao = new RoomDAO();
@@ -64,5 +67,12 @@ public class AvailabilityServlet extends HttpServlet {
 		request.setAttribute("occupancies", occs);
 		request.setAttribute("offers", offers);
 		rd.forward(request, response);
+
+       // login test
+       
+          
+       
+       }
+
     }
 }

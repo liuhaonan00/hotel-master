@@ -16,6 +16,10 @@ import businessLogic.jdbc.*;
 public class MaintenanceServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+if (request.getSession().getAttribute("logged_in_owner") == null) {
+    response.sendRedirect(request.getContextPath() + "/staff");
+ } else {
+    
 		//for availabilities 
 		String hotel_id = ""; 
 		hotel_id = request.getParameter("hotel");
@@ -85,5 +89,7 @@ public class MaintenanceServlet extends HttpServlet {
 			rd2.forward(request, response);
 		}
 
+
+}
 }
 }

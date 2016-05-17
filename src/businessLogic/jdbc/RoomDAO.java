@@ -54,10 +54,8 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
 		String query = "SELECT hotel_id, room_type,count(*)AS num_of_room,room.normal_price FROM room natural join hotel WHERE room_id not in "+
-"(SELECT room.room_id FROM room natural join room_status "+
-"where (room_status.end_date <= "+EndDate+" AND room_status.end_date > "+StartDate+") "+
-"OR (room_status.start_date < "+EndDate+" AND room_status.start_date >= "+StartDate+")) AND hotel.city = '"+City+"'"+"AND room.normal_price < "+price+
-" group by hotel_id,room_type;";
+"(SELECT room.room_id FROM room natural join room_status where room_status.status = 'repair') AND hotel.city = '"+City+"'"+" AND room.normal_price < "+price+
+" group by hotel_id,room_type,room.normal_price;";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
@@ -75,8 +73,9 @@ public class RoomDAO {
 		ArrayList<Search> allRooms = new ArrayList<Search>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "select booking.hotel_id, booking.roomtype,sum(booking.number_of_room) FROM booking join hotel on hotel.hotel_id=booking.hotel_id AND hotel.city = '"+City+"'"+
-				" group by booking.hotel_id,booking.roomtype;";
+		String query = "select booking_detail.hotel_id, booking_detail.room_type,sum(booking_detail.num_of_room) FROM booking_detail join hotel on hotel.hotel_id=booking_detail.hotel_id AND hotel.city = '"+City+"'"+
+				" group by booking_detail.hotel_id,booking_detail.room_type;";
+		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Search this_room = new Search();
@@ -292,15 +291,23 @@ public class RoomDAO {
 	}
 	
 	
-	public void markRoomAccupied(int hotel_id,int room_id,int booking_id){ 
+	public void markRoomAccupied(int hotel_id,int room_id,int booking_id) throws SQLException{ 
 		// i think you should be able to get booking_id, if you don't booking_id was useful, just detele it
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
-
+		Connection connection = o.DBConnect();
+		String sqlInsert = "INSERT INTO room_status (hotel_id, room_id, booking_id,status) VALUES ("+hotel_id+","+room_id+","+booking_id+",'occupied')";
+		
+		
+		
 	}
 	
 
 	public void markRoomFree(int room_id){
+		MysqlOperation o = new MysqlOperation();
+		PreparedStatement pst = null;
+		Connection connection = o.DBConnect();
+		String sqlInsert = "DELETE FROM room_status WHERE status =occupied and room_id="+room_id;
 		
 	}
 	// to get all offers

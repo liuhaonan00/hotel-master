@@ -7,16 +7,26 @@
 <title>Staff login</title>
 </head>
 <body>
-   <ol>
-      <li>TODO mimic the main login page</li>
-      <li>TODO make a servlet to check against manager and owner
-         passwords and forward accordingly</li>
-      <li>TODO link to here <strong>subtly but visibly</strong>
-         from a main page
-      </li>
-   </ol>
+   <h2>Staff login</h2>
+   <em>${staff_error}</em>
+   <form action = "staff" method = "POST">
+      <table>
+
+           <tr>
+               <td><label for="txtname">Staff Username:</label></td>
+               <td><input type="text" id="txtname" name="staff_username" /></td>
+           </tr>
+           <tr>
+               <td><label for="txtpswd">Password:</label></td>
+               <td><input type="password" id="txtpswd" name="staff_pswd" /></td>
+           </tr>
+           <tr>
+               <td colspan=2>
+                   <input type="submit" name="staff_login" value = "Login"/>
+               </td>
+           </tr>
+       </table>
+   </form>
    <br>
-   <a href="manage">Cheat's manager login</a>
-   <a href="owner">Cheat's owner login</a>
 </body>
 </html>

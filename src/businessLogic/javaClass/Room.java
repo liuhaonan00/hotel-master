@@ -7,6 +7,7 @@ public class Room {
 	private String roomNo;
 	private float price;
 	private String roomDescription;
+	private String city;
 	
 	public Room() {
 		this.roomID = 0;
@@ -14,6 +15,7 @@ public class Room {
 		this.roomType = "";
 		this.roomNo = "";
 		this.price = 0;
+		this.city = "";
 		this.roomDescription = "";
 	}
 	
@@ -57,5 +59,11 @@ public class Room {
 	}
 	public void setRoomDescription(String RoomDescription) {
 		this.roomDescription = RoomDescription;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String City) {
+		this.city = City;
 	}
 }
