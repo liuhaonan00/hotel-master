@@ -296,9 +296,9 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
 		Connection connection = o.DBConnect();
-		String sqlInsert = "INSERT INTO room_status (hotel_id, room_id, booking_id,status) VALUES ("+hotel_id+","+room_id+","+booking_id+",'occupied')";
+		String query = "INSERT INTO room_status (hotel_id, room_id, booking_id,status) VALUES ("+hotel_id+","+room_id+","+booking_id+",'occupied')";
 		
-		
+		ResultSet rs = o.searchDB(connection, query);
 		
 	}
 	
@@ -307,8 +307,8 @@ public class RoomDAO {
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
 		Connection connection = o.DBConnect();
-		String sqlInsert = "DELETE FROM room_status WHERE status =occupied and room_id="+room_id;
-		
+		String query = "DELETE FROM room_status WHERE status ='occupied' and room_id="+room_id;
+		ResultSet rs = o.searchDB(connection, query);
 	}
 	// to get all offers
 	public ArrayList<Offer> getOffers() throws SQLException{
