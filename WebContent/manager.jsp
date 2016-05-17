@@ -33,47 +33,51 @@
       <input type="submit" value="Mark selected rooms as available" />
    </form>
 
-   <form action="assignrooms" method="POST">
-      <h3>Pending Bookings:</h3>
-      <table>
+   <h3>Pending Bookings:</h3>
+   <table>
+      <tr>
+         <!-- Booking user, Start date, End date, Rooms -->
+         <th>Customer</th>
+         <th>Start date</th>
+         <th>End date</th>
+         <th>Rooms requested</th>
+         <th>Assign rooms</th>
+      </tr>
+      <c:forEach var="booking" items="${manager_empty_bookings}">
          <tr>
-            <!-- Booking user, Start date, End date, Rooms -->
-            <th>Customer</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Rooms requested</th>
-            <th>Assign rooms</th>
+            <td>${booking.user}</td>
+            <td>${booking.startDate}</td>
+            <td>${booking.endDate}</td>
+            <td>${booking.roomString}</td>
+            <td>
+               <form action="assignrooms" method="POST">
+                  <input type="hidden" name="id_to_book"
+                     value="${booking.bookingID}" /> <input
+                     type="submit" value="Fill rooms for this booking" />
+               </form>
+            </td>
          </tr>
-         <c:forEach var="booking" items="${manager_bookings}">
-            <tr>
-               <td>${booking.user}</td>
-               <td>${booking.startDate}</td>
-               <td>${booking.endDate}</td>
-               <td>${booking.roomString}</td>
-               <td><input type="submit" value="Fill rooms for this booking" /><%-- TODO hidden value with booking ID --%></td>
-            </tr>
-         </c:forEach>
-      </table>
-   </form>
+      </c:forEach>
+   </table>
 
-      <h3>Filled Bookings:</h3>
-      <table>
+   <h3>Filled Bookings:</h3>
+   <table>
+      <tr>
+         <!-- Booking user, Start date, End date, Rooms -->
+         <th>Customer</th>
+         <th>Start date</th>
+         <th>End date</th>
+         <th>Rooms assigned</th>
+      </tr>
+      <c:forEach var="booking" items="${manager_filled_bookings}">
          <tr>
-            <!-- Booking user, Start date, End date, Rooms -->
-            <th>Customer</th>
-            <th>Start date</th>
-            <th>End date</th>
-            <th>Rooms assigned</th>
+            <td>${booking.user}</td>
+            <td>${booking.startDate}</td>
+            <td>${booking.endDate}</td>
+            <td>TODO</td>
          </tr>
-         <c:forEach var="booking" items="${manager_bookings}">
-            <tr>
-               <td>${booking.user}</td>
-               <td>${booking.startDate}</td>
-               <td>${booking.endDate}</td>
-               <td>TODO</td>
-            </tr>
-         </c:forEach>
-      </table>
+      </c:forEach>
+   </table>
 
    <%--  TODO future bookings? --%>
    <%--  TODO logout --%>

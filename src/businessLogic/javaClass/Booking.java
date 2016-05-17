@@ -1,11 +1,20 @@
 package businessLogic.javaClass;
 
 public class Booking {
-   // incomplete, but these are the bits I need for manager.jsp
+   private int bookingID;
    private String user;
    private String startDate;
    private String endDate;
-   private String roomString = ""; // the types of rooms requested, e.g. "2 Single, 1 Queen"
+   // TODO some storage of the individual types and numbers, to match the database's formatting
+   private String roomTypeString = ""; // the types of rooms requested, e.g. "2 Single, 1 Queen"
+
+   public int getBookingID() {
+      return bookingID;
+   }
+
+   public void setBookingID(int bookingID) {
+      this.bookingID = bookingID;
+   }
 
    public String getUser() {
       return user;
@@ -31,11 +40,13 @@ public class Booking {
       this.endDate = endDate;
    }
 
-   public String getRoomString() {
-      return roomString;
+   public String getRoomTypeString() {
+      // TODO calculate on the fly from the actual types?
+      return roomTypeString;
    }
 
-   public void setRoomString(String roomString) {
-      this.roomString = roomString;
+   public void setRoomTypeString(String roomTypeString) {
+      // TODO remove in favour of setting the actual types
+      this.roomTypeString = roomTypeString;
    }
 }

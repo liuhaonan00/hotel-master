@@ -9,13 +9,16 @@
 </head>
 <body>
 
-   <h2>Booking for TODO user name</h2>
-   <em>${manager_message}</em>
+   <h2>Booking for ${assign_user}</h2>
+   <em>${assign_message}</em>
 
    <form action="assignrooms" method="POST">
-   TODO list available rooms opposite requested numbers
-   Unless they're not possible, in which case, error!
+      <!--  TODO for each type of room, show desired number, list available rooms -->
    </form>
+
+   <p>
+      <a href="manage">Back to Manager Home</a>
+   </p>
    <%--  TODO logout --%>
 
 </body>

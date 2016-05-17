@@ -27,19 +27,17 @@ public class ManagerServlet extends HttpServlet {
     */
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-      // TODO test session for manager login, return to staff.jsp if none
+      // TODO log in the manager in the staff servlet, put a hotel in the session
 
-      int hotelID = 1; // TODO get the actual ID from the manager login
-
-      // TODO get (and set in session) the hotel name/ID from the logged-in manager
-      Hotel managedHotel = new Hotel();
-      managedHotel.setHotelName("Hilbert's Grand Hotel");
-      request.getSession().setAttribute("manager_hotel", managedHotel);
-
-      // TODO if (valid manager login or session)
+      // TODO if (valid manager session)
       {
-         ArrayList<Booking> bookings = new ArrayList<Booking>();
-         ArrayList<Room> rooms = new ArrayList<Room>();
+         // TODO get hotel from session
+         Hotel managedHotel = new Hotel();
+         managedHotel.setHotelName("Hilbert's Grand Hotel");
+         request.getSession().setAttribute("manager_hotel", managedHotel);
+         ArrayList<Room> occupiedRooms = new ArrayList<Room>();
+         ArrayList<Booking> emptyBookings = new ArrayList<Booking>();
+         ArrayList<Booking> filledBookings = new ArrayList<Booking>();
 
          // TODO get from the database, and set, a list of currently occupied rooms for this hotel
          // test room for page
@@ -47,33 +45,35 @@ public class ManagerServlet extends HttpServlet {
          testRoom.setRoomId(1234);
          testRoom.setRoomNo("Not an actual number :p");
          testRoom.setRoomType("TARDIS");
-         rooms.add(testRoom);
-         
-         request.setAttribute("manager_occupancy", rooms);
-         
-         // TODO get from the database a list of current bookings, and set them properly
+         occupiedRooms.add(testRoom);
+
+         // TODO get from the database a list of current bookings which are not yet assigned rooms
          // test bookings for page
          Booking testBooking = new Booking();
+         testBooking.setBookingID(246);
          testBooking.setUser("userrrr");
          testBooking.setStartDate("start");
          testBooking.setEndDate("testEnd");
-         testBooking.setRoomString("2 Twins, 1 Queen");
-         bookings.add(testBooking);
+         testBooking.setRoomTypeString("2 Twins, 1 Queen");
+         emptyBookings.add(testBooking);
+
+         // TODO get from the database a list of current bookings which are already assigned rooms
          testBooking = new Booking();
          testBooking.setUser("userrrr2");
          testBooking.setStartDate("start2");
          testBooking.setEndDate("testEnd2");
-         testBooking.setRoomString("2 Twins, 1 Queen, one TARDIS");
-         bookings.add(testBooking);
-         
-         request.setAttribute("manager_bookings", bookings);
+         testBooking.setRoomTypeString("2 Twins, 1 Queen, one TARDIS");
+         filledBookings.add(testBooking);
+
+         request.setAttribute("manager_occupancy", occupiedRooms);
+         request.setAttribute("manager_empty_bookings", emptyBookings);
+         request.setAttribute("manager_filled_bookings", filledBookings);
 
          RequestDispatcher rd = request.getRequestDispatcher("/manager.jsp");
          rd.forward(request, response);
       }
       // TODO else {
-      // TODO login error
-      // TODO response.sendRedirect("/staff");
+      // TODO redirect to staff login servlet
       //}
    }
 
@@ -97,12 +97,11 @@ public class ManagerServlet extends HttpServlet {
             }
             request.setAttribute("manager_message", "Room(s) cleared: " + clearedRooms);
          }
-         
+
          doGet(request, response);
       }
       // TODO else {
-      // TODO login error
-      // TODO response.sendRedirect("/staff");
+      // TODO redirect to staff login servlet
       //}
    }
 }

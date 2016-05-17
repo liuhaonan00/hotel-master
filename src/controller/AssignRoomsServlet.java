@@ -39,27 +39,53 @@ public class AssignRoomsServlet extends HttpServlet {
 
       // TODO if (valid session)
       {
-         // TODO if newly chosen booking
-         {
-            // TODO: get booking ID from request
-            // TODO: retrieve booking
-            // TODO: get requested room types
+         if (request.getParameter("setting_rooms") == null) {
+            // manager has just chosen this booking...
+            String bookingID = request.getParameter("id_to_book");
+
+            // TODO: retrieve the actual booking by ID
+
+            // TODO: get requested room types for the booking
             // TODO: find available rooms of required types
-            // TODO: pass on each relevant type...
+            
+            // TODO(restriction once the base is working) if all requested types are fewer than available types
+            {
+               // TODO: Create a TypeRequest bean!!!
+               // TODO: put in type name, requested number, available rooms of that type
+               // TODO (restriction once the base is working) ignore types with 0 requests, *unless* we need to override booking due to limited availability
+            }
+            // TODO else
+            {
+               // TODO error message, too few rooms available
+               // TODO include types with 0 requests
+               // TODO let them choose some set of all the available rooms?
+            }
+
+            RequestDispatcher rd = request.getRequestDispatcher("/assignrooms.jsp");
+            rd.forward(request, response);
+
+         } else {
+            // manager is selecting rooms
+
+            // TODO: obtain all the selected rooms submitted
+            
+            // TODO (restriction once the base is working) check if the correct number of rooms for requests is given
+            {
+               // TODO assign them to the booking
+               // TODO success message
+               // TODO success fact passed on
+               
+            }
+            // TODO else
+            {
+               // TODO error message, assigned does not match required, some are missing or something?
+               //               RequestDispatcher rd = request.getRequestDispatcher("/assignrooms.jsp");
+               //               rd.forward(request, response);
+            }
          }
-         // TODO else, asking to select the rooms
-         {
-            // TODO get all the selected rooms
-            // TODO verify they match
-            // TODO assign them to the booking
-            // TODO success message
-         }
-         RequestDispatcher rd = request.getRequestDispatcher("/assignrooms.jsp");
-         rd.forward(request, response);
       }
       // TODO else {
-      // TODO login error
-      // TODO response.sendRedirect("/staff");
+      // TODO redirect to staff login servlet
       //}
    }
 }
