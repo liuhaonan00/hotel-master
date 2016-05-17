@@ -27,9 +27,6 @@
 	<table border=1>
 	<tr>
 	<td>
-	Book
-	</td>
-	<td>
 	<p>Hotel</p>
 	</td>
 	<td>
@@ -58,9 +55,6 @@
 	
 	%>
 	<tr>
-		<td>
-		<input type="radio" name="123" value="<%=rooms.get(i)%>" >
-	</td>
 	<td>
 	<p><%=rooms.get(i).getHotel_id()%></p>
 	<input type="hidden" name="hotelid" value=<%=rooms.get(i).getHotel_id()%>>
@@ -75,19 +69,21 @@
 	<input type="hidden" name="price" value=<%=rooms.get(i).getPrice()%>>
 	</td>
 	<td>
-	
 	<p><%=rooms.get(i).getPrice()%></p>
 	</td>
 	<td>
 	<p><%=rooms.get(i).getNo()%></p> 
 	</td>
 	
-	
+	<td>
+	<input type="textbox" name="number_of_room" value="0" >
+	</td>
+	<td>
+	<input type="textbox" name="extrabed" value="0" >
+	</td>
 	</tr>
 	<%}%>
 	</table>
-	<p>Rooms to book <input type="textbox" name="number_of_room" value="" ></p>
-	<p>Extra beds <input type="textbox" name="extrabed" value="" ></p>
 	<input type="submit" value="Add to Cart"> 
 	
 	</form>
