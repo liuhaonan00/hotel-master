@@ -5,25 +5,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ page import="java.util.*"%>
+<%@ page import="businessLogic.jdbc.RoomDAO"%>
 <%@ page import="businessLogic.javaClass.Room"%>
+<%@ page import="java.sql.*"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <%
-	ArrayList<Room> roomList = (ArrayList) request.getAttribute("roomList");
+RoomDAO roomdao = new RoomDAO();
+ArrayList<Room> roomList = new ArrayList<Room>();
+try {
+roomList = roomdao.randomRoom(3);
+} catch (SQLException e) {
+e.printStackTrace();
+}
+	//ArrayList<Room> roomList = (ArrayList) request.getAttribute("roomList");
 	pageContext.setAttribute("rooms", roomList);
 %>
 <title>Welcome!</title>
 </head>
 <body>
 <%@ include file="Header.jsp" %>
-	<h2>Welcome to RAMPAGE PENTAKILL HOTELS</h2>
-		<div class="inner-left">
-			<form action="">
-				<input type="button" onclick="location.href='login.jsp';"
-					value="Login or Register" />
-			</form>
-		</div>
+	<h2>Welcome to RAMPAGE PENTAKILL HOTELS</h2><br>
+		
+
 		<h3>Featured rooms</h3>
 		
 <table>

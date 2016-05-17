@@ -40,14 +40,8 @@ public class WelcomeServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/welcome.jsp");
 		
 		//create random room list and send to login.jsp for display
-		RoomDAO roomdao = new RoomDAO();
-		ArrayList<Room> roomList = new ArrayList<Room>();
-		try {
-		roomList = roomdao.randomRoom(3);
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
-	request.setAttribute("roomList", roomList);
+		
+	//request.setAttribute("roomList", roomList);
 	rd.forward(request, response);
 	}
 	/**
