@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS `room_status`;
 DROP TABLE IF EXISTS `booking`;
 DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `manager`;
 DROP TABLE IF EXISTS `hotel`;
 
 CREATE TABLE `user` (
@@ -49,6 +50,30 @@ INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-BRI-1', 'Br
 INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-ADE-1', 'Adelaide Road, SA', 'Adelaide');
 INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-PER-1', 'Perth Street, WA', 'Perth');
 INSERT INTO hotel (hotel_name, hotel_address, city) VALUES ('Rampage-HOB-1', 'Hobart Crescent, TAS', 'Hobart');
+
+CREATE TABLE `manager` (
+  `manager_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `hotel_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`manager_id`),
+  KEY `hotel_id_manager_idx` (`hotel_id`),
+  CONSTRAINT `hotel_id_manager` FOREIGN KEY (`hotel_id`) REFERENCES `hotel` (`hotel_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+LOCK TABLES `manager` WRITE;
+UNLOCK TABLES;
+
+INSERT INTO manager (username, password,hotel_id) 
+VALUES ('manager1', MD5('root'), 1),
+('manager2', MD5('root'), 2),
+('manager3', MD5('root'), 3),
+('manager4', MD5('root'), 4),
+('manager5', MD5('root'), 5),
+('manager6', MD5('root'), 6),
+('manager7', MD5('root'), 7);
+
+
 
 CREATE TABLE `room` (
   `room_id` int(11) NOT NULL AUTO_INCREMENT,
