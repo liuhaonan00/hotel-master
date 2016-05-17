@@ -292,15 +292,23 @@ public class RoomDAO {
 	}
 	
 	
-	public void markRoomAccupied(int hotel_id,int room_id,int booking_id){ 
+	public void markRoomAccupied(int hotel_id,int room_id,int booking_id) throws SQLException{ 
 		// i think you should be able to get booking_id, if you don't booking_id was useful, just detele it
 		MysqlOperation o = new MysqlOperation();
 		PreparedStatement pst = null;
-
+		Connection connection = o.DBConnect();
+		String sqlInsert = "INSERT INTO room_status (hotel_id, room_id, booking_id,status) VALUES ("+hotel_id+","+room_id+","+booking_id+",'occupied')";
+		
+		
+		
 	}
 	
 	
 	public void markRoomFree(int room_id){
+		MysqlOperation o = new MysqlOperation();
+		PreparedStatement pst = null;
+		Connection connection = o.DBConnect();
+		String sqlInsert = "DELETE FROM room_status WHERE status =occupied and room_id="+room_id;
 		
 	}
 	
