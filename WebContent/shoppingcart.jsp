@@ -21,18 +21,19 @@
     <% 
     double totalprice = 0;
    	ArrayList<ShoppingCart> list = (ArrayList)request.getSession().getAttribute("ShoppingCart");
-   	  if(list.size() == 0) { 
+   	  if(list.size() == 0) {
     %>
         <p>Shopping Cart is Empty!</p>
     <%}
    	  else{%>
-   	<table>  
-   	<form action="control" method="get">
-   	<tr>
+   	  
+   	<table border =1>  
+   		<form action="control" method="get">
+   			<tr>
     <td>
     </td>
     <td>
-    <p>Room No</p>
+    <p>No of room</p>
     </td>
     <td>
     <p>Hotel</p>
@@ -46,18 +47,21 @@
     <td>
     <p>Price</p>
     </td>
+    <td>
+    <p>Extra Beds</p>
+    </td>
     </tr>
     <%
     for(int i = 0;i < list.size();i++) {
     	String hotel_id =""+list.get(i).gethotel_id();
-    	String room_no = list.get(i).getroom_no();
+    	String numberofroom = ""+list.get(i).getno();
     	%>
     <tr>
     <td>
     <input type="checkbox" name="del" value="<%=i%>">
     </td>
     <td>
-    <p><%=room_no%></p>
+    <p><%=numberofroom%></p>
     </td>
     <td>
     <p><%=hotel_id%></p>
@@ -71,9 +75,13 @@
     <td>
     <p><%=list.get(i).getprice()%></p>
     </td>
+    <td>
+    <p><%=list.get(i).getextrabed()%></p>
+    </td>
     </tr>
 	<%}%>
 	 <input type="submit" value="Confirm Booking">
+	 </form>
 	</table>
 	<%}%>
    
