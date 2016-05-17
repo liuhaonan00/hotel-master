@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Hotel;
 import businessLogic.javaClass.Room;
+import businessLogic.jdbc.HotelDAO;
 
 /**
  * Servlet implementation class ManagerServlet
@@ -28,18 +30,25 @@ public class ManagerServlet extends HttpServlet {
    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
       // TODO log in the manager in the staff servlet, get hotel ID, put a hotel in the session
+      int fakeHotelID = 1;
+      // TODO do all this in login
+      HotelDAO hotelDao = new HotelDAO();
+      try {
+         Hotel fakeHotel = hotelDao.findHotelById(fakeHotelID);
+         request.getSession().setAttribute("manager_hotel", fakeHotel);
+      } catch (SQLException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
 
       // TODO if (valid manager session)
       {
-         // TODO get hotel from session
-         Hotel managedHotel = new Hotel();
-         managedHotel.setHotelName("Hilbert's Grand Hotel");
-         request.getSession().setAttribute("manager_hotel", managedHotel);
+         //         Hotel managedHotel = (Hotel) request.getSession().getAttribute("manager_hotel");
          ArrayList<Room> occupiedRooms = new ArrayList<Room>();
          ArrayList<Booking> emptyBookings = new ArrayList<Booking>();
          ArrayList<Booking> filledBookings = new ArrayList<Booking>();
 
-         // TODO get from the database, and set, a list of currently occupied rooms for this hotel
+         // TODO get from the database, and set, a list of currently occupied rooms for this hotel (Chang is adding this)
          // test room for page
          Room testRoom = new Room();
          testRoom.setRoomId(1234);
