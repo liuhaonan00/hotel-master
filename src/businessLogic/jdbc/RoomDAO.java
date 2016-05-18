@@ -313,7 +313,7 @@ public class RoomDAO {
 		Connection connection = o.DBConnect();
 		String query = "INSERT INTO room_status (hotel_id, room_id, booking_id,status) VALUES ("+hotel_id+","+room_id+","+booking_id+",'occupied')";
 		
-		ResultSet rs = o.searchDB(connection, query);
+		o.updateDB(connection, query);
 		
 	}
 	
@@ -323,7 +323,7 @@ public class RoomDAO {
 		PreparedStatement pst = null;
 		Connection connection = o.DBConnect();
 		String query = "DELETE FROM room_status WHERE status ='occupied' and room_id="+room_id;
-		ResultSet rs = o.searchDB(connection, query);
+		o.updateDB(connection, query);
 	}
 	// to get all offers
 	public ArrayList<Offer> getOffers() throws SQLException{
