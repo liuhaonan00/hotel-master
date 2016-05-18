@@ -32,6 +32,40 @@ public class BookingDAO {
 		return lastbookingid;
 	}
 	
+   public Booking findBookingById(int n) throws SQLException
+   {
+      Booking booking = null;
+      MysqlOperation o = new MysqlOperation();
+      Connection connection = o.DBConnect();
+      String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id  where booking.booking_id ="+n;
+      System.out.println(query);
+      ResultSet rs = o.searchDB(connection, query);
+      if (rs != null){
+         booking = new Booking();
+         Map<String, Integer> roomTypes = new HashMap<String, Integer>();
+         int extraBeds = 0;
+         while(rs.next()){
+            booking.setBookingID(rs.getInt(1));
+            booking.setUserID(rs.getInt(2));
+            booking.setStartDate(rs.getString(3));
+            booking.setEndDate(rs.getString(4));
+            booking.setNo_of_room(rs.getInt(6));
+            booking.setPrice(rs.getFloat(7));
+            booking.setBookingDetailID(rs.getInt(8));
+            booking.setHotel_id(rs.getInt(10));
+            
+            String roomType = rs.getString(11);
+            int numOfType = rs.getInt(12);
+            roomTypes.put(roomType, numOfType);
+            extraBeds+=(rs.getInt(13));
+         }
+         booking.setRoomTypes(roomTypes);
+         booking.setExtrabed(extraBeds);
+
+      }
+      return booking;
+   }
+   
 	public static void insertBooking(int user_id,ArrayList<Room> room,String check_in,String check_out){
 		float total_price = 0;
 		MysqlOperation o = new MysqlOperation();
@@ -116,7 +150,7 @@ public class BookingDAO {
    		      extraBeds = 0;
    		      
    		      booking.setBookingID(newID);
-   		      booking.setUser(rs.getString(2));
+   		      booking.setUserID(rs.getInt(2));
    		      booking.setStartDate(rs.getString(3));
    		      booking.setEndDate(rs.getString(4));
    		      booking.setNo_of_room(rs.getInt(6));
@@ -179,7 +213,7 @@ public class BookingDAO {
                extraBeds = 0;
                
                booking.setBookingID(newID);
-               booking.setUser(rs.getString(2));
+               booking.setUserID(rs.getInt(2));
                booking.setStartDate(rs.getString(3));
                booking.setEndDate(rs.getString(4));
                booking.setNo_of_room(rs.getInt(6));

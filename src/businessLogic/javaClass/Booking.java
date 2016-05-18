@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class Booking {
    private int bookingID;
-   private String user;
+   private int userID;
    private String startDate;
    private String endDate;
    // TODO some storage of the individual types and numbers, to match the database's formatting
@@ -63,12 +63,12 @@ public class Booking {
       this.hotel_id = hotel_id;
    }
 
-   public String getUser() {
-      return user;
+   public int getUserID() {
+      return userID;
    }
 
-   public void setUser(String user) {
-      this.user = user;
+   public void setUserID(int user) {
+      this.userID = user;
    }
 
    public String getStartDate() {

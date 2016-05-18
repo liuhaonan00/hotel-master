@@ -50,10 +50,12 @@ public class AssignRoomsServlet extends HttpServlet {
 
             // TODO: retrieve the actual booking by ID
             Booking booking = new Booking();
-            booking.setUser("fake user");
+            
+            // TODO retrieve user from booking ID
+            String userName = "fake user";
             
             // pass on the booking's user
-            request.setAttribute("assign_user", booking.getUser());
+            request.setAttribute("assign_user", userName);
 
             // TODO: get requested room types for the booking
             // TODO: find available rooms of required types (or all available rooms?)
