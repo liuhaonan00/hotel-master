@@ -84,6 +84,7 @@ public class EmailApi {
 					  + "Your booking ID is: "+bookingId+", "
 					  + "and your pin code is: "+pin+" <br><br>"
 					  + "You can user your bookingID and pin to check your bookings <br><br>"
+					  + "via http://localhost:8080/assignment2/reviewbooking.jsp?"+bookingId
 					  + "Best Regards";
 			
 			generateMailMessage.setContent(emailBody, "text/html");
