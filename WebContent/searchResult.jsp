@@ -33,10 +33,10 @@
 	<p>Room Type</p>
 	</td>
 	<td>
-	<p>Normal Price</p>
+	<p>Normal Price/Per night</p>
 	</td>
 	<td>
-	<p>Current Price</p>
+	<p>Current Price/Per night</p>
 	</td>
 	<td>
 	<p>Number of Rooms</p>
