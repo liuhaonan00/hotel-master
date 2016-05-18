@@ -61,6 +61,7 @@ public class AssignRoomsServlet extends HttpServlet {
             } catch (SQLException e) {
                e.printStackTrace();
             }
+            request.getSession().setAttribute("manager_booking", booking);
 
             // retrieve user(name) from booking
             String userName = "";
@@ -124,9 +125,9 @@ public class AssignRoomsServlet extends HttpServlet {
 
             String[] roomIDs = request.getParameterValues("assign_rooms");
             List<Room> assignedRooms = new LinkedList<Room>();
+            RoomDAO roomDao = new RoomDAO();
 
             if (roomIDs != null) {
-               RoomDAO roomDao = new RoomDAO();
                for (String roomID : roomIDs) {
                   // obtain all the selected rooms submitted
                   try {
@@ -141,8 +142,16 @@ public class AssignRoomsServlet extends HttpServlet {
 
             // TODO (restriction once the base is working) check if the correct number of rooms for requests is given
             {
-               // TODO mark the rooms as occupied
-               // TODO mark the booking as filled
+               Booking booking = (Booking)request.getSession().getAttribute("manager_booking");
+               for (Room room : assignedRooms) {
+                  try {
+                     roomDao.markRoomAccupied(room.getHotelId(), room.getRoomId(), booking.getBookingID());
+                  } catch (SQLException e) {
+                     e.printStackTrace();
+                  }
+               }
+               BookingDAO bookingDao = new BookingDAO();
+               bookingDao.markBookingAssign(booking.getBookingID());
                request.setAttribute("assign_message", "Room(s) assigned successfully!");
                request.setAttribute("assign_succeeded", true);
 
