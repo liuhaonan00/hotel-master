@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57)))
+        return false;
+    return true;
+}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search</title>
 </head>
@@ -14,10 +22,10 @@
 		<form action='search' method='POST'>
 		<table>
 		<tr>
-			<td align="left">Check in time : </td> <td align="left"><input type="text" name="check_in" /></td>
+			<td align="left">Check in time : </td> <td align="left"><input type="date" name="check_in" /></td>
 		</tr>
 		<tr>
-			<td align="left">Check out time : </td> <td align="left"><input type="text" name="check_out" /></td>
+			<td align="left">Check out time : </td> <td align="left"><input type="date" name="check_out" /></td>
 		</tr>
 		<tr>
 			<td align="left">City : </td>
@@ -29,7 +37,8 @@
 				</select></td>
 		</tr>
 		<tr>
-			<td align="left">Price(Less Than) : </td> <td align="left"><input type="text" name="price" /></td>
+			<td align="left">Price(Less Than) : </td> <td align="left"><input name="price" type="text" onkeypress="return isNumberKey(event)" maxlength="4" />
+
 		</tr>
 		</table>
 		<p></p>
