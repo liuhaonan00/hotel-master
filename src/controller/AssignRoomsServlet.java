@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Room;
 import businessLogic.javaClass.TypeRequest;
-import businessLogic.javaClass.User;
 import businessLogic.jdbc.BookingDAO;
 import businessLogic.jdbc.RoomDAO;
 import businessLogic.jdbc.UserDAO;
@@ -61,7 +61,7 @@ public class AssignRoomsServlet extends HttpServlet {
             } catch (SQLException e) {
                e.printStackTrace();
             }
-            
+
             // retrieve user(name) from booking
             String userName = "";
             UserDAO userDao = new UserDAO();
@@ -70,32 +70,42 @@ public class AssignRoomsServlet extends HttpServlet {
             } catch (SQLException e) {
                e.printStackTrace();
             }
-            
-            // pass on the booking's user
+
+            // pass on the booking's username
             request.setAttribute("assign_user", userName);
 
-            // TODO: get requested room types for the booking
-            // TODO: find available rooms of required types (or all available rooms?)
+            // get requested room types for the booking
+            Map<String, Integer> roomTypes = booking.getRoomTypes();
 
+            List<TypeRequest> requestedTypes = new ArrayList<TypeRequest>();
+            // TODO: find available rooms of required types
             // TODO(restriction once the base is working) if all requested types are fewer than available types
             {
-               // TODO for relevant types:
-               // TODO: put in type name, requested number, available rooms of that type
-               // TODO (restriction once the base is working) ignore types with 0 requests, *unless* we need to override booking due to limited availability
-               Room dummyRoom = new Room();
-               dummyRoom.setRoomNo("87678");
-               dummyRoom.setRoomId(86);
-               dummyRoom.setRoomDescription("a dummy room");
-               List<Room> fakeRooms = new ArrayList<Room>();
-               fakeRooms.add(dummyRoom);
-
-               TypeRequest dummyType = new TypeRequest();
-               dummyType.setNumberRequested(2);
-               dummyType.setTypeName("dummy room type");
-               dummyType.setAvailableRooms(fakeRooms);
-
-               List<TypeRequest> requestedTypes = new ArrayList<TypeRequest>();
-               requestedTypes.add(dummyType);
+               String[] types = { "Single", "Twin Bed", "Queen", "Suite" };
+               for (String type : types) {
+                  // put in type name, requested number, available rooms of that type
+                  TypeRequest typeRequest = new TypeRequest();
+                  typeRequest.setTypeName(type);
+                  
+                  Integer num = roomTypes.get(type);
+                  if (num == null) {
+                     typeRequest.setNumberRequested(0);
+                  } else {
+                     typeRequest.setNumberRequested(num);
+                  }
+                  
+                  
+                  RoomDAO roomDao = new RoomDAO();
+                  ArrayList<Room> available = new ArrayList<Room>();
+                  try {
+                     available = roomDao.allAvailableRooms(booking.getHotel_id(),type);
+                  } catch (SQLException e) {
+                     e.printStackTrace();
+                  }
+                  typeRequest.setAvailableRooms(available);
+                  // TODO (restriction once the base is working) ignore types with 0 requests, *unless* we need to override booking due to limited availability
+                  requestedTypes.add(typeRequest);
+               }
 
                request.setAttribute("assign_requested_types", requestedTypes);
             }

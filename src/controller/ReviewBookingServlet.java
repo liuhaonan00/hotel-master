@@ -33,13 +33,6 @@ public class ReviewBookingServlet extends HttpServlet{
 		String booking_id = (String) request.getSession().getAttribute("bookingid");
 		String pin = request.getParameter("pin");
 		ArrayList<Booking> bookings = new ArrayList<Booking>();
-		ReviewDAO reviewDAO= new ReviewDAO();
-		try {
-			bookings= reviewDAO.getDetailbyID(booking_id,pin);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		request.getSession().setAttribute("review_booking",bookings);
 		request.getRequestDispatcher("reviewBookingDetail.jsp").forward(request,response);		
