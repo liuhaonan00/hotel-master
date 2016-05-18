@@ -9,9 +9,17 @@
 
 <%@page import = "businessLogic.jdbc.*" %>
 <%@page import = "businessLogic.javaClass.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+<script type="text/javascript">
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode != 46 &&(charCode < 48 || charCode > 57)))
+        return false;
+    return true;
+}
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Search Result</title>
 </head>
@@ -76,10 +84,10 @@
 	</td>
 	
 	<td>
-	<input type="textbox" name="number_of_room" value="0" >
+	<input type="textbox" name="number_of_room" value="0" onkeypress="return isNumberKey(event)" maxlength="2">
 	</td>
 	<td>
-	<input type="textbox" name="extrabed" value="0" >
+	<input type="textbox" name="extrabed" value="0" onkeypress="return isNumberKey(event)" maxlength="1">
 	</td>
 	</tr>
 	<%}%>
@@ -91,10 +99,10 @@
 	<form action='search' method='POST'>
 		<table>
 		<tr>
-			<td align="left">Check in time : </td> <td align="left"><input type="text" name="check_in" /></td>
+			<td align="left">Check in time : </td> <td align="left"><input type="date" name="check_in" /></td>
 		</tr>
 		<tr>
-			<td align="left">Check out time : </td> <td align="left"><input type="text" name="check_out" /></td>
+			<td align="left">Check out time : </td> <td align="left"><input type="date" name="check_out" /></td>
 		</tr>
 		<tr>
 			<td align="left">City : </td>
