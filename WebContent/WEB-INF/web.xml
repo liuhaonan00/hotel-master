@@ -52,6 +52,10 @@
     <servlet-name>ShoppingCartServlet</servlet-name>
     <servlet-class>controller.ShoppingCartServlet</servlet-class>
   </servlet>
+    <servlet>
+    <servlet-name>ReviewBookingServlet</servlet-name>
+    <servlet-class>controller.ReviewBookingServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>WelcomeServlet</servlet-name>
     <url-pattern>/welcome</url-pattern>
@@ -99,5 +103,9 @@
     <servlet-mapping>
     <servlet-name>ShoppingCartServlet</servlet-name>
     <url-pattern>/ShoppingCart</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ReviewBookingServlet</servlet-name>
+    <url-pattern>/ReviewBooking</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -7,6 +7,11 @@
 <title>Review Booking</title>
 </head>
 <body>
+<%
+    String accountId = request.getParameter("bookingid");
+System.out.print(accountId);
+request.getSession().setAttribute("bookingid", accountId);
+%>
 <h2>Review Booking</h2>
 <p>Please enter your pin number</p>
 
