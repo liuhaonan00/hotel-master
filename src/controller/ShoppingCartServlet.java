@@ -35,7 +35,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		ArrayList<ShoppingCart> thisCart = new ArrayList<ShoppingCart>();
 		
 		if (request.getSession().getAttribute("current_user_id") == null){
-			request.getRequestDispatcher("signup.jsp").forward(request,response);	
+			request.getRequestDispatcher("login.jsp").forward(request,response);	
 		}
 		int user_id = ((Integer)request.getSession().getAttribute("current_user_id")).intValue();
 		//for test only
