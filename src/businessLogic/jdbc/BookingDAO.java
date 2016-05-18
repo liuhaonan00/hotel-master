@@ -49,9 +49,9 @@ public class BookingDAO {
             booking.setUserID(rs.getInt(2));
             booking.setStartDate(rs.getString(3));
             booking.setEndDate(rs.getString(4));
+            booking.setPin(rs.getString(5));
             booking.setNo_of_room(rs.getInt(6));
             booking.setPrice(rs.getFloat(7));
-            booking.setBookingDetailID(rs.getInt(8));
             booking.setHotel_id(rs.getInt(10));
             
             String roomType = rs.getString(11);
@@ -155,7 +155,6 @@ public class BookingDAO {
    		      booking.setEndDate(rs.getString(4));
    		      booking.setNo_of_room(rs.getInt(6));
    		      booking.setPrice(rs.getFloat(7));
-   		      booking.setBookingDetailID(rs.getInt(8));
    		      booking.setHotel_id(rs.getInt(10));
    		      
    		      String roomType = rs.getString(11);
@@ -218,7 +217,6 @@ public class BookingDAO {
                booking.setEndDate(rs.getString(4));
                booking.setNo_of_room(rs.getInt(6));
                booking.setPrice(rs.getFloat(7));
-               booking.setBookingDetailID(rs.getInt(8));
                booking.setHotel_id(rs.getInt(10));
                
                String roomType = rs.getString(11);

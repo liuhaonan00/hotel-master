@@ -12,8 +12,8 @@ public class Booking {
    private int extrabed;
    private int hotel_id;
    private float price;
-   private int bookingDetailID;
    private Map<String, Integer> roomTypes;
+   private String pin;
 
    public int getBookingID() {
       return bookingID;
@@ -21,14 +21,6 @@ public class Booking {
 
    public void setBookingID(int bookingID) {
       this.bookingID = bookingID;
-   }
-
-   public int getBookingDetailID() {
-      return bookingID;
-   }
-
-   public void setBookingDetailID(int bookingDetailID) {
-      this.bookingDetailID = bookingDetailID;
    }
 
    public int getNo_of_room() {
@@ -111,5 +103,13 @@ public class Booking {
          }
       }
       return roomTypeString;
+   }
+
+   public void setPin(String pin) {
+      this.pin = pin;
+   }
+
+   public String getPin() {
+      return pin;
    }
 }
