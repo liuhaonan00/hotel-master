@@ -1,18 +1,31 @@
 package businessLogic.jdbc;
 
 
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
-
-import java.sql.*;
-
-import businessLogic.javaClass.*;
-import businessLogic.library.*;
+import businessLogic.javaClass.Room;
 import businessLogic.javaClass.User;
+import businessLogic.library.EmailApi;
 public class UserDAO {
 	
 
+   public User findExistingUserById(int n) throws SQLException
+   {
+      User user = new User();
+      MysqlOperation o = new MysqlOperation();
+      Connection connection = o.DBConnect();
+      String query = "SELECT * FROM user WHERE user_id = "+n;
+      ResultSet rs = o.searchDB(connection, query);
+      while(rs.next()){
+         user.setUserId(rs.getInt(1));
+         user.setUsername(rs.getString(2));
+      }
+      return user;
+   }
+   
 public int findUser(String user,String password) {
 		int result = 0; //0 =  success;
 		MysqlOperation o = new MysqlOperation();

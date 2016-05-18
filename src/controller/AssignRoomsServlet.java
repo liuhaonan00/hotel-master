@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import businessLogic.javaClass.Booking;
 import businessLogic.javaClass.Room;
 import businessLogic.javaClass.TypeRequest;
+import businessLogic.javaClass.User;
+import businessLogic.jdbc.BookingDAO;
 import businessLogic.jdbc.RoomDAO;
+import businessLogic.jdbc.UserDAO;
 
 /**
  * Servlet implementation class AssignRoomsServlet
@@ -48,11 +51,25 @@ public class AssignRoomsServlet extends HttpServlet {
             // manager has just chosen this booking...
             String bookingID = request.getParameter("id_to_book");
 
-            // TODO: retrieve the actual booking by ID
+            // retrieve the actual booking by ID
             Booking booking = new Booking();
+            BookingDAO bookingDao = new BookingDAO();
+            try {
+               booking = bookingDao.findBookingById(Integer.parseInt(bookingID));
+            } catch (NumberFormatException e) {
+               e.printStackTrace();
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }
             
-            // TODO retrieve user from booking ID
-            String userName = "fake user";
+            // retrieve user(name) from booking
+            String userName = "";
+            UserDAO userDao = new UserDAO();
+            try {
+               userName = userDao.findExistingUserById(booking.getUserID()).getUsername();
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }
             
             // pass on the booking's user
             request.setAttribute("assign_user", userName);

@@ -155,6 +155,8 @@ INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room)
 VALUES (2,'2016-07-28','2016-07-30', 200,2);
 INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
 VALUES (3,'2016-05-10','2016-07-10', 200,2);
+INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
+VALUES (1,'2016-05-10','2016-05-20', 800,1);
 
 CREATE TABLE `booking_detail` (
   `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -184,7 +186,8 @@ INSERT INTO `booking_detail` (`booking_id`, `hotel_id`, `room_type`, `num_of_roo
 VALUES (2, 1, 'Queen', 1, 1,0,'2016-07-28','2016-07-30'),
 (2, 1, 'Single', 1, 0,0,'2016-07-28','2016-07-30'),
 (3, 2, 'Twin Bed', 1, 0,0,'2016-05-10','2016-07-10'),
-(3, 2, 'Queen', 1, 0,0,'2016-05-10','2016-07-10');
+(3, 2, 'Queen', 1, 0,0,'2016-05-10','2016-07-10'),
+(4, 2, 'Single', 1, 0,1,'2016-05-10','2016-05-20');
 
 
 CREATE TABLE `room_status` (

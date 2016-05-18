@@ -48,8 +48,7 @@
    <h3>Pending Bookings:</h3>
    <table>
       <tr>
-         <!-- Booking user, Start date, End date, Rooms -->
-         <th>Customer</th>
+         <!-- Start date, End date, Rooms -->
          <th>Start date</th>
          <th>End date</th>
          <th>Rooms requested</th>
@@ -57,7 +56,6 @@
       </tr>
       <c:forEach var="booking" items="${manager_empty_bookings}">
          <tr>
-            <td>${booking.user}</td>
             <td>${booking.startDate}</td>
             <td>${booking.endDate}</td>
             <td>${booking.roomTypeString}</td>
@@ -75,19 +73,19 @@
    <h3>Filled Bookings:</h3>
    <table>
       <tr>
-         <!-- Booking user, Start date, End date, Rooms -->
-         <th>Customer</th>
+         <!-- Start date, End date, Rooms -->
          <th>Start date</th>
          <th>End date</th>
       </tr>
       <c:forEach var="booking" items="${manager_filled_bookings}">
          <tr>
-            <td>${booking.user}</td>
             <td>${booking.startDate}</td>
             <td>${booking.endDate}</td>
          </tr>
       </c:forEach>
    </table>
+   
+   <%-- TODO future bookings, need another method getting bookings *after* today --%>
 
    <form action="staff" method="POST">
       <input type="submit" name="staff_logout" value="Log out" />
