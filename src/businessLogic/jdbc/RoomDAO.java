@@ -56,11 +56,11 @@ public class RoomDAO {
 		String query = "SELECT hotel_id, room_type,count(*)AS num_of_room,room.normal_price FROM room natural join hotel WHERE room_id not in "+
 			"(SELECT room.room_id FROM room natural join room_status "
 			+ "where room_status.status = 'repair' AND "
-			+ "(room_status.end_date <= "+EndDate+" AND room_status.end_date > "+StartDate+") OR "
+			+ "(room_status.end_date <= "+EndDate+" AND room_status.end_date > "+EndDate+") OR "
 			+ "(room_status.start_date < "+EndDate+" AND room_status.start_date >= "+StartDate+")) "
 			+ "AND hotel.city = '"+City+"'"+" AND room.normal_price < "+price+
 			" group by hotel_id,room_type,room.normal_price;";
-		System.out.println(query);
+		
 		ResultSet rs = o.searchDB(connection, query);
 		while(rs.next()){
 			Search this_room = new Search();
@@ -68,6 +68,17 @@ public class RoomDAO {
 			this_room.setHotel_id(rs.getInt(1));
 			this_room.setroomtype(rs.getString(2));
 			this_room.setPrice(rs.getFloat(4));
+			query = "SELECT * FROM hotel.offer where room_type = '"+rs.getString(2)+"' AND hotel_id = "+rs.getInt(1)+" "
+					+"AND ((start >="+StartDate+" AND start < "+EndDate+") "
+					+ "OR (end <= "+EndDate+" AND end > "+StartDate+"))";
+			System.out.println(query);
+			ResultSet rs1 = o.searchDB(connection, query);
+			if (rs1.next()) {
+				this_room.setCurrentPrice(rs1.getFloat("offer_price"));
+			} else {
+				this_room.setCurrentPrice(rs.getFloat(4));
+			}
+			
 			allRooms.add(this_room);	
 		}
 		return allRooms;

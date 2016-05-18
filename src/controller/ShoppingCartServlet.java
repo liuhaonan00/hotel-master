@@ -40,6 +40,7 @@ public class ShoppingCartServlet extends HttpServlet {
 		int user_id = ((Integer)request.getSession().getAttribute("current_user_id")).intValue();
 		//for test only
 		//int user_id = 1;
+		System.out.println(user_id);
 		if(request.getSession().getAttribute("ShoppingCart") != null){
 			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
 		}

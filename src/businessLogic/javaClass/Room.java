@@ -10,6 +10,7 @@ public class Room {
 	private float price;
 	private String roomDescription;
 	private String city;
+	private float currentPrice;
 	
 	public Room() {
 		this.roomID = 0;
@@ -17,6 +18,7 @@ public class Room {
 		this.roomType = "";
 		this.roomNo = "";
 		this.price = 0;
+		this.currentPrice = 0;
 		this.city = "";
 		this.roomDescription = "";
 	}
@@ -58,6 +60,13 @@ public class Room {
 	}
 	public void setPrice(float Price) {
 		this.price = Price;
+	}
+	
+	public float getCurrentPrice() {
+		return currentPrice;
+	}
+	public void setCurrentPrice(float CurrentPrice) {
+		this.currentPrice = CurrentPrice;
 	}
 
 	public String getRoomDescription() {

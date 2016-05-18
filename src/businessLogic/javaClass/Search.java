@@ -5,7 +5,7 @@ public class Search {
 	private int no;
 	private int hotel_id;
 	private float price;
-
+	private float currentPrice;
 	public Search() {
 }
 
@@ -34,5 +34,11 @@ public class Search {
 	}
 	public void setPrice(float price){
 		this.price = price;
+	}
+	public float getCurrentPrice() {
+		return currentPrice;
+	}
+	public void setCurrentPrice(float CurrentPrice) {
+		this.currentPrice = CurrentPrice;
 	}
 }

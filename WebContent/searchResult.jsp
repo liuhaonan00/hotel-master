@@ -69,7 +69,7 @@
 	<input type="hidden" name="price" value=<%=rooms.get(i).getPrice()%>>
 	</td>
 	<td>
-	<p><%=rooms.get(i).getPrice()%></p>
+	<p><%=rooms.get(i).getCurrentPrice()%></p>
 	</td>
 	<td>
 	<p><%=rooms.get(i).getNo()%></p> 
