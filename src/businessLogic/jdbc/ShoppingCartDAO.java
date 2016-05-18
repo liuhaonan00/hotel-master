@@ -49,7 +49,7 @@ public class ShoppingCartDAO {
 		int randomPIN = (int)(Math.random()*9000)+1000;
 		String query = "INSERT INTO booking (user_id,pin,total_price) VALUES ("+user_id+","+randomPIN+","+total_price+")";
 		System.out.println(query);
-		ResultSet rs = o.searchDB(connection, query);
+		o.updateDB(connection, query);
 		}
 	
 	public static void insertBooking_detail(int booking_id,ShoppingCart cart){
@@ -57,8 +57,9 @@ public class ShoppingCartDAO {
 				MysqlOperation o = new MysqlOperation();
 				PreparedStatement pst = null;
 				Connection connection = o.DBConnect();
-				String query = "INSERT INTO booking (booking_id,hotel_id,room_type,num_of_room,extra_bed,checkin,checkout,assign) VALUES ("+booking_id+","+cart.gethotel_id()+","+cart.getroomType()+","+cart.getno()+","+cart.getextrabed()+","+cart.getcheck_in()+","+cart.getcheck_out()+",'0')";
-				ResultSet rs = o.searchDB(connection, query);
+				String query = "INSERT INTO booking_detail (booking_id,hotel_id,room_type,num_of_room,extra_bed,checkin,checkout,assign) VALUES ("+booking_id+","+cart.gethotel_id()+",'"+cart.getroomType()+"',"+cart.getno()+","+cart.getextrabed()+","+cart.getcheck_in()+","+cart.getcheck_out()+",'0')";
+				System.out.println(query);
+				o.updateDB(connection, query);
 			}
 			
 		

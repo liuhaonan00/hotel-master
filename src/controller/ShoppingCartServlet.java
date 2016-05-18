@@ -38,8 +38,8 @@ public class ShoppingCartServlet extends HttpServlet {
 			request.getRequestDispatcher("signup.jsp").forward(request,response);	
 		}
 		int user_id = ((Integer)request.getSession().getAttribute("current_user_id")).intValue();
-		// for test only
-//		int user_id = 1;
+		//for test only
+		//int user_id = 1;
 		if(request.getSession().getAttribute("ShoppingCart") != null){
 			thisCart = (ArrayList)request.getSession().getAttribute("ShoppingCart");
 		}

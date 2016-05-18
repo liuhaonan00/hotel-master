@@ -40,7 +40,15 @@ public class MysqlOperation {
 		}
 		return null;
 	}
-	
+	public void updateDB(Connection connection, String str) {
+		try {
+			Statement stmt = connection.createStatement();
+			stmt.executeUpdate(str);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 }
