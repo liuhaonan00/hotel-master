@@ -9,16 +9,16 @@
 			</form><br>
 	<%} else {%>
 		<p>Hi <%=(String)request.getSession().getAttribute("current_user")%>:</p>
-		<form action = "update.jsp">
+		<form action = "update">
 			<input type = "hidden" name = "user_id" value =<%=request.getSession().getAttribute("current_user_id")%>>
 			<input type="submit"  value="Update profile" class="button"/>	
 		</form>
-		<form action = "shoppingcart.jsp">
+		<form action = "ShoppingCart">
 			<input type = "hidden" name = "user_id" value =<%=request.getSession().getAttribute("current_user_id")%>>
 			<input type="submit"  value="View shoppingcart" class="button"/>	
 		</form><br>
-      <form action="staff" method="POST">
-         <input type="submit" name="staff_logout" value="Log out" /> <%-- can be same logout, session stuff --%>
+      <form action="logout.jsp" method="POST">
+         <input type="submit" name="logout" value="Log out" /> <%-- can be same logout, session stuff --%>
       </form>
 
 	<%} %>
