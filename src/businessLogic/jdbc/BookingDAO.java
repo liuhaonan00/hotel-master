@@ -1,11 +1,18 @@
 package businessLogic.jdbc;
 
-import java.util.ArrayList;
-import java.sql.*;
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import businessLogic.javaClass.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import businessLogic.javaClass.Booking;
+import businessLogic.javaClass.Room;
 
 public class BookingDAO {
 	
@@ -83,24 +90,57 @@ public class BookingDAO {
 		ArrayList<Booking> bookings= new ArrayList<Booking>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
+		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=0 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"' order by booking.booking_id";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
 		if (rs != null){
+		   
+		   Map<String, Integer> roomTypes = new HashMap<String, Integer>();
+		   Booking booking = new Booking();
+		   int oldID = -1;
+		   int extraBeds = 0;
    		while(rs.next()){
-   			Booking booking = new Booking();
-   			booking.setBookingID(rs.getInt(1));
-   			booking.setBookingDetailID(rs.getInt(9));
-   			booking.setEndDate(rs.getString(3));
-   			booking.setStartDate(rs.getString(4));
-   			booking.setExtrabed(rs.getInt(14));
-   			booking.setHotel_id(rs.getInt(11));
-   			booking.setPrice(rs.getFloat(8));
-   			booking.setNo_of_room(rs.getInt(13));
-   			booking.setRoomTypeString(rs.getString(12));
-   			booking.setUser(rs.getString(2));
-   			bookings.add(booking);
+   		   int newID = rs.getInt(1);
+   		   if (newID != oldID) {
+   		      // add the old booking
+   		      if (oldID > 0){
+      		      booking.setRoomTypes(roomTypes);
+      		      booking.setExtrabed(extraBeds);
+      		      bookings.add(booking);
+   		      }
+   		      
+   		      // start a new booking
+   		      booking = new Booking();
+   		      roomTypes = new HashMap<String, Integer>();
+   		      oldID = newID;
+   		      extraBeds = 0;
+   		      
+   		      booking.setBookingID(newID);
+   		      booking.setUser(rs.getString(2));
+   		      booking.setStartDate(rs.getString(3));
+   		      booking.setEndDate(rs.getString(4));
+   		      booking.setNo_of_room(rs.getInt(6));
+   		      booking.setPrice(rs.getFloat(7));
+   		      booking.setBookingDetailID(rs.getInt(8));
+   		      booking.setHotel_id(rs.getInt(10));
+   		      
+   		      String roomType = rs.getString(11);
+   		      int numOfType = rs.getInt(12);
+   		      roomTypes.put(roomType, numOfType);
+   		      extraBeds+=(rs.getInt(13));
+   		      
+   		   } else {
+   		      //add more details i.e. room types & beds to the previous booking
+               String roomType = rs.getString(11);
+               int numOfType = rs.getInt(12);
+               roomTypes.put(roomType, numOfType);
+               extraBeds+=(rs.getInt(13));
+   		   }
    		}
+         booking.setRoomTypes(roomTypes);
+         booking.setExtrabed(extraBeds);
+         bookings.add(booking);
+
 		}
 		return bookings;
 		
@@ -114,24 +154,56 @@ public class BookingDAO {
 		ArrayList<Booking> bookings= new ArrayList<Booking>();
 		MysqlOperation o = new MysqlOperation();
 		Connection connection = o.DBConnect();
-		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=1 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"'";
+		String query = "SELECT * from booking join booking_detail on booking.booking_id = booking_detail.booking_id	 where booking_detail.assign=1 and booking_detail.hotel_id ="+hotel_id+" and booking.checkin <='"+date1+"' and booking.checkout>='"+date1+"' order by booking.booking_id";
 		System.out.println(query);
 		ResultSet rs = o.searchDB(connection, query);
       if (rs != null){
-   		while(rs.next()){
-   			Booking booking = new Booking();
-   			booking.setBookingID(rs.getInt(1));
-   			booking.setBookingDetailID(rs.getInt(9));
-   			booking.setEndDate(rs.getString(3));
-   			booking.setStartDate(rs.getString(4));
-   			booking.setExtrabed(rs.getInt(14));
-   			booking.setHotel_id(rs.getInt(11));
-   			booking.setPrice(rs.getFloat(8));
-   			booking.setNo_of_room(rs.getInt(13));
-   			booking.setRoomTypeString(rs.getString(12));
-   			booking.setUser(rs.getString(2));
-   			bookings.add(booking);
-   		}
+         Map<String, Integer> roomTypes = new HashMap<String, Integer>();
+         Booking booking = new Booking();
+         int oldID = -1;
+         int extraBeds = 0;
+         while(rs.next()){
+            int newID = rs.getInt(1);
+            if (newID != oldID) {
+               // add the old booking
+               if (oldID > 0){
+                  booking.setRoomTypes(roomTypes);
+                  booking.setExtrabed(extraBeds);
+                  bookings.add(booking);
+               }
+               
+               // start a new booking
+               booking = new Booking();
+               roomTypes = new HashMap<String, Integer>();
+               oldID = newID;
+               extraBeds = 0;
+               
+               booking.setBookingID(newID);
+               booking.setUser(rs.getString(2));
+               booking.setStartDate(rs.getString(3));
+               booking.setEndDate(rs.getString(4));
+               booking.setNo_of_room(rs.getInt(6));
+               booking.setPrice(rs.getFloat(7));
+               booking.setBookingDetailID(rs.getInt(8));
+               booking.setHotel_id(rs.getInt(10));
+               
+               String roomType = rs.getString(11);
+               int numOfType = rs.getInt(12);
+               roomTypes.put(roomType, numOfType);
+               extraBeds+=(rs.getInt(13));
+               
+            } else {
+               //add more details i.e. room types & beds to the previous booking
+               String roomType = rs.getString(11);
+               int numOfType = rs.getInt(12);
+               roomTypes.put(roomType, numOfType);
+               extraBeds+=(rs.getInt(13));
+            }
+         }
+         booking.setRoomTypes(roomTypes);
+         booking.setExtrabed(extraBeds);
+         bookings.add(booking);
+
       }
 		return bookings;
 		

@@ -153,6 +153,8 @@ INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room)
 VALUES (1,'2000-07-28','2100-07-30', 0,1);
 INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
 VALUES (2,'2016-07-28','2016-07-30', 200,2);
+INSERT INTO booking (user_id,checkin,checkout,total_price,number_of_room) 
+VALUES (3,'2016-05-10','2016-07-10', 200,2);
 
 CREATE TABLE `booking_detail` (
   `booking_detail_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -178,9 +180,11 @@ UNLOCK TABLES;
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking_detail` (`booking_detail_id`, `booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`,`checkin`,`checkout`) 
-VALUES (NULL, 2, 1, 'Queen', 1, 1,0,'2016-07-28','2016-07-30'),
-(NULL, 2, 1, 'Single', 1, 0,0,'2016-07-28','2016-07-30');
+INSERT INTO `booking_detail` (`booking_id`, `hotel_id`, `room_type`, `num_of_room`, `extra_bed`, `assign`,`checkin`,`checkout`) 
+VALUES (2, 1, 'Queen', 1, 1,0,'2016-07-28','2016-07-30'),
+(2, 1, 'Single', 1, 0,0,'2016-07-28','2016-07-30'),
+(3, 2, 'Twin Bed', 1, 0,0,'2016-05-10','2016-07-10'),
+(3, 2, 'Queen', 1, 0,0,'2016-05-10','2016-07-10');
 
 
 CREATE TABLE `room_status` (
@@ -246,5 +250,4 @@ PRIMARY KEY (`period_id`)
 
 LOCK TABLES `offer` WRITE;
 UNLOCK TABLES;
-
 
