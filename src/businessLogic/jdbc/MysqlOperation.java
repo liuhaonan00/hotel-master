@@ -7,7 +7,7 @@ public class MysqlOperation {
 				Class.forName("com.mysql.jdbc.Driver");    
 				System.out.println("Success loading Mysql Driver!");
 				Connection connect = DriverManager.getConnection(
-			            "jdbc:mysql://localhost:3306/hotel","root","");
+			            "jdbc:mysql://127.0.0.1:3306/hotel","root","");
 				return connect;	
 		    }
 		    catch (Exception e) {
