@@ -26,7 +26,7 @@
    	  else{%>
    	  
    	<table border =1>  
-   		<form action=ShoppingCart method="get">
+   		<form action=shoppingcart method="get">
    			<tr>
     <td>
     </td>

@@ -13,7 +13,7 @@
 			<input type = "hidden" name = "user_id" value =<%=request.getSession().getAttribute("current_user_id")%>>
 			<input type="submit"  value="Update profile" class="button"/>	
 		</form>
-		<form action = "ShoppingCart">
+		<form action = "shoppingcart" method = "POST">
 			<input type = "hidden" name = "user_id" value =<%=request.getSession().getAttribute("current_user_id")%>>
 			<input type="submit"  value="View shoppingcart" class="button"/>	
 		</form><br>

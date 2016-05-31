@@ -102,7 +102,7 @@
   </servlet-mapping>
     <servlet-mapping>
     <servlet-name>ShoppingCartServlet</servlet-name>
-    <url-pattern>/ShoppingCart</url-pattern>
+    <url-pattern>/shoppingcart</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ReviewBookingServlet</servlet-name>

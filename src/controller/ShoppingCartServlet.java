@@ -14,6 +14,8 @@ import businessLogic.javaClass.*;
 import businessLogic.jdbc.*;
 import businessLogic.library.*;
 
+@WebServlet(name = "ShoppingCartServlet", urlPatterns = "/shoppingcart")
+
 public class ShoppingCartServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;

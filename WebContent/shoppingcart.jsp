@@ -83,7 +83,7 @@
 	<%}%>
 	 
 	 </form>
-	 <form action=ShoppingCart method="post">
+	 <form action=shoppingcart method="post">
 	 <input type="submit" value="Confirm Booking">
 	 </form>
 	</table>
